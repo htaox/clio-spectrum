@@ -280,6 +280,10 @@ class SpectrumController < ApplicationController
           fixed_params['source'] = 'ac_dissertations'
           blacklight_search(fixed_params)
 
+        when 'dcv'
+          fixed_params['source'] = 'dcv'
+          blacklight_search(fixed_params)
+
         when 'library_web'
           # GoogleAppliance search engine can't handle absent q param
           fixed_params['q'] ||= ''

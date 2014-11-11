@@ -84,6 +84,9 @@ Clio::Application.routes.draw do
   get 'academic_commons/range_limit(.:format)', to: 'catalog#range_limit', as: :academic_range_limit
   get 'academic_commons/facet/:id(.format)', to: 'catalog#facet', as: :academic_commons_facet
 
+  get 'dcv', to: 'catalog#index', as: :dcv_index
+  get 'dcv/facet/:id(.format)', to: 'dcv#facet', as: :dcv_facet
+
   get 'archives', to: 'catalog#index', as: :archives_index
   get 'archives/:id(.:format)', via: [:get], to: 'catalog#show', as: :archives_show
   get 'archives/facet/:id(.format)', to: 'catalog#facet', as: :archives_facet
