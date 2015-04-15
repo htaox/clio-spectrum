@@ -1,0 +1,279 @@
+
+
+
+  NOT 
+  USED
+  ANY
+  MORE
+  !!!!
+
+
+
+21h|Public Administration Abstracts
+23h|Urban Studies Abstracts
+24h|Peace Research Abstracts
+25h|Race Relations Abstracts
+26h|Family Studies Abstracts
+27h|Abstracts in Social Gerontology
+28h|Violence & Abuse Abstracts
+30h|Historical Abstracts with Full Text
+31h|America: History and Life with Full Text
+33h|Christian Periodical Index
+8gh|GreenFILE
+air|Art Index Retrospective (H.W. Wilson)
+alr|Alternative Press Index Archive
+ant|Anthropology Plus
+apn|Alternative Press Index
+asb|Applied Science & Business Periodicals Retrospective: 1913-1983 (H.W. Wilson)
+asf|Applied Science & Technology Full Text (H.W. Wilson)
+asu|Art Source
+awn|Africa-Wide Information
+bah|Business Source Alumni Edition
+bai|Biological & Agricultural Index Plus (H.W. Wilson)
+bft|Business Abstracts with Full Text (H.W. Wilson)
+bir|Biography Index Retrospective: 1946-1983 (H.W. Wilson)
+brb|Biography Reference Bank (H.W. Wilson)
+brd|Book Review Digest Plus (H.W. Wilson)
+brr|Book Review Digest Retrospective: 1903-1982 (H.W. Wilson)
+bth|Business Source Complete
+bvh|Avery Index to Architectural Periodicals
+cax|Communication Abstracts
+chd|Chicano Database
+cin20|CINAHL
+cmedm|MEDLINE
+e5h|Central & Eastern European Academic Source
+edsabc|ABC-CLIO Social Studies Databases, School Edition
+edsaca|ABC-CLIO Social Studies Databases, Academic Edition
+edsace|AccessEngineering
+edsacl|ACLS Humanities E-Book
+edsacm|AccessMedicine
+edsaem|AccessEmergency Medicine
+edsagd|ArchiveGrid
+edsagr|AGRIS
+edsamd|Adam Matthew Digital
+edsapa|AccessPharmacy
+edsape|AccessPediatrics
+edsart|ARTstor Digital Library
+edsarx|arXiv
+edsasc|AccessScience
+edsasp|Alexander Street Press
+edsasu|AccessSurgery
+edsbbd|BiblioBoard
+edsbio|BioOne Online Journals
+edsbl|British Library Document Supply Centre Inside Serials & Conference Proceedings
+edsble|British Library EThOS
+edsbre|Bridgeman Education
+edsbsi|British Standards Online
+edschh|Cochrane Database of Systematic Reviews
+edscqv|China Science & Technology Journal Database
+edscrc|Credo Reference Collections
+edscrn|Cairn.info
+edscru|CRUSH Reports
+edsdps|Data-Planet Statistical Datasets & Statistical Ready Reference
+edsdzs|DigiZeitschriften
+edsebo|Britannica Online
+edselc|Scopus®
+edselp|ScienceDirect
+edsers|eArticle
+edseru|Erudit
+edsffr|Freedonia Focus Reports
+edsgao|Academic OneFile
+edsgbc|Biography in Context
+edsgbe|Business Insights: Essentials
+edsgcc|Canada In Context
+edsgea|Expanded Academic ASAP
+edsggo|General OneFile
+edsggr|General Reference Center Gold
+edsghw|Health & Wellness Resource Center
+edsgic|InfoTrac Computer Database
+edsgig|Gigaom Research
+edsgih|InfoTrac Health Reference Center Academic
+edsgii|InfoTrac Informe!
+edsgij|InfoTrac Junior Edition
+edsgin|InfoTrac Newsstand
+edsgis|InfoTrac Student Edition
+edsglr|Literature Resource Center
+edsglt|InfoTrac LegalTrac
+edsgov|Opposing Viewpoints in Context
+edsgpr|Government Printing Office Catalog
+edsgsc|Science In Context
+edsgsf|SOFIS - Sozialwissenschaftliche Forschungsinformationen
+edsgsl|SOLIS - Sozialwissenschaftliche Literatur
+edsgso|SSOAR – Social Science Open Access Repository
+edsgsr|Student Resources in Context
+edsgus|U.S. History in Context
+edsgvr|Gale Virtual Reference Library
+edsgwh|World History in Context
+edshld|Digital Access to Scholarship at Harvard (DASH)
+edshol|HeinOnline
+edshst|Henry Stewart Talks
+edshtl|HathiTrust
+edshvr|Hoover's Company Profiles
+edshyr|HyRead Journal
+edsibc|Informit Business Collection
+edsibu|Ibuk.pl
+edsiec|Informit Engineering Collection
+edsihc|Informit Health Collection
+edsihs|Informit Humanities & Social Sciences Collection
+edsijc|IndianJournals.com
+edsilc|Informit Literature & Culture Collection
+edsind|Informit Indigenous Collection
+edsjbk|Books at JSTOR
+edsjbp|JSTOR 19th Century British Pamphlets
+edsjcb|Jane's Chemical, Biological, Radiological & Nuclear Assessments (JCBRN) - Intelligence Centre
+edsjda|Jane's Defence Equipment & Technology (JDET) - Air & Space
+edsjdc|Jane's Defence Equipment & Technology (JDET) - C4ISR & Mission Systems
+edsjdi|Jane's Defence Industry & Markets (JDIM) - Defense Industry
+edsjdl|Jane's Defence Equipment & Technology (JDET) – Land
+edsjdn|Jane's Defence Equipment & Technology (JDET) – News
+edsjds|Jane's Defence Equipment & Technology (JDET) – Sea
+edsjkn|JapanKnowledge
+edsjmc|Jane's Military & Security Assessments (JMSA) - Country Risk
+edsjmm|Jane's Military & Security Assessments (JMSA) - Military Capabilities
+edsjmn|Jane's Military & Security Assessments (JMSA) – News
+edsjsr|JSTOR Journals
+edsjst|J-STAGE
+edsjte|Jane’s Terrorism & Insurgency Centre (JTIC) - Terrorism Events
+edskey|Key Note Market Research Reports
+edskis|Korean Studies Information Service System (KISS)
+edskyo|Kyoboscholar – ?????
+edslan|Lan Publishing
+edslex|LexisNexis Academic: Law Reviews
+edslib|Swedish National Bibliography
+edslns|LexisNexis U.S. Serial Set Digital Collection
+edsmaa|AccessAnesthesiology
+edsman|Manuscriptorium Digital Library
+edsmbo|Marquis Biographies Online
+edsmed|Media Archive
+edsmeo|Oxford Medicine Online
+edsmer|Mergent Annual Reports Collection
+edsmor|Mintel Oxygen Reports
+edsmzh|MLA International Bibliography
+edsmzn|Maruzen eBook Library
+edsnba|NewsBank - Archives
+edsnbk|NewsBank
+edsnew|Newnonmun – ???
+edsnhe|NBC Learn Higher Ed
+edsnkt|NBC Learn K-12
+edsnmj|Naxos Music Library Jazz
+edsnol|Naxos Music Library
+edsnsw|Naxos Spoken Word Library
+edsnvl|Naxos Video Library
+edsoaa|Oxford African American Studies Center
+edsoad|American National Biography Online
+edsoai|OAIster
+edsoao|Grove Art Online
+edsobb|Oxford Bibliographies
+edsobo|Oxford Biblical Studies Online
+edsocd|China/Asia On Demand
+edsodb|Oxford Dictionary of National Biography
+edsoho|Oxford Handbooks Online
+edsoio|Oxford Islamic Studies Online
+edsomo|Grove Music Online
+edsoro|Oxford Reference
+edsose|Oxford Scholarly Editions Online
+edsoso|Oxford Scholarship Online
+edsoww|Oxford's Who's Who & Who Was Who
+edspap|USPTO Patent Applications
+edspdh|PsycARTICLES
+edsper|Persée
+edspgr|USPTO Patent Grants
+edspia|DBPIA
+edspio|Public Information Online
+edspmu|Project MUSE
+edspvh|PsycCRITIQUES
+edspvi|PsycheVisual
+edspzh|PsycBOOKS
+edsrac|RACO
+edsram|RAMBI
+edsrbp|Rock's Backpages
+edsrca|RCAAP
+edsrdl|R2 Digital Library
+edsrdx|ReadEx
+edsrec|RECERCAT
+edsrge|Roubini Global Economics
+edsriv|Rivisteweb
+edssas|SA ePublications Service
+edssci|SciELO
+edssrf|STAT!Ref
+edsssb|Books24x7
+edsswe|SwePub
+edstdx|TDX
+edsulo|??????????????? ?????????? ?????? - University Library Online
+edsups|University Press Scholarship Online
+edsvox|ScholarVox
+edswah|Arts & Humanities Citation Index
+edswbo|World Book
+edswsc|Science Citation Index
+edswss|Social Sciences Citation Index
+eft|Education Full Text (H.W. Wilson)
+egi|Essay and General Literature Index (H.W. Wilson)
+egr|Essay and General Literature Retrospective (H.W. Wilson)
+eih|Environment Complete
+eir|Education Index Retrospective: 1929-1983 (H.W. Wilson)
+eoh|EconLit with Full Text
+eric|ERIC
+f3h|Film & Television Literature Index with Full Text
+fcs|FRANCIS
+fjh|The New Republic Archive
+flh|Family & Society Studies Worldwide
+fmh|Gender Studies Database
+fph|Bibliography of Native North Americans
+fqh|Left Index
+fxh|Middle Eastern & Central Asian Studies
+gft|General Science Full Text (H.W. Wilson)
+h5b|Gateway to North America: People, Places, and Organizations of 19th-Century New York
+h6a|Arte Público Hispanic Historical Collection: Series 1
+h7h|American Theological Library Association (ATLA) Historical Monographs Collection: Series 1
+h7i|African American Historical Serials Collection
+h8h|American Theological Library Association (ATLA) Historical Monographs Collection: Series 2
+h9h|American Antiquarian Society (AAS) Historical Periodicals Collection: Series 1
+h9i|American Antiquarian Society (AAS) Historical Periodicals Collection: Series 2
+h9j|American Antiquarian Society (AAS) Historical Periodicals Collection: Series 3
+h9k|American Antiquarian Society (AAS) Historical Periodicals Collection: Series 4
+h9m|American Antiquarian Society (AAS) Historical Periodicals Collection: Series 5
+hev|European Views of the Americas: 1493 to 1750
+hft|Humanities Full Text (H.W. Wilson)
+hsr|Humanities & Social Sciences Index Retrospective: 1907-1984 (H.W. Wilson)
+htm|History of Science, Technology & Medicine
+iap|Index to 19th-Century American Art Periodicals
+ibh|International Bibliography of Theatre & Dance with Full Text
+ipm|Index to Printed Music
+jph|Index to Jewish Periodicals
+llf|Library Literature & Information Science Full Text (H.W. Wilson)
+loh|Mental Measurements Yearbook
+lpb|Index to Legal Periodicals and Books (H.W. Wilson)
+lpr|Index to Legal Periodicals Retrospective: 1908-1981 (H.W. Wilson)
+lxh|Library, Information Science & Technology Abstracts
+mah|Music Index
+mth|Military & Government Collection
+mzh|MLA International Bibliography
+n0h|The Nation Archive Premium Edition
+n2h|New Scientist Archive
+nch|The National Review Archive
+ncj|National Criminal Justice Reference Service Abstracts
+nlabk|Audiobook Collection (EBSCOhost)
+nlebk|eBook Collection (EBSCOhost)
+oah|Old Testament Abstracts
+phl|Philosopher's Index
+pix|Play Index (H.W. Wilson)
+puh|Garden, Landscape & Horticulture Index
+qth|LGBT Life with Full Text
+rfh|ATLA Religion Database with ATLASerials
+rgm|Readers' Guide Full Text Mega (H.W. Wilson)
+rgr|Readers' Guide Retrospective: 1890-1982 (H.W. Wilson)
+rih|RILM Abstracts of Music Literature
+rph|RIPM - Retrospective Index to Music Periodicals
+rsm|RISM Series A/II: Music Manuscripts after 1600
+rvh|New Testament Abstracts
+sbh|American Bibliography of Slavic and East European Studies
+sih|SocINDEX with Full Text
+ssf|Social Sciences Full Text (H.W. Wilson)
+ssx|Short Story Index (H.W. Wilson)
+sur|Sustainability Reference Center
+swh|Social Work Abstracts
+sxr|Short Story Index Retrospective: 1915-1983 (H.W. Wilson)
+tfh|Professional Development Collection
+ulh|MAS Ultra - School Edition
+vah|ATLA Catholic Periodical and Literature Index
+wpr|World Politics Review

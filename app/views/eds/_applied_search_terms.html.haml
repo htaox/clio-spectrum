@@ -1,0 +1,13 @@
+
+
+- session[:results]['SearchRequestGet']['SearchCriteriaWithActions']['QueriesWithAction'].each do |appliedSearchTerm|
+  - removeHref = request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + CGI.escape(appliedSearchTerm['RemoveAction'].to_s)
+
+  - fieldLabel = search_field_label(appliedSearchTerm['Query']['FieldCode'])
+
+  .constraint-box
+    %span.filterValue
+      = (fieldLabel + ': ') if fieldLabel.present?
+      = appliedSearchTerm['Query']['Term']
+    %a{href: removeHref}
+      %span.glyphicon.glyphicon-remove

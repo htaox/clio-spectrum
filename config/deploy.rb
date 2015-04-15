@@ -1,6 +1,7 @@
 set :default_stage, 'clio_dev'
 # Temporarily define "morrison", for testing Unix Systems new nginx server
-set :stages, %w(clio_dev clio_test clio_prod morrison)
+# and "clio_eds", a config for demo-ing EDS integration only
+set :stages, %w(clio_dev clio_test clio_prod morrison clio_eds)
 
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'

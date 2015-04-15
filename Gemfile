@@ -30,6 +30,21 @@ gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blackl
 
 #  ###  BLACKLIGHT (end)  ###
 
+
+#  ###  EDS (from blacklight5_eds repo) (begin)  ###
+#  ###  copy over some of the gems bundled with EDS's demo app  ###
+
+# Don't use this via gem - copy into local library, so we
+# can add some debugging, etc.
+# gem "ebsco-discovery-service-api", "1.0.4"
+
+# gem "addressable", "2.3.2"
+gem "addressable"
+gem "htmlentities"
+gem "sanitize"
+# gem 'activerecord-session_store'
+#  ###  EDS (from blacklight5_eds repo) (end)  ###
+
 # A recent Kaminari update broke blacklight facet pagination.
 # https://github.com/amatsuda/kaminari/commit/5e2e505cdd2ea2de20949d5cef261c247b3168b1
 # This isn't fixed in Blacklight until 5.5.0,

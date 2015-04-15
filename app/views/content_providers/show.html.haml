@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @content_provider.name
+
+= link_to 'Edit', edit_content_provider_path(@content_provider)
+\|
+= link_to 'Back', content_providers_path

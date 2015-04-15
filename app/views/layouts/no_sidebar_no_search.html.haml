@@ -3,27 +3,25 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", :lang => "en"}
   %head
     = render :partial => "/layouts/common_head"
+
   - onload = (params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil?) ? "$('input#q').focus();" : ""
   %body{:onload => onload}
 
     / Layout:  no_sidebar_no_search
 
-    -# BLACKLIGHT 4
-    -# -# Used by Blacklight's lightbox dialog
-    -# #ajax-modal.modal.hide.fade{:tabindex => -1}
-    - add_datasources(@active_source)
-    #trigger
     = render :partial => "/top_navigation_bar"
+
     #outer-container.container
-      -# #page.container
-      -# = render :partial => "/header"
-      #bd.row
-        .row
+      .row
+        .search_logo.hidden-xs.col-sm-2
+          = link_to "CLIO", root_path, :class => "nav_title search_bar_logo"
+        .col-sm-9
+          %h2=@page_title || application_name
+
+      = render :partial=>'/layouts/messages'
+
+      = yield
       
-          = render :partial=>'/layouts/messages'
-          = yield
-      
-        .clear-both
       = render :partial => "/footer"
 
     -# BLACKLIGHT 5

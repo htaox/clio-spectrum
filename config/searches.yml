@@ -18,32 +18,42 @@ layouts:
     columns:
       - width: 6
         searches:
-          - source: catalog
+          # - source: catalog
+          - source: articles
             count: 10
             display_footer: true
             row_opts:
               spans: [3,9] 
       - width: 6
         searches:
-          - source: articles
-            count: 3
+          # - source: catalog
+          - source: eds
+            count: 10
+            display_footer: true
             row_opts:
               spans: [3,9] 
-
-          - source: academic_commons
-            count: 3
-            row_opts:
-              spans: [3,9]
-
-          - source: library_web
-            count: 3
-            row_opts:
-              spans: [3,9]
-
-          - source: dcv
-            count: 3
-            row_opts:
-              spans: [3,9] 
+      # - width: 6
+      #   searches:
+      #     - source: articles
+      #       count: 3
+      #       row_opts:
+      #         spans: [3,9] 
+      # 
+      #     - source: academic_commons
+      #       count: 3
+      #       row_opts:
+      #         spans: [3,9]
+      # 
+      #     - source: library_web
+      #       count: 3
+      #       row_opts:
+      #         spans: [3,9]
+      # 
+      #     # Suppress DCV until it's more ready.
+      #     # - source: dcv
+      #     #   count: 3
+      #     #   row_opts:
+      #     #     spans: [3,9] 
 
   # newspapers:
   #   style: summon
@@ -111,8 +121,15 @@ sources:
       format: clio
 
   articles:
-    title: Articles
+    title: Summon
     description: Articles, e-books, dissertations, music, images, and more from a mostly full-text database
+    warningXX: We are currently experiencing performance problems with this datasource.  We are working with the vendor to resolve this issue.
+    render_options:
+      format: article
+
+  eds:
+    title: EDS
+    description: Ebsco Discovery Service
     warningXX: We are currently experiencing performance problems with this datasource.  We are working with the vendor to resolve this issue.
     render_options:
       format: article

@@ -1,0 +1,29 @@
+
+-# used in the layout, for html page header and H2 text
+- @page_title = "Quick Set Management - #{@quickset.name}"
+
+= form_for @quickset do |f|
+
+  .row
+    .col-sm-3
+      .form_label
+        Name
+      = f.text_field :name
+      .form_label
+        Description
+      = f.text_area :description, {rows: '4'}
+      .form_label
+        Suppressed
+      = f.radio_button(:suppressed, true)
+      = label(:suppressed_true, "Yes")
+      = f.radio_button(:suppressed, false)
+      = label(:suppressed_false, "No")
+    
+    .col-sm-9
+      .form_label
+        Databases
+      = f.select :content_provider_ids, ContentProvider.all.collect {|x| [x.name, x.id]}, {}, :multiple => true, size: 40
+      
+  .row
+    .col-sm-12
+      = f.submit("Save")

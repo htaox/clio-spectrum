@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(:version => 20150304151755) do
     t.string   "user_type"
   end
 
+  create_table "content_providers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "content_providers_quick_sets", :id => false, :force => true do |t|
+    t.integer "content_provider_id"
+    t.integer "quick_set_id"
+  end
+
   create_table "item_alerts", :force => true do |t|
     t.string   "source",     :limit => 20, :null => false
     t.string   "item_key",   :limit => 32, :null => false
@@ -84,6 +95,14 @@ ActiveRecord::Schema.define(:version => 20150304151755) do
   end
 
   add_index "options", ["entity_type", "entity_id", "association_type", "name"], :name => "entity_association_name"
+
+  create_table "quick_sets", :force => true do |t|
+    t.string   "name",                          :null => false
+    t.string   "description", :default => ""
+    t.boolean  "suppressed",  :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "saved_list_items", :force => true do |t|
     t.integer  "saved_list_id"

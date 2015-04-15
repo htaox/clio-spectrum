@@ -43,6 +43,7 @@
 //= require catalog
 //= require datasources
 //= require dropdown_select
+//= require eds_support
 //= require google_analytics
 //= require hathi
 //= require holdings

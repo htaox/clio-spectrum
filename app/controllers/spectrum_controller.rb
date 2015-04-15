@@ -59,6 +59,7 @@ class SpectrumController < ApplicationController
         # DO NOT SHOW DCV IN PRODUCTION YET
         if Rails.env == 'clio_prod' || Rails.env == 'test'
           col['searches'].delete_if{ |search| search['source'] == 'dcv'}
+          col['searches'].delete_if{ |search| search['source'] == 'eds'}
         end
 
         col['searches'].map do |search|
@@ -69,10 +70,12 @@ class SpectrumController < ApplicationController
       @action_has_async = true if @search_style == 'aggregate'
 
       if @search_style == 'aggregate' && !session[:async_off]
+        # Multi-Datasource searches - fetch results async.
         @action_has_async = true
         @results = {}
         sources.each { |source| @results[source] = {} }
       else
+        # Single-Datasource searches - get results immediately
         @results = get_results(sources)
       end
 

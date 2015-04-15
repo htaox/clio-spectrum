@@ -3,12 +3,19 @@ module DatasourcesHelper
 
   def datasource_list(category = :all)
     results = []
-    results |= DATASOURCES_CONFIG['datasource_bar']['major_sources'] if category.in?(:all, :major)
-    results |= DATASOURCES_CONFIG['datasource_bar']['minor_sources'] if category.in?(:all, :minor)
+    if major_sources = DATASOURCES_CONFIG['datasource_bar']['major_sources']
+      results |= major_sources if category.in?(:all, :major)
+    end
+    if minor_sources = DATASOURCES_CONFIG['datasource_bar']['minor_sources']
+      results |= minor_sources if category.in?(:all, :minor)
+    end
 
     # DO NOT SHOW DCV IN PRODUCTION YET
     results.delete('dcv') if Rails.env == 'clio_prod'
     results.delete('dcv') if Rails.env == 'test'
+    # DO NOT SHOW EDS IN PRODUCTION YET
+    results.delete('eds') if Rails.env == 'clio_prod'
+    results.delete('eds') if Rails.env == 'test'
 
     results
   end
@@ -220,6 +227,8 @@ module DatasourcesHelper
       when 'articles'
         # articles_index_path('s.q' => query, 'new_search' => true)
         articles_index_path('q' => query, 'new_search' => true)
+      when 'eds'
+        eds_index_path(q: query)
       when 'journals'
         journals_index_path(q: query)
       when 'ebooks'

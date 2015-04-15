@@ -1,0 +1,14 @@
+
+
+.quickset_pick.row.well
+
+  - quicksets.each_with_index do |quickset, i|
+    -# .col-sm-4{data: {toggle: 'tooltip', placement: 'top'}, title: tooltip(quickset) }
+    -#   =quickset.name
+    
+    -# A really lot of options to the Bootstrap Popover - put in the helper
+    -# .col-sm-4{data: {toggle: 'popover', trigger: 'hover', html: 'true', placement: 'top', content: popover_blurb(quickset)}}
+    .col-sm-4{data: quickset_popover_data_options(quickset)}
+      -# For now, default to selecting the first quickset (index == 0)
+      = radio_button_tag(:id, quickset.id, i === 0)
+      = label_tag("id_#{quickset.id}", quickset.name)

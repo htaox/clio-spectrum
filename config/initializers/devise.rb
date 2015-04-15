@@ -247,16 +247,27 @@ end
 #   raise
 # end
 
-# Warden::Manager.after_authentication do |user,auth,opts|
-#   # This is getting called.
-#   raise
-# end
+Warden::Manager.after_authentication do |user,auth,opts|
+  # This is getting called.
+  # raise
 
-# Warden::Manager.before_logout do |user,auth,opts|
-#   # This is getting called.
-#   raise
-# end
+  # EDS - When user authenticates/logs out, clear current EDS session,
+  # force creation of new session.
+  # session.delete(:session_key)
+  # where's session?  http://stackoverflow.com/questions/7679864
+  auth.env['rack.session'].delete(:session_key)
+end
 
+Warden::Manager.before_logout do |user,auth,opts|
+  # This is getting called.
+  # raise
+
+  # EDS - When user authenticates/logs out, clear current EDS session,
+  # force creation of new session.
+  # session.delete(:session_key)
+  # where's session?  http://stackoverflow.com/questions/7679864
+  auth.env['rack.session'].delete(:session_key)
+end
 
 
 

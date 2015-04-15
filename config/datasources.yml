@@ -34,7 +34,7 @@ datasources:
   #       s.fq[ISSN]: ISSN
 
   articles:
-    name: Articles
+    name: Summon
     search_box:
       route: articles_index_path
       placeholder: Articles
@@ -166,6 +166,23 @@ datasources:
         title: Title
         name: Name
 
+  eds:
+    name: EDS
+    no_facets: true
+    search_box:
+      route: eds_index_path
+      placeholder: Articles and more
+      search_fields:
+        all_fields: All Fields
+        author: Author
+        title: Title
+        subject: Subject
+        source: Journal Title/Source
+        abstract: Abstract
+        issn: ISSN
+        isbn: ISBN
+      
+
   new_arrivals:
     name: New Arrivals
     search_box:
@@ -183,18 +200,19 @@ datasources:
 
 datasource_bar:
   major_sources:
-    - quicksearch
-    - catalog
-    - databases
-    - journals
-    - archives
-    - new_arrivals
+    # - quicksearch
+    # - catalog
+    # - databases
+    # - journals
+    # - archives
+    # - new_arrivals
+    - eds
     - articles
-    - academic_commons
-    - library_web
+    # - academic_commons
+    # - library_web
   minor_sources:
-    - dissertations
-    - ebooks
+    # - dissertations
+    # - ebooks
     # 12/2014 - Gary says, committee decision to remove altogether
     # - newspapers
     # 12/2014 - Breck says, remove until closer to release

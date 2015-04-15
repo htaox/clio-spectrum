@@ -1,0 +1,8 @@
+-# used in the layout, for html page header and H2 text
+- @page_title = "Quick Set - Search Results"
+
+- eds_connect
+- options = generate_api_query(params)
+- clean_params = deep_clean(params)
+- params = clean_params
+- raise

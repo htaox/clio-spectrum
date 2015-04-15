@@ -4,9 +4,10 @@ require 'spec_helper'
 
 describe 'Academic Commons' do
 
+  # Use this string within the below tests
+  search_title_text = 'Structural and Functional Microbial Ecology'
+
   it 'fielded search should work', js: true do
-    # Use this string within the below tests
-    search_title_text = 'Structural and Functional Microbial Ecology'
 
     visit root_path
 

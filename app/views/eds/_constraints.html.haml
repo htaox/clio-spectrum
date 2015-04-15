@@ -1,0 +1,47 @@
+
+-# EDS - CONSTRAINTS DISPLAY
+
+-# Three parts of contraints:
+-# - search terms
+-# - limiters
+-# - facets
+
+.well.well-constraints
+  %span.constraints-label You searched for:
+
+  -# This was what summon's constraint box did
+  -# - result.constraints_with_links.each do |text, link|
+  -# 
+  -#   .constraint-box
+  -#     %span.filterValue
+  -#       =text
+  -#       =link_to content_tag(:span, '', :class => 'glyphicon glyphicon-remove'), link
+  -#     %span.chrome-fix
+
+  - if query_has_search_terms?
+    = render 'applied_search_terms'
+
+  - if query_has_limiters?
+    = render 'applied_limiters'
+
+  - if query_has_facetfilters?
+    = render 'applied_facets'
+
+-# OLD CODE - EDS ERB
+-# 
+-# <% if query_has_facetfilters? %>
+-# 
+-#   <div id="appliedParams" class="clearfix well well-constraints">
+-# 
+-#     <span class="constraints-label">You searched for: </span>
+-# 
+-#     <%= show_applied_limiters %>
+-# 
+-#     <% # = show_applied_facets %>  
+-#     <% if session[:results]['SearchRequestGet']['SearchCriteriaWithActions']['FacetFiltersWithAction'].present? %>
+-#       <%= render 'applied_facets' %>  
+-#     <% end %>
+-# 
+-#   </div>
+-# 
+-# <% end %>

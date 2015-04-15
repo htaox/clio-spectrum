@@ -1,0 +1,138 @@
+Arts|ALL
+Arts|Archaeology
+Arts|Architecture/Planning
+Arts|Art
+Arts|Drama, Theater, Dance
+Arts|Film/Television
+Arts|Music
+Business|General
+Columbia Catalogs|General
+Economics|General
+General|ALL
+General|Almanacs
+General|Alternative
+General|Bibliographies
+General|Biography
+General|Book Reviews
+General|Catalogs
+General|Dictionaries
+General|Dissertations
+General|Encyclopedias
+General|Essays in Books
+General|General
+General|Government Docs
+General|Library Science
+General|Newspapers
+General|Popular
+Health Sciences|ALL
+Health Sciences|Clinical Medicine
+Health Sciences|General
+Health Sciences|History
+Health Sciences|Nursing
+Health Sciences|Public Health
+History|ALL
+History|Africa
+History|Ancient
+History|Archaeology
+History|Asia
+History|Europe
+History|General
+History|Latin America
+History|Medieval
+History|Middle East
+History|UK and Ireland
+History|US and Canada
+Intl. and Area Studies|ALL
+Intl. and Area Studies|Africa
+Intl. and Area Studies|Asia
+Intl. and Area Studies|Europe (East)
+Intl. and Area Studies|Europe (West)
+Intl. and Area Studies|General
+Intl. and Area Studies|Intl Relations
+Intl. and Area Studies|Judaica
+Intl. and Area Studies|Latin America
+Intl. and Area Studies|Middle East
+Intl. and Area Studies|North America
+Law|ALL
+Law|Criminal Justice
+Law|Historical
+Law|International Law
+Law|Law
+Lending Partners|General
+Literature|ALL
+Literature|Asian
+Literature|Comp Lit
+Literature|English
+Literature|French
+Literature|Full text collections
+Literature|General
+Literature|German
+Literature|Hebrew
+Literature|Italian
+Literature|Latin and Greek
+Literature|Linguistics
+Literature|Russian
+Literature|Spanish/Portuguese
+Multicultural/Gender Studies|ALL
+Multicultural/Gender Studies|African-American Studies
+Multicultural/Gender Studies|Gay/Lesbian Studies
+Multicultural/Gender Studies|General
+Multicultural/Gender Studies|Latino Studies
+Multicultural/Gender Studies|Popular Culture
+Multicultural/Gender Studies|Women's Studies
+Music|ALL
+Music|Articles
+Music|Articles (19th-20th century)
+Music|Core Databases
+Music|Encyclopedias
+Music|Library Holdings
+Music|Scores
+Music|Streaming Audio
+Music|Streaming Video
+New York City|General
+Primary Sources|ALL
+Primary Sources|Articles (full text) 1740-1900
+Primary Sources|Articles (full text) 1900-1982
+Primary Sources|Articles 1700-1800
+Primary Sources|Articles 1800-1904
+Primary Sources|Articles 1900-1982
+Primary Sources|Books (full text) 1450-1700
+Primary Sources|Books (full text) 1700-1799
+Primary Sources|Books Full Text (1800-1900)
+Primary Sources|Drama, Poetry, Prose
+Primary Sources|Newspapers (full text) 1851-1985
+Reference|Encyclopedias
+Religion/Philosophy|ALL
+Religion/Philosophy|Christianity
+Religion/Philosophy|General
+Religion/Philosophy|Historical
+Religion/Philosophy|Islam
+Religion/Philosophy|Judaism
+Religion/Philosophy|Philosophy
+Sciences|ALL
+Sciences|Astronomy
+Sciences|Biology
+Sciences|Chemistry
+Sciences|ComputerScience
+Sciences|Engineering
+Sciences|Environmental
+Sciences|General
+Sciences|Geology
+Sciences|History
+Sciences|Mathematics
+Sciences|Medicine
+Sciences|Physics
+Sciences|Psychology
+Social Sciences|ALL
+Social Sciences|Anthropology
+Social Sciences|Communications
+Social Sciences|Education
+Social Sciences|General
+Social Sciences|Historical/Retro
+Social Sciences|Intl. Affairs
+Social Sciences|Politics
+Social Sciences|Psychology
+Social Sciences|Social Work
+Social Sciences|Sociology
+Social Sciences|Urban Studies
+

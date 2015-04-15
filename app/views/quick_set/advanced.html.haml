@@ -1,0 +1,34 @@
+-# used in the layout, for html page header and H2 text
+- @page_title = "Quick Set - Advanced Search"
+
+
+.search_panel.container
+
+  = form_tag scoped_search_path, method: 'GET', class: 'form-inline' do
+
+    .row.well
+      .col-sm-8
+        .input-group
+          = text_field_tag(:q, '', {size: '60', class: 'form-control'})
+          = eds_fielded_dropdown(:search_field)
+          -# = submit_tag("Search", {class: 'form-control'})
+        %br
+        .input-group
+          = text_field_tag(:q2, '', {size: '60', class: 'form-control'})
+          = eds_fielded_dropdown(:search_field2)
+        %br
+        .input-group
+          = text_field_tag(:q3, '', {size: '60', class: 'form-control'})
+          = eds_fielded_dropdown(:search_field3)
+
+      .col-sm-2
+        %button.btn.advanced_search_button.btn-primary{:name => "commit", :type => "submit", :value => "Search"}
+          %span.glyphicon.glyphicon-search.icon-white
+          %span.hidden-xs Search
+
+      .col-sm-2
+        = link_to "Simple Search", scoped_simple_path
+
+
+    = render 'quickset_pick_panel', quicksets: @quicksets
+

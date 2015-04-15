@@ -1,0 +1,80 @@
+
+- session[:results]['SearchRequestGet']['SearchCriteriaWithActions']['LimitersWithAction'].each do |appliedLimiter|
+  - limiterLabel = limiter_label(appliedLimiter)
+  - removeHref = request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + CGI.escape(appliedLimiter['RemoveAction'].to_s)
+
+  .constraint-box
+    %span.filterValue
+      = limiterLabel
+    %a{href: removeHref}
+      %span.glyphicon.glyphicon-remove
+
+
+-#           if appliedLimiter["Id"] == "DT1"
+-#             appliedLimiter["LimiterValuesWithAction"].each do |limiterValues|
+-# 
+-#               appliedlimiters << '<span class="btn-group appliedFilter constraint filter filter-' + appliedLimiter["Id"] + '">'
+-# 
+-#               appliedlimiters << '<a class="constraint-value btn btn-sm btn-default btn-disabled" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '">'
+-# 
+-#               appliedlimiters << '<span class="filterName">' + limiterLabel.to_s.titleize + '</span><span class="filterValue">' + limiterValues["Value"].gsub("-01/"," to ").gsub("-12","") + '</span>'
+-# 
+-#               appliedlimiters << '</a>
+-#               
+-#               <a class="btn btn-default btn-sm remove dropdown-toggle" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '">'
+-# 
+-#               appliedlimiters << '<span class="glyphicon glyphicon-remove"></span>'
+-#             end
+-#           else
+-#             appliedlimiters << '<span class="btn-group appliedFilter constraint filter filter-' + appliedLimiter["Id"] + '"><a class="constraint-value btn btn-sm btn-default btn-disabled" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '"><span class="filterValue">' + limiterLabel.to_s.titleize + '</span></a><a class="btn btn-default btn-sm remove dropdown-toggle" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '"><span class="glyphicon glyphicon-remove"></span><span class="sr-only">Remove limiter ' + limiterLabel.to_s.titleize + '</span></a></span>'
+-#           end
+-# 
+-#         end
+-# 
+-# 
+-# 
+-#         
+-# <span class="btn-group appliedFilter constraint filter filter-' + appliedLimiter["Id"] + '">
+-# 
+-#     <a class="constraint-value btn btn-sm btn-default btn-disabled" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '">
+-#       <span class="filterValue">' + limiterLabel.to_s.titleize + '</span>
+-#     </a>
+-# 
+-# </span>
+-# 
+-# 
+-# 
+-# 
+-# 
+-# -# THIS IS THE ORIGINAL HTML-GENERATING HELPER CODE
+-# 
+-# # should return hash and let the view handle the HTML
+-# def show_applied_limiters
+-#   appliedlimiters = '';
+-#   if session[:results].present?
+-#     if session[:results]['SearchRequestGet']['SearchCriteriaWithActions'].present?
+-#       if session[:results]['SearchRequestGet']['SearchCriteriaWithActions']['LimitersWithAction'].present?
+-#         session[:results]['SearchRequestGet']['SearchCriteriaWithActions']['LimitersWithAction'].each do |appliedLimiter|
+-#           limiterLabel = "No Label"
+-#           session[:info]['AvailableSearchCriteria']['AvailableLimiters'].each do |limiter|
+-#             if limiter["Id"] == appliedLimiter["Id"]
+-#               limiterLabel = limiter["Label"]
+-#             end
+-#           end
+-#           if appliedLimiter["Id"] == "DT1"
+-#             appliedLimiter["LimiterValuesWithAction"].each do |limiterValues|
+-#               appliedlimiters << '<span class="btn-group appliedFilter constraint filter filter-' + appliedLimiter["Id"] + '">'
+-#               appliedlimiters << '<a class="constraint-value btn btn-sm btn-default btn-disabled" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '">'
+-#               appliedlimiters << '<span class="filterName">' + limiterLabel.to_s.titleize + '</span><span class="filterValue">' + limiterValues["Value"].gsub("-01/"," to ").gsub("-12","") + '</span>'
+-#               appliedlimiters << '</a><a class="btn btn-default btn-sm remove dropdown-toggle" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '">'
+-#               appliedlimiters << '<span class="glyphicon glyphicon-remove"></span><span class="sr-only">Remove limiter '+ limiterLabel.to_s.titleize + ':' + limiterValues["Value"].gsub("-01/"," to ").gsub("-12","") + '</a></span>'
+-#             end
+-#           else
+-#             appliedlimiters << '<span class="btn-group appliedFilter constraint filter filter-' + appliedLimiter["Id"] + '"><a class="constraint-value btn btn-sm btn-default btn-disabled" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '"><span class="filterValue">' + limiterLabel.to_s.titleize + '</span></a><a class="btn btn-default btn-sm remove dropdown-toggle" href="' + request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + appliedLimiter["RemoveAction"].to_s + '"><span class="glyphicon glyphicon-remove"></span><span class="sr-only">Remove limiter ' + limiterLabel.to_s.titleize + '</span></a></span>'
+-#           end
+-#         end
+-#       end
+-#     end
+-#   end
+-#   return appliedlimiters.html_safe
+-# end
