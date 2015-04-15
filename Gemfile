@@ -51,13 +51,21 @@ gem "sanitize"
 # so pin kaminari to a pre-breakage release
 gem 'kaminari', '0.15.0'
 
-# pull from rubygems...
-# gem 'devise_wind'
-# Local copy relaxes rails version requirements (allows 4.x)
-# gem "devise_wind", :path => "/Users/marquis/src/devise_wind"
-# New branch to recover from when CUIT broke wind
-gem "devise_wind", :git => 'git://github.com/cul/devise_wind.git', :branch => 'broke_wind'
+gem 'devise'
+gem 'devise-encryptable'
 
+# CAS is ready.  No more wind.
+# ... but try to run them both during transition
+# # pull from rubygems...
+# # gem 'devise_wind'
+# # Local copy relaxes rails version requirements (allows 4.x)
+# # gem "devise_wind", :path => "/Users/marquis/src/devise_wind"
+# # New branch to recover from when CUIT broke wind
+gem "devise_wind", :git => 'git://github.com/cul/devise_wind.git', :branch => 'broke_wind'
+# CAS is ready.
+gem 'devise_cas_authenticatable'
+# for debugging, use local version...
+# gem 'devise_cas_authenticatable', path: '/Users/marquis/src/devise_cas_authenticatable'
 
 # Not being used, turn it off.
 # # Locally developed library code to interface with ClickTale analytics
@@ -130,9 +138,13 @@ gem 'caching_mailer'
 gem 'exception_notification'
 gem 'net-ldap'
 
-gem 'devise'
-gem 'devise-encryptable'
+# gem 'devise'
+# gem 'devise-encryptable'
 
+# 3/15, comment out for now to simplify output,
+#  we can turn it back on when we want it again.
+# # application monitoring tool
+# gem 'newrelic_rpm'
 
 # "Rack middleware which cleans up invalid UTF8 characters"
 gem 'rack-utf8_sanitizer'
