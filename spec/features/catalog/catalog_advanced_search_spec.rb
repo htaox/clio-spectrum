@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Catalog Advanced Search' do
 
-  it 'should be accessible from the home page', js: true do
+  it 'should be accessible from the home page', js: true, focus: true do
     # NEXT-713, NEXT-891 - A Journal Title search should find Newspapers
 
     # Use this string within the below test

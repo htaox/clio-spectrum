@@ -19,6 +19,10 @@ require 'capybara/rspec'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
+
+  # File-type inference disabled by default
+  config.infer_spec_type_from_file_location!
+
   config.mock_with :rspec
   config.include(MailerMacros)
   config.before(:each) { reset_email }
@@ -37,7 +41,6 @@ RSpec.configure do |config|
     # config.visible_text_only = true
   # end
 
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
 
@@ -62,46 +65,46 @@ RSpec.configure do |config|
   # http://robots.thoughtbot.com/speed-up-javascript-capybara-specs-by-blacklisting-urls
   config.before(:each, js: true) do
 
-    # These are some of the external URLs our app hits.
-    # These can be copied in as-needed for the tests that require them.
-
-    # page.driver.allow_url("catalog.hathitrust.org")
-    # page.driver.allow_url("books.google.com")
-    # page.driver.allow_url(APP_CONFIG['clio_backend_url'])
-
-    # ??? We're getting capybara webkit failures unless this is allowed?
-    page.driver.allow_url("www.google-analytics.com")
-
-    page.driver.block_unknown_urls
-
-    # this syntax might also be available
-    # page.driver.browser.url_blacklist = ["http://use.typekit.net"]
-
-    # # # Capybara URL whitelisting
-    #  config.before(:each) do
-    #      puts "AAA"
-    #      if page.present? && page.driver.respond_to?(:block_unknown_urls)
-    #        puts "BBB"
-    #        page.driver.block_unknown_urls
-    #      end
-    #      # if page && page.driver.respond_to?(:allow_url)
-    #      #   page.driver.allow_url("catalog.hathitrust.org")
-    #      #   page.driver.allow_url("books.google.com")
-    #      #   page.driver.allow_url("http://bronte.cul.columbia.edu/clio_backend_dev")
-    #      # end
-    #  end
-
-    # from https://github.com/thoughtbot/capybara-webkit/issues/717
-    # config.before :each, :js, type: :feature do |example|
-
-    config.before(:each, js: true) do
-      # Everything is terrible. js: true in config.before will run if the js tag
-      # is present in the spec declaration, regardless of the value.
+    # # These are some of the external URLs our app hits.
+    # # These can be copied in as-needed for the tests that require them.
+    # 
+    # # page.driver.allow_url("catalog.hathitrust.org")
+    # # page.driver.allow_url("books.google.com")
+    # # page.driver.allow_url(APP_CONFIG['clio_backend_url'])
+    # 
+    # # ??? We're getting capybara webkit failures unless this is allowed?
+    # page.driver.allow_url("www.google-analytics.com")
+    # 
+    # page.driver.block_unknown_urls
+    # 
+    # # this syntax might also be available
+    # # page.driver.browser.url_blacklist = ["http://use.typekit.net"]
+    # 
+    # # # # Capybara URL whitelisting
+    # #  config.before(:each) do
+    # #      puts "AAA"
+    # #      if page.present? && page.driver.respond_to?(:block_unknown_urls)
+    # #        puts "BBB"
+    # #        page.driver.block_unknown_urls
+    # #      end
+    # #      # if page && page.driver.respond_to?(:allow_url)
+    # #      #   page.driver.allow_url("catalog.hathitrust.org")
+    # #      #   page.driver.allow_url("books.google.com")
+    # #      #   page.driver.allow_url("http://bronte.cul.columbia.edu/clio_backend_dev")
+    # #      # end
+    # #  end
+    # 
+    # # from https://github.com/thoughtbot/capybara-webkit/issues/717
+    # # config.before :each, :js, type: :feature do |example|
+    # 
+    # config.before(:each, js: true) do
+    #   # Everything is terrible. js: true in config.before will run if the js tag
+    #   # is present in the spec declaration, regardless of the value.
       page.driver.block_unknown_urls
       page.driver.allow_url("catalog.hathitrust.org")
       page.driver.allow_url("books.google.com")
       page.driver.allow_url("http://bronte.cul.columbia.edu/clio_backend_dev")
-    end
+    # end
 
 
   end

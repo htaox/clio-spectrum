@@ -19,6 +19,7 @@
         .sidebar.hidden-print{:class => sidebar_span}
           .search_logo.hidden-xs
             = link_to "CLIO", root_path, :class => "nav_title search_bar_logo"
+            = link_to "Labs", root_path, :class => "nav_title search_bar_logo_labs"
           #sources
             = clio_sidebar_items.join('').html_safe
         #main_with_sources{:class => main_span}

@@ -167,7 +167,7 @@ datasources:
         name: Name
 
   eds:
-    name: EDS
+    name: Advanced Article Discovery
     no_facets: true
     search_box:
       route: eds_index_path
@@ -207,7 +207,7 @@ datasource_bar:
     # - archives
     # - new_arrivals
     - eds
-    - articles
+    # - articles
     # - academic_commons
     # - library_web
   minor_sources:
