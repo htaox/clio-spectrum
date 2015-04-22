@@ -438,4 +438,85 @@ class CatalogController < ApplicationController
     end
   end
 
+
+  def analysis_index
+    # Upon which facet fields do we support Collection Analysis?
+    # (identify by internal facet-field-name, not Label)
+    whitelist = [
+      'pub_date_sort',
+      'location_facet',
+      'language_facet',
+      'lc_subclass_facet',
+    ]
+
+    facets = blacklight_config.facet_fields.select { |key, value|
+      whitelist.include? key
+    }
+
+    respond_to do |format|
+      format.html { render 'analysis_home',
+                           locals: {facets: facets},
+                           layout: 'no_sidebar' }
+    end
+  end
+
+  def analysis_show
+
+    # this does not execute a query - it only organizes query parameters
+    # conveniently for use by the view in echoing back to the user.
+    # We'll want this - we want to show the query params on the Analysis page
+    @query = Spectrum::Queries::Solr.new(params, blacklight_config)
+
+    # We will have an 'x' and a 'y' ...
+    x = params[:x]
+    y = params[:y]
+
+    # There's a BL way to add a pivot to your Config...
+    # ...but the Config is global to this running CLIO instance.
+    # We want this added only for this single Solr query.
+    # config = blacklight_config.add_facet_field 'analysis_facet', pivot: [x, y]
+
+    # Add the facet.pivot value directly to the Solr params.
+    # (Also restrict return-field to 'id' only, hopefully better performance)
+    pivot_params = {fl: 'id',
+                    'facet.field' => [],
+                    rows: 0,
+                    'facet.pivot' => "#{x},#{y}"}
+
+    search_engine = blacklight_search(params.merge(pivot_params))
+
+    # These will only be set if the search was successful
+    @response = search_engine.search
+    @document_list = search_engine.documents
+    # If the search was not successful, there may be errors
+    @errors = search_engine.errors
+
+    # Drill down...
+    x_facets = search_engine.search.facet_counts[:facet_fields][x]
+    y_facets = search_engine.search.facet_counts[:facet_fields][y]
+
+    # Turn Solr pivot data into 2-dimentional array
+    pivot_data = search_engine.search.facet_counts[:facet_pivot]["#{x},#{y }"]
+    data = Hash.new(0)
+    pivot_data.each do |x|
+      x_value = x[:value]
+      x[:pivot].each do |y|
+        y_value = y[:value]
+        xy_count = y[:count]
+        data[ [x_value, y_value] ] = xy_count
+      end
+    end
+
+
+    respond_to do |format|
+      format.html { render 'analysis',
+                           locals: {data: data, x_facets: x_facets, y_facets: y_facets},
+                           layout: 'no_sidebar' }
+    end
+
+  end
+
+
 end
+
+

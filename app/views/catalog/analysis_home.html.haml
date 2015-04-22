@@ -1,0 +1,25 @@
+// catalog/analysis_home.html.haml
+
+%h3
+  Collection Analysis
+
+%table.table.table-bordered.table-striped
+  - facets.each do |facet_id_y, facet_y|
+    %tr
+      %th=facet_y[:label]
+      - facets.each do | facet_id_x, facet_x|
+        %td
+          - if facet_id_x == facet_id_y
+            -
+          - else
+            - analysis_params = {x: facet_id_x, y: facet_id_y}
+            - link_text = "#{facet_y[:label]}<br>by<br>#{facet_x[:label]}".html_safe
+            = link_to link_text, analysis_show_path(params.merge(analysis_params))
+      
+  %tr
+    %td
+    - facets.each do |facet_id_x, facet_x|
+      %th=facet_x[:label]
+
+
+

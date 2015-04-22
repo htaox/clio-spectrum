@@ -32,6 +32,12 @@ module Spectrum
         unless solr_search_params_logic.include? :add_range_limit_params
           solr_search_params_logic << :add_range_limit_params
         end
+        unless solr_search_params_logic.include? :add_facet_pivot_to_solr
+          solr_search_params_logic << :add_facet_pivot_to_solr
+        end
+        unless solr_search_params_logic.include? :add_fl_override_to_solr
+          solr_search_params_logic << :add_fl_override_to_solr
+        end
 
         options = original_options.to_hash.deep_clone
         @source = options.delete('source') || options.delete(:source) || fail('Must specify source')
@@ -177,6 +183,7 @@ module Spectrum
         else
           # use blacklight gem to run the actual search against Solr,
           # call Blacklight::SolrHelper::get_search_results()
+          Rails.logger.debug "perform_search() calling get_search_results() with: #{@params.inspect}"
           @search, @documents = get_search_results(@params, extra_controller_params)
         end
 

@@ -1,0 +1,29 @@
+// catalog/analysis.html.haml
+
+-# locals: {data: data, x_facets: x_facets, y_facets: y_facets},
+
+
+
+= fix_catalog_links(render('constraints', :localized_params=>params ))
+
+%h3
+  Collection Analysis
+
+%table.table.table-bordered.table-striped
+  - y_facets.in_groups_of(2) do |y|
+    - y_facet_value = y[0]
+    - y_facet_count = y[1]
+    %tr
+      %th=y_facet_value
+      - x_facets.in_groups_of(2) do | x|
+        - x_facet_value = x[0]
+        - x_facet_count = x[1]
+        %td
+          = data[ [x_facet_value, y_facet_value] ] || 0
+      
+  %tr
+    %td
+    - x_facets.in_groups_of(2) do | x|
+      - x_facet_value = x[0]
+      - x_facet_count = x[1]
+      %th=x_facet_value

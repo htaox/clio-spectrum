@@ -153,6 +153,31 @@ module LocalSolrHelperExtension
     end
   end
 
+
+
+  def add_facet_pivot_to_solr(solr_parameters, user_params)
+    Rails.logger.debug "X X X X #{user_params.inspect}"
+    if user_params && user_params[:"facet.pivot"]
+      solr_parameters[:"facet.pivot"] = user_params[:"facet.pivot"]
+      Rails.logger.debug "X X X X #{solr_parameters.inspect}"
+    end
+    solr_parameters
+  end
+
+  def add_fl_override_to_solr(solr_parameters, user_params)
+    Rails.logger.debug "Y Y Y Y #{user_params.inspect}"
+    if user_params && user_params[:fl]
+      solr_parameters[:fl] = user_params[:fl]
+      Rails.logger.debug "Y Y Y Y  #{solr_parameters.inspect}"
+    end
+    solr_parameters
+  end
+
+
+
+
+
+
   def facet_value_to_fq_string(facet_field, values = [], excluded_values = [], operator = 'AND')
     values = Array.wrap(values)
     excluded_values = Array.wrap(excluded_values)

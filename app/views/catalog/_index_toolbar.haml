@@ -18,8 +18,11 @@
         = fix_catalog_links(render :partial => "paginate_compact", :object => @response)
       
         = fix_catalog_links(link_to image_tag('rss-feed-icon-14x14.png', :size => "13x13"), catalog_index_path(params.merge(:format => 'atom')), :class => "rss-feed hidden-xs")
-      
 
+        - if can?(:pilot, 'Analysis')
+          &nbsp;
+          - icon = content_tag(:span, '', class: 'glyphicon glyphicon-star')
+          = fix_catalog_links(link_to icon + ' ANALYSIS', analysis_index_path(params), :class => "label label-success hidden-xs")
 
     .index-toolbar-collapse.navbar-collapse.collapse
 
