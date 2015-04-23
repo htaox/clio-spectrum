@@ -2,28 +2,35 @@
 
 -# locals: {data: data, x_facets: x_facets, y_facets: y_facets},
 
+- constraints_html = fix_catalog_links(render('constraints', :localized_params=>params ))
 
+- if constraints_html.nil? || constraints_html.length == 0
+  %p Analysis of the full collection of catalog records.
+- else
+  %p Analysis of set of records returned by the following query parameters:
+  = constraints_html
 
-= fix_catalog_links(render('constraints', :localized_params=>params ))
+%p Only the first few values of each category are shown.
 
 %h3
   Collection Analysis
 
-%table.table.table-bordered.table-striped
+%table.table.table-bordered.table-striped.small
   - y_facets.in_groups_of(2) do |y|
     - y_facet_value = y[0]
     - y_facet_count = y[1]
     %tr
-      %th=y_facet_value
+      %th.text-center=y_facet_value
       - x_facets.in_groups_of(2) do | x|
         - x_facet_value = x[0]
         - x_facet_count = x[1]
-        %td
-          = data[ [x_facet_value, y_facet_value] ] || 0
+        %td.text-right
+          = number_with_delimiter(data[ [x_facet_value, y_facet_value] ] || 0)
       
   %tr
     %td
+      // empty cell far left of header column
     - x_facets.in_groups_of(2) do | x|
       - x_facet_value = x[0]
       - x_facet_count = x[1]
-      %th=x_facet_value
+      %th.text-center=x_facet_value

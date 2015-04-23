@@ -3,10 +3,25 @@
 %h3
   Collection Analysis
 
-%table.table.table-bordered.table-striped
+- constraints_html = fix_catalog_links(render('constraints', :localized_params=>params ))
+
+- if constraints_html.nil? || constraints_html.length == 0
+  %p Analyze the full collection of catalog records.
+- else
+  %p Analyze the set of records returned by the following query parameters:
+  = constraints_html
+
+%p Select a comparison from below.
+
+%table.table.table-bordered.table-striped.small.text-center
+  %tr.small
+    %td 
+      // empty top-left corner cell
+    - facets.each do |facet_id_x, facet_x|
+      %th.text-center= facet_x[:label]
   - facets.each do |facet_id_y, facet_y|
-    %tr
-      %th=facet_y[:label]
+    %tr.small
+      %th.text-center=facet_y[:label]
       - facets.each do | facet_id_x, facet_x|
         %td
           - if facet_id_x == facet_id_y
@@ -16,10 +31,6 @@
             - link_text = "#{facet_y[:label]}<br>by<br>#{facet_x[:label]}".html_safe
             = link_to link_text, analysis_show_path(params.merge(analysis_params))
       
-  %tr
-    %td
-    - facets.each do |facet_id_x, facet_x|
-      %th=facet_x[:label]
 
 
 

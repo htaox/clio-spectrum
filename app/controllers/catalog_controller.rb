@@ -440,12 +440,24 @@ class CatalogController < ApplicationController
 
 
   def analysis_index
+
+    # this does not execute a query - it only organizes query parameters
+    # conveniently for use by the view in echoing back to the user.
+    # We'll want this - we want to show the query params on the Analysis page
+    @query = Spectrum::Queries::Solr.new(params, blacklight_config)
+
     # Upon which facet fields do we support Collection Analysis?
     # (identify by internal facet-field-name, not Label)
     whitelist = [
+      'format',
       'pub_date_sort',
       'location_facet',
       'language_facet',
+      'subject_topic_facet',
+      'subject_geo_facet',
+      'subject_era_facet',
+      'subject_form_facet',
+      'lc_1letter_facet',
       'lc_subclass_facet',
     ]
 
@@ -479,9 +491,12 @@ class CatalogController < ApplicationController
     # Add the facet.pivot value directly to the Solr params.
     # (Also restrict return-field to 'id' only, hopefully better performance)
     pivot_params = {fl: 'id',
-                    'facet.field' => [],
-                    rows: 0,
-                    'facet.pivot' => "#{x},#{y}"}
+                    'facet.field' => [x,y],
+                    'rows' => 0,
+                    'facet.pivot' => "#{x},#{y}",
+                    "f.#{x}.facet.limit" => 10,
+                    "f.#{y}.facet.limit" => 10,
+                  }
 
     search_engine = blacklight_search(params.merge(pivot_params))
 

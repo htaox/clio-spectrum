@@ -164,12 +164,16 @@ module LocalSolrHelperExtension
     solr_parameters
   end
 
-  def add_fl_override_to_solr(solr_parameters, user_params)
+  def allow_overrides_to_solr(solr_parameters, user_params)
     Rails.logger.debug "Y Y Y Y #{user_params.inspect}"
     if user_params && user_params[:fl]
       solr_parameters[:fl] = user_params[:fl]
-      Rails.logger.debug "Y Y Y Y  #{solr_parameters.inspect}"
     end
+    user_params.keys.select { |key|
+      key.match /\.facet\.limit/
+    }.each { |key|
+      solr_parameters[key] = user_params[key]
+    }
     solr_parameters
   end
 

@@ -35,8 +35,8 @@ module Spectrum
         unless solr_search_params_logic.include? :add_facet_pivot_to_solr
           solr_search_params_logic << :add_facet_pivot_to_solr
         end
-        unless solr_search_params_logic.include? :add_fl_override_to_solr
-          solr_search_params_logic << :add_fl_override_to_solr
+        unless solr_search_params_logic.include? :allow_overrides_to_solr
+          solr_search_params_logic << :allow_overrides_to_solr
         end
 
         options = original_options.to_hash.deep_clone
