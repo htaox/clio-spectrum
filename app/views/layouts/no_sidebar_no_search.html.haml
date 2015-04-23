@@ -13,8 +13,9 @@
 
     #outer-container.container
       .row
-        .search_logo.hidden-xs.col-sm-2
+        .search_logo.hidden-xs.col-sm-3
           = link_to "CLIO", root_path, :class => "nav_title search_bar_logo"
+          = link_to "Labs", root_path, :class => "nav_title search_bar_logo_labs"
         .col-sm-9
           %h2=@page_title || application_name
 

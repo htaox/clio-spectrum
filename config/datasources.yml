@@ -181,6 +181,22 @@ datasources:
         abstract: Abstract
         issn: ISSN
         isbn: ISBN
+
+  scoped:
+    name: Scoped Search
+    # no_facets: true
+    # search_box:
+    #   route: eds_index_path
+    #   placeholder: Articles and more
+    #   search_fields:
+    #     all_fields: All Fields
+    #     author: Author
+    #     title: Title
+    #     subject: Subject
+    #     source: Journal Title/Source
+    #     abstract: Abstract
+    #     issn: ISSN
+    #     isbn: ISBN
       
 
   new_arrivals:
@@ -207,6 +223,8 @@ datasource_bar:
     # - archives
     # - new_arrivals
     - eds
+    # pretend that "scoped" is a subsource
+    - scoped
     # - articles
     # - academic_commons
     # - library_web
@@ -223,5 +241,6 @@ datasource_bar:
     - journals
     - archives
     - new_arrivals
+    - scoped
 
 

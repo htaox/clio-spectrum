@@ -1,38 +1,37 @@
 
-%h3= t('blacklight.welcome')
+-# replicate the nested div/class hierarchy of CLIO landing pages
+.landing_pages
+  .landing_page.selected
+    .row
+      .landing_main.col-sm-8
 
-.well
-  %h4
-    EDS Searching
+        .title
+          Advanced Article Discovery
 
-  To experiment with searching EDS, just select the EDS datasource
-  on the left and search.  The Summon (Articles) datasource is also
-  available for comparison.  
-  %br
-  %br
-  %strong
-    Side-by-side aggregate searching between
-    these two datasources is not possible yet.
+        .well
+          %h4
+          Advanced Article Discovery offers features beyond the 
+          current CLIO Articles discovery, such as the ability to
+          filter results by content provider.  
 
-.well
-  %h4
-    Scoped Searching
 
-  Visit
-  %strong= link_to "Scoped Quick Search", scoped_simple_path
-  to try out Scoped Searching against EDS.
+        .title
+          Scoped Searching
 
-.well
-  %h4
-    QuickSet Management
+        .well
+          Visit
+          %strong= link_to "Scoped Quick Search", scoped_simple_path
+          to try out Scoped Searching against EDS.
 
-  
-
-  Authorized users will be able to 
-  %strong= link_to "Manage Quick Sets", quick_set_index_path
-  %br
-  %br
-  QuickSets are configured by selecting one or more databases
-  from the 
-  %strong= link_to "list of available EDS Content Providers", content_providers_path
+        - if can? :manage, QuickSet
+          .well
+            %h4
+              QuickSet Management
+              %span.text-danger (authorized users only)
+            %strong= link_to "Manage Quick Sets", quick_set_index_path
+            %br
+            %br
+            QuickSets are configured by selecting one or more databases
+            from the 
+            %strong= link_to "list of available EDS Content Providers", content_providers_path
 

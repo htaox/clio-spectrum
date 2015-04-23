@@ -47,8 +47,8 @@ Clio::Application.routes.draw do
 
   Blacklight.add_routes(self)
 
-  # root to: 'spectrum#search', defaults: { layout: 'quicksearch' }
-  root to: 'eds#index'
+  root to: 'spectrum#search', defaults: { layout: 'quicksearch' }
+  # root to: 'eds#index'
 
   devise_for :users, controllers: { sessions: 'sessions' }
 
