@@ -229,6 +229,8 @@ module DatasourcesHelper
         articles_index_path('q' => query, 'new_search' => true)
       when 'eds'
         eds_index_path(q: query)
+      when 'scoped'
+        scoped_simple_path()
       when 'journals'
         journals_index_path(q: query)
       when 'ebooks'
