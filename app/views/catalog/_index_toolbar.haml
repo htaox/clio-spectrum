@@ -22,7 +22,7 @@
         - if can?(:pilot, 'Analysis')
           &nbsp;
           - icon = content_tag(:span, '', class: 'glyphicon glyphicon-star')
-          = fix_catalog_links(link_to icon + ' ANALYSIS', analysis_index_path(params), :class => "label label-success hidden-xs")
+          = link_to icon + ' ANALYSIS', analysis_index_path(params), :class => "label label-success hidden-xs"
 
     .index-toolbar-collapse.navbar-collapse.collapse
 
