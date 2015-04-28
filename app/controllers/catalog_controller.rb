@@ -21,6 +21,9 @@ class CatalogController < ApplicationController
   include Blacklight::Configurable
   # include BlacklightUnapi::ControllerExtension
 
+  # Allow direct call to Blacklight::SolrHelper#find()
+  include Blacklight::SolrHelper
+
   # explicitly position this in the ancestor chain - or the engine's
   # injection will position it last (ergo, un-overridable)
   include BlacklightRangeLimit::ControllerOverride
@@ -28,6 +31,7 @@ class CatalogController < ApplicationController
   # load last, to override any BlackLight methods included above
   # (BlacklightRangeLimit::ControllerOverride#add_range_limit_params)
   include LocalSolrHelperExtension
+
 
 
   # When a catalog search is submitted, this is the
@@ -472,6 +476,7 @@ class CatalogController < ApplicationController
     end
   end
 
+
   def analysis_show
 
     # this does not execute a query - it only organizes query parameters
@@ -498,13 +503,28 @@ class CatalogController < ApplicationController
                     "f.#{y}.facet.limit" => 10,
                   }
 
-    search_engine = blacklight_search(params.merge(pivot_params))
+    # Some hardcoded rules based on our knowledge of our publication dates
+    if x == 'pub_date_sort'
+      pivot_params["facet.range"] = x
+      pivot_params["f.#{x}.facet.range.start"] = 1000
+      pivot_params["f.XX#{x}.facet.range.end"] = 2050
+      pivot_params["f.#{x}.facet.range.gap"] = 50
+      pivot_params["f.#{x}.facet.limit"] = 100
+      pivot_params["f.#{x}.facet.sort"] = 'index'
+    end
 
-    # These will only be set if the search was successful
-    @response = search_engine.search
-    @document_list = search_engine.documents
-    # If the search was not successful, there may be errors
-    @errors = search_engine.errors
+    # search_engine = blacklight_search(params.merge(pivot_params))
+    # 
+    # # These will only be set if the search was successful
+    # @response = search_engine.search
+    # @document_list = search_engine.documents
+    # # If the search was not successful, there may be errors
+    # @errors = search_engine.errors
+
+    # Skip over all the BL magic code, run the lowest level direct
+    # Solr query possible...
+    response = find(pivot_params) # ["response"]
+raise
 
     # Drill down...
     x_facets = search_engine.search.facet_counts[:facet_fields][x]
