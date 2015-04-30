@@ -61,6 +61,7 @@ module SearchHelper
 
 
   def display_basic_search_form(source)
+    source = 'eds'
     options = DATASOURCES_CONFIG['datasources'][source]['search_box'] || {}
 
     search_params = determine_search_params
@@ -74,7 +75,7 @@ module SearchHelper
     div_classes << 'selected' unless has_advanced_params?
 
     result = ''.html_safe
-    if @active_source == source
+    if @active_source == source || source == 'eds'
 
       # BASIC SEARCH INPUT BOX
       # raise
