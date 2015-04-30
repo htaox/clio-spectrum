@@ -79,8 +79,13 @@ module SearchHelper
 
       # BASIC SEARCH INPUT BOX
       # raise
+
+      eds_q = query_has_search_terms? ? search_params[:q] : ''
+
       result += text_field_tag(:q,
-                               search_params[:q] || '',
+                               # another EDS/labs hardcode
+                               # search_params[:q] || '',
+                               eds_q,
                                class: "search_q form-control",
                                id: "#{source}_q",
                                placeholder: options['placeholder'],

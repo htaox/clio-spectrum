@@ -9,6 +9,10 @@ class EdsController < ApplicationController
   #include Blacklight::Catalog
 
   def index
+    # controller, action, and "adv"...
+    if params.size == 3 
+      session.delete(:results)
+    end
     # Rails.logger.debug "AAA" + params.inspect
     # render 'index', params: params
   end
