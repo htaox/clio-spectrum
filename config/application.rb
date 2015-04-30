@@ -38,7 +38,9 @@ module Clio
     # require File.expand_path('../../lib/rsolr_notifications', __FILE__)
     require 'rsolr_notifications'
     require 'browse_support'
-    require 'debug_renderer.rb'
+
+    # No, not using debugger anymore
+    # require 'debug_renderer.rb'
 
     # local copy of ebsco-discovery-service-api gem
     # (the gem is only a single ruby file)

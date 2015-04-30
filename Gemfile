@@ -41,7 +41,12 @@ gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blackl
 # gem "addressable", "2.3.2"
 gem "addressable"
 gem "htmlentities"
-gem "sanitize"
+
+# "Whitelist-based Ruby HTML and CSS sanitizer"
+# Used just once, in views/eds/details.html.erb ??
+# Try to avoid using, see how it goes...
+# gem "sanitize"
+
 # gem 'activerecord-session_store'
 #  ###  EDS (from blacklight5_eds repo) (end)  ###
 
@@ -217,8 +222,11 @@ group :development do
   gem 'capistrano', '~>2'
   gem 'capistrano-ext'
   gem 'quiet_assets'
+
   # fixes [morrison.cul.columbia.edu] sh: bundle: command not found
-  gem 'rvm-capistrano'
+  # Comment out in EDS/LABS version - or add "require: false"
+  # http://stackoverflow.com/questions/28461965
+  gem 'rvm-capistrano', require: false
 
   # browser-based live debugger and REPL
   # http://railscasts.com/episodes/402-better-errors-railspanel
@@ -228,7 +236,7 @@ group :development do
   # gem 'meta_request'
 
   # port of ruby-debug that works on 1.9.2 and 1.9.3
-  gem 'debugger'
+  # gem 'debugger'
 
   # "A fist full of code metrics"
   # gem 'metric_fu'
@@ -273,7 +281,7 @@ group :test do
   gem 'capybara-webkit'
 
   # dependent on localhost's browser configs
-  gem 'selenium-webdriver', '2.45.0'
+  # gem 'selenium-webdriver', '2.45.0'
 
   gem 'launchy'
   gem 'database_cleaner'
