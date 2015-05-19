@@ -450,6 +450,7 @@ class CatalogController < ApplicationController
     # We'll want this - we want to show the query params on the Analysis page
     @query = Spectrum::Queries::Solr.new(params, blacklight_config)
 
+
     # Upon which facet fields do we support Collection Analysis?
     # (identify by internal facet-field-name, not Label)
     whitelist = [
@@ -469,15 +470,45 @@ class CatalogController < ApplicationController
       whitelist.include? key
     }
 
+    # Set some basic params (don't get data back, only facets)
+    analysis_home_params = {
+      fl: 'id',
+      'rows' => 0,
+      # 'stats.field[]' => 'format,author_facet'
+    }
+    # Override per-facet limits
+    whitelist.each { |facet|
+      analysis_home_params["f.#{facet}.facet.limit"] = 100
+    }
+
+    # Query to get data to build the Collection Analysis home page
+    search_engine = blacklight_search(params.merge(analysis_home_params))
+    # These will only be set if the search was successful
+    @response = search_engine.search
+    # If the search was not successful, there may be errors
+    @errors = search_engine.errors
+
+    # prepare some data for display on the analysis page
+    - whitelist.each do |facet_id|
+      -# facet data is stored in ab array as [value, count, value, count, ...]
+      - facet_count = response.facet_counts[:facet_fields][facet_id_x].count / 2
+      - facet_count = "more than 100" if facet_count == 100
+    
+    facet_counts
+    facet_examples
+
+# raise
     respond_to do |format|
       format.html { render 'analysis_home',
-                           locals: {facets: facets},
+                           locals: {facets: facets, response: @response},
                            layout: 'no_sidebar' }
     end
   end
 
 
-  def analysis_show
+  # Tabular report of one category value X another category value.
+  # Does not work with range facets (i.e., does not work with dates)
+  def analysis_pivot
 
     # this does not execute a query - it only organizes query parameters
     # conveniently for use by the view in echoing back to the user.
@@ -485,8 +516,10 @@ class CatalogController < ApplicationController
     @query = Spectrum::Queries::Solr.new(params, blacklight_config)
 
     # We will have an 'x' and a 'y' ...
-    x = params[:x]
-    y = params[:y]
+    # x = params[:x]
+    # y = params[:y]
+    x = params.delete(:x)
+    y = params.delete(:y)
 
     # There's a BL way to add a pivot to your Config...
     # ...but the Config is global to this running CLIO instance.
@@ -499,8 +532,8 @@ class CatalogController < ApplicationController
                     'facet.field' => [x,y],
                     'rows' => 0,
                     'facet.pivot' => "#{x},#{y}",
-                    "f.#{x}.facet.limit" => 10,
-                    "f.#{y}.facet.limit" => 10,
+                    "f.#{x}.facet.limit" => 20,
+                    "f.#{y}.facet.limit" => 20,
                   }
 
     # Some hardcoded rules based on our knowledge of our publication dates
@@ -513,18 +546,18 @@ class CatalogController < ApplicationController
       pivot_params["f.#{x}.facet.sort"] = 'index'
     end
 
-    # search_engine = blacklight_search(params.merge(pivot_params))
-    # 
-    # # These will only be set if the search was successful
-    # @response = search_engine.search
-    # @document_list = search_engine.documents
-    # # If the search was not successful, there may be errors
-    # @errors = search_engine.errors
+    search_engine = blacklight_search(params.merge(pivot_params))
+    
+    # These will only be set if the search was successful
+    @response = search_engine.search
+    @document_list = search_engine.documents
+    # If the search was not successful, there may be errors
+    @errors = search_engine.errors
 
-    # Skip over all the BL magic code, run the lowest level direct
-    # Solr query possible...
-    response = find(pivot_params) # ["response"]
-raise
+#     # Skip over all the BL magic code, run the lowest level direct
+#     # Solr query possible...
+#     response = find(pivot_params) # ["response"]
+# # raise
 
     # Drill down...
     x_facets = search_engine.search.facet_counts[:facet_fields][x]
@@ -544,7 +577,7 @@ raise
 
 
     respond_to do |format|
-      format.html { render 'analysis',
+      format.html { render 'analysis_pivot',
                            locals: {data: data, x_facets: x_facets, y_facets: y_facets},
                            layout: 'no_sidebar' }
     end

@@ -3,33 +3,49 @@
 %h3
   Collection Analysis
 
+-numFound = @response.response['numFound']
+
 - constraints_html = fix_catalog_links(render('constraints', :localized_params=>params ))
+= constraints_html
 
-- if constraints_html.nil? || constraints_html.length == 0
-  %p Analyze the full collection of catalog records.
-- else
-  %p Analyze the set of records returned by the following query parameters:
-  = constraints_html
+%h4
+  Analyze the
+  - if constraints_html.nil? || constraints_html.length == 0
+    full collection of #{numFound} catalog records 
+  - else
+    #{numFound} records returned by this query
+  by category:
 
-%p Select a comparison from below.
+%ul
+- facets.each do |facet_id_x, facet_x|
+  -# facet data is stored in ab array as [value, count, value, count, ...]
+  - facet_count = response.facet_counts[:facet_fields][facet_id_x].count / 2
+  - facet_count = "more than 100" if facet_count == 100
+  %p
+    = link_to facet_x[:label], analysis_show_path(params.merge( {x: facet_id_x } )), class: 'btn btn-primary btn-sm'
+    #{facet_count} values
+    
 
-%table.table.table-bordered.table-striped.small.text-center
-  %tr.small
-    %td 
-      // empty top-left corner cell
-    - facets.each do |facet_id_x, facet_x|
-      %th.text-center= facet_x[:label]
-  - facets.each do |facet_id_y, facet_y|
-    %tr.small
-      %th.text-center=facet_y[:label]
-      - facets.each do | facet_id_x, facet_x|
-        %td
-          - if facet_id_x == facet_id_y
-            -
-          - else
-            - analysis_params = {x: facet_id_x, y: facet_id_y}
-            - link_text = "#{facet_y[:label]}<br>by<br>#{facet_x[:label]}".html_safe
-            = link_to link_text, analysis_show_path(params.merge(analysis_params))
+
+-# %h4 Or, select a grid comparison of two categories:
+-# 
+-# %table.table.table-bordered.table-striped.small.text-center
+-#   %tr.small
+-#     %td 
+-#       // empty top-left corner cell
+-#     - facets.each do |facet_id_x, facet_x|
+-#       %th.text-center= facet_x[:label]
+-#   - facets.each do |facet_id_y, facet_y|
+-#     %tr.small
+-#       %th.text-center=facet_y[:label]
+-#       - facets.each do | facet_id_x, facet_x|
+-#         %td
+-#           - if facet_id_x == facet_id_y
+-#             -
+-#           - else
+-#             - analysis_params = {x: facet_id_x, y: facet_id_y}
+-#             - link_text = "#{facet_y[:label]}<br>by<br>#{facet_x[:label]}".html_safe
+-#             = link_to link_text, analysis_show_path(params.merge(analysis_params))
       
 
 

@@ -1,5 +1,9 @@
 -# CATALOG CONSTRAINTS - APPEARS ON TOP OF SEARCH RESULTS PAGE
 
+// views/catalog/_constraints.html.haml
+
+-# This code displays the in-effect search constraints.
+
 - if @query.has_constraints?
   #appliedParams.constraints-container
     %span.constraints-label= t('blacklight.search.filters.title')

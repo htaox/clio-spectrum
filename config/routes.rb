@@ -6,7 +6,7 @@ Clio::Application.routes.draw do
   # Collection Analysis
   # (define up top, above /catalog/:id)
   match 'catalog/analysis' => 'catalog#analysis_index', :as => 'analysis_index'
-  match 'catalog/analysis/:x/:y' => 'catalog#analysis_show', :as => 'analysis_show'
+  match 'catalog/analysis/:x(/:y)' => 'catalog#analysis_pivot', :as => 'analysis_show'
 
 
   # resources :saved_list_items

@@ -170,7 +170,8 @@ module LocalSolrHelperExtension
       solr_parameters[:fl] = user_params[:fl]
     end
     user_params.keys.select { |key|
-      key.match /\.facet\.limit/
+      key.match(/\.facet\.limit/)
+      # || key.match(/stats\.field/)
     }.each { |key|
       solr_parameters[key] = user_params[key]
     }
