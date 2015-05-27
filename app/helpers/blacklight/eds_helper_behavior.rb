@@ -1609,6 +1609,7 @@ module Blacklight::EdsHelperBehavior
   end
 
   def show_pdf_title_link(result)
+    # raise
     title_pdf_link = ''
     if result['Header']['DbId'].present? and result['Header']['An'].present?
       title_pdf_link << request.fullpath.split("?")[0] << "/" << result['Header']['DbId'].to_s << "/" << result['Header']['An'].to_s << "/fulltext"

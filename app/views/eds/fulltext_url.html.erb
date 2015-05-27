@@ -1,0 +1,15 @@
+<% session[:current_url] = request.original_url %>
+<% if authenticated_user? %>
+<% eds_connect %>
+<% recordArray = retrieve(params[:dbid].to_s, params[:an].to_s) %>
+<% if recordArray['Record'].present? %>
+<%   record = recordArray['Record'] %>
+<% end %>
+<% if has_pdf?(record) %>
+<%= show_pdf_link(record).html_safe %>
+<% elsif has_smartlink?(record) %>
+<%= show_smartlink(record) %>
+<% elsif has_ebook?(record) %>
+<%= show_ebook_link(record) %>
+<% end %>
+<% end %>

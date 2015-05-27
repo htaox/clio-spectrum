@@ -67,10 +67,13 @@
   <% end %>
   
   <% if has_any_fulltext?(result) %>
+    <% if authenticated_user? %>
+  
   <dt class="blacklight-fulltext">Full-Text:</dt>
   <dd class="blacklight-fulltext">
   <% if has_pdf?(result) %>
-    <%= link_to "PDF Full Text", show_pdf_title_link(result) %>
+<% Rails.logger.debug "XXXXXXX" + result.inspect %>
+    <%= link_to "PDF Full Text", show_pdf_title_link(result), class: 'eds_dynolink' %>
   <% elsif has_html?(result) %>
     <%= link_to "HTML Full Text", show_best_fulltext_link(result), :target => "_blank" %>
   <% elsif has_smartlink?(result) %>
@@ -81,6 +84,11 @@
     <%= show_best_fulltext_link_detail(result) %>
   <% end %>
   </dd>
+
+    <% else %>
+      <dd class="blacklight-fulltext"><%= link_to "Please log in to see full-text options", new_user_session_path %></dt>
+    <% end %>
+
   <% elsif has_ill?(result) %>
   <dt class="blacklight-ill">Full-Text:</dt>
   <dd class="blacklight-ill"><%= show_ill(result) %></dd>  

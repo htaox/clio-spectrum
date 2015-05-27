@@ -10,11 +10,15 @@ class EdsController < ApplicationController
 
   def index
     # controller, action, and "adv"...
-    if params.size == 3 
+    if params.size == 3
       session.delete(:results)
     end
     # Rails.logger.debug "AAA" + params.inspect
     # render 'index', params: params
+  end
+
+  def fulltext_url
+    render layout: false
   end
 
 end

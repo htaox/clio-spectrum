@@ -162,6 +162,7 @@ Clio::Application.routes.draw do
   get 'eds' => 'eds#index', as: :eds_index
   get 'eds/:dbid/:an' => 'eds#detail', :constraints  => { :an => /[^\/]+/ }
   get 'eds/:dbid/:an/fulltext' => 'eds#fulltext', :constraints  => { :an => /[^\/]+/ }
+  get 'eds/:dbid/:an/fulltext_url' => 'eds#fulltext_url', :constraints  => { :an => /[^\/]+/ }
   get 'eds/switch/' => 'eds#recordSwitch'
 
 

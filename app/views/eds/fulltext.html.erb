@@ -4,10 +4,11 @@
 
 <% eds_connect %>
 <%
-       clean_params = deep_clean(params)
-       params = clean_params
+       # maybe not necessary?
+       # clean_params = deep_clean(params)
+       # params = clean_params
 %>
-<% recordArray = retrieve(params[:dbid].to_s,params[:an].to_s) %>
+<% recordArray = retrieve(params[:dbid].to_s, params[:an].to_s) %>
 <% if recordArray['Record'].present? %>
 <% record = recordArray['Record'] %>
 <% end %>
