@@ -1762,7 +1762,10 @@ module Blacklight::EdsHelperBehavior
   end
 
   def has_search_parameters?
-    !params[:q].blank? or !params[:f].blank? or !params[:search_field].blank?
+    !params[:q].blank? or
+      !params[:f].blank? or
+      !params[:search_field].blank? or
+      !params[:eds_action].blank?
   end
 
   def has_eds_pointer?

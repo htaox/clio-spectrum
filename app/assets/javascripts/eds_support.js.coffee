@@ -13,15 +13,15 @@ $ ->
 
     original_url = $(this).attr('href')
     # alert( "original_url:" +  original_url )
-    console.log( "original_url:" +  original_url )
+    # console.log( "original_url:" +  original_url )
 
     fulltext_url = original_url.replace(/fulltext/, 'fulltext_url')
     # alert( "fulltext_url:" +  fulltext_url  )
-    console.log( "fulltext_url:" +  fulltext_url  )
+    # console.log( "fulltext_url:" +  fulltext_url  )
 
     $.get(fulltext_url, (content_url) ->
       # alert( "content_url:" +  content_url  )
-      console.log( "content_url:" +  content_url  )
+      # console.log( "content_url:" +  content_url  )
       window.location = content_url
     )
 
