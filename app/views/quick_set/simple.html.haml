@@ -11,6 +11,9 @@
         .input-group
           = text_field_tag(:q, '', {size: '60', class: 'form-control'})
           = eds_fielded_dropdown()
+          %button.btn.btn-primary{:name => "commit", :type => "submit", :value => "Search", class: 'form-control'}
+            %span.glyphicon.glyphicon-search.icon-white
+            %span.hidden-xs Search
 
 
       .col-sm-2
@@ -18,8 +21,4 @@
 
 
     = render 'quickset_pick_panel', quicksets: @quicksets
-
-    .row.well
-      .col-sm-12
-        = submit_tag("Search")
 
