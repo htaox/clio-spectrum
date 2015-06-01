@@ -1,0 +1,49 @@
+<% session[:current_url] = request.original_url %>
+
+<% eds_connect %>
+
+<% options = generate_api_query(params) %>
+
+<% if has_clio_search_parameters? %>
+  <% unless params[:fromDetail] == 'y' and session[:results] %>
+    <% search(options) %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  // function htmlDecode(input){
+  //   var e = document.createElement('div');
+  //   e.innerHTML = input;
+  //   return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  // }
+</script>
+
+<% clio_sidebar_items << capture do %>
+<%= render :partial=>'facets' %>
+<% end %>
+
+
+<div id="content" class="col-md-9">
+    
+    <% unless has_clio_search_parameters? %>
+      <!-- Nada -->
+
+    <% else %>
+
+      <% @page_title = t('blacklight.search.title', :application_name => application_name) %>
+
+      <%= render :partial=>'constraints' %>
+
+      <%= render :partial=>'sort_and_per_page' %>
+      <%= render :partial=>'search_results' %>
+      <%= render :partial=>'results_pagination' %>
+    <% end %>
+
+</div>
+
+<% if current_user.present? and current_user.has_role?('site', 'admin') %>
+  <%= render :partial=>'debug' %>
+<% end %>
+
+<div class="modal">Loading...</div>
+

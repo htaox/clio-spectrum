@@ -30,7 +30,7 @@
 <% #search(options) %>
 
 
-<% if has_search_parameters? %>
+<% if has_clio_search_parameters? %>
 	<% unless params[:fromDetail] == 'y' and session[:results] %>
 	    <% search(options) %>
 	<% end %>
@@ -59,7 +59,7 @@
 
 <div id="content" class="col-md-9">
     
-    <% unless has_search_parameters? %>
+    <% unless has_clio_search_parameters? %>
 	    <%= render 'home' %>
     <% else %>
 

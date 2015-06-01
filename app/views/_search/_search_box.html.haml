@@ -9,7 +9,7 @@
   
     -# / Start-Over link, only present during searching
     .start_over.hidden-xs.text-right.pull-right
-      - if has_search_parameters?
+      - if has_clio_search_parameters?
         = display_start_over_link(source)
 
 

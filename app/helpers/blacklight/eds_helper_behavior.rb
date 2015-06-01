@@ -1486,7 +1486,7 @@ module Blacklight::EdsHelperBehavior
 
   def show_detail_link(result, resultId = "0", highlight = "")
     link = ""
-    highlight.gsub! '&quot;', '%22'
+    highlight.gsub! '&quot;', '%22' unless highlight.nil?
     if result['Header'].present?
       if result['Header']['DbId'].present?
         if result['Header']['An'].present?
@@ -1777,12 +1777,13 @@ module Blacklight::EdsHelperBehavior
     return fulltext_links.html_safe
   end
 
-  def has_search_parameters?
-    !params[:q].blank? or
-      !params[:f].blank? or
-      !params[:search_field].blank? or
-      !params[:eds_action].blank?
-  end
+# DUPLICATE
+  # def has_search_parameters?
+  #   !params[:q].blank? or
+  #     !params[:f].blank? or
+  #     !params[:search_field].blank? or
+  #     !params[:eds_action].blank?
+  # end
 
   def has_eds_pointer?
     !params[:eds].blank? or !params[:eds_q].blank?
@@ -1793,6 +1794,23 @@ module Blacklight::EdsHelperBehavior
     response.response['numFound'] > 1
   end
 
+
+  ################
+  # Columbia local, modeled after other CLIO work
+  ###############
+
+  # field_name:   search_field2, search_field3, etc.
+  # field_value:  author, title, etc.
+  def advanced_eds_field_select_option(field_name, field_value)
+
+    options = DATASOURCES_CONFIG['datasources']['eds']['search_box'] || {}
+
+    field_list = options['search_fields'].map do |field_key, field_label|
+      [field_label, field_key]
+    end
+
+    select_tag(field_name, options_for_select(field_list, field_value), class: 'form-control')
+  end
 
   ################
   # Debug Functions

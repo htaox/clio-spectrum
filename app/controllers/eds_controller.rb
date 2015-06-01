@@ -21,5 +21,10 @@ class EdsController < ApplicationController
     render layout: false
   end
 
+  # The Advanced Search - multiple fields
+  def advanced
+    @advanced_search = true
+  end
+
 end
 

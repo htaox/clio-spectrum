@@ -160,6 +160,7 @@ Clio::Application.routes.draw do
 
   # EDS SUPPORT
   get 'eds' => 'eds#index', as: :eds_index
+  get 'eds/advanced' => 'eds#advanced', as: :eds_advanced
   get 'eds/:dbid/:an' => 'eds#detail', :constraints  => { :an => /[^\/]+/ }
   get 'eds/:dbid/:an/fulltext' => 'eds#fulltext', :constraints  => { :an => /[^\/]+/ }
   get 'eds/:dbid/:an/fulltext_url' => 'eds#fulltext_url', :constraints  => { :an => /[^\/]+/ }

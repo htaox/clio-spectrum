@@ -1,0 +1,44 @@
+
+// eds/_advanced_search_form.html.haml
+
+= form_tag eds_advanced_path, method: 'GET', class: 'form-inline' do
+
+  .search_panel.container
+
+    .search_title
+      Match all
+      of the following criteria:
+      %button.btn.advanced_search_button.btn-primary{:name => "commit", :type => "submit", :value => "Search"}
+        %span.glyphicon.glyphicon-search.icon-white
+        %span.hidden-xs Search
+      =link_to "Basic Search", eds_index_path, class: "btn btn-link"
+
+    - (1..5).each do |i|
+      .advanced_search_row.form_group.row
+  
+        .col-sm-4
+          = advanced_eds_field_select_option("search_field#{i}", params["search_field#{i}"])
+        -# .col-sm-4
+        -#   = eds_fielded_dropdown("search_field#{i}", params["search_field#{i}"])
+        .col-sm-8
+          = text_field_tag("q#{i}", params["q#{i}"], {size: '60', class: 'form-control'})
+        
+
+        -# 
+        -# .input-group
+        -#   = text_field_tag(:q1, '', {size: '60', class: 'form-control'})
+        -#   = eds_fielded_dropdown(:search_field1)
+        -#   -# = submit_tag("Search", {class: 'form-control'})
+        -# %br
+        -# .input-group
+        -#   = text_field_tag(:q2, '', {size: '60', class: 'form-control'})
+        -#   = eds_fielded_dropdown(:search_field2)
+        -# %br
+        -# .input-group
+        -#   = text_field_tag(:q3, '', {size: '60', class: 'form-control'})
+        -#   = eds_fielded_dropdown(:search_field3)
+
+      -# .col-sm-2
+      -#   %button.btn.advanced_search_button.btn-primary{:name => "commit", :type => "submit", :value => "Search"}
+      -#     %span.glyphicon.glyphicon-search.icon-white
+      -#     %span.hidden-xs Search

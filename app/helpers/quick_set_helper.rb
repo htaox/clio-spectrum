@@ -45,11 +45,11 @@ module QuickSetHelper
 
   # This is to be used on the Scoped Search screens.
   # They will have no default.
-  def eds_fielded_dropdown(fieldname = 'search_field')
+  def eds_fielded_dropdown(fieldname = 'search_field', default_value = nil)
     options = DATASOURCES_CONFIG['datasources']['eds']['search_box'] || {}
 
     if options['search_fields'].kind_of?(Hash)
-      return dropdown_with_select_tag(fieldname, options['search_fields'].invert)
+      return dropdown_with_select_tag(fieldname, options['search_fields'].invert, default_value)
     end
   end
 

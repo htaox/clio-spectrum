@@ -172,6 +172,10 @@ datasources:
     search_box:
       route: eds_index_path
       placeholder: Articles and more
+      # which back-end search API?  blacklight / summon / eds
+      search_type: eds
+      # does this data-source support advanced search?
+      advanced: true
       search_fields:
         all_fields: All Fields
         author: Author

@@ -1,26 +1,5 @@
 # encoding: UTF-8
 module SearchHelper
-
-
-  # def show_all_search_boxes
-  #   (controller.controller_name == 'search' && controller.action_name == 'index') || (params['q'].to_s.empty?  && params['s.q'].to_s.empty? && params['commit'].to_s.empty?)
-  # end
-
-  # 1/2014 - this is currently equivalent to @active_source alone
-  # def active_search_box
-  #   con = controller.controller_name
-  #   act = controller.action_name
-  #
-  #   if con == 'search' && act == 'index'
-  #     "quicksearch"
-  #   elsif act == 'ebooks' || con == 'ebooks'
-  #     'ebooks'
-  #   else
-  #     @active_source
-  #   end
-  # end
-
-
   def search_render_options(search, source)
     opts = { 'template' => @search_style }.
         merge(source['render_options'] || {}).
@@ -46,6 +25,9 @@ module SearchHelper
 
 
   def display_advanced_search_form(source)
+    # EDS logic for basic/advanced split
+    return '' unless @advanced_search
+
     options = DATASOURCES_CONFIG['datasources'][source]['search_box'] || {}
     blacklight_config = Spectrum::SearchEngines::Solr.generate_config(source)
 
@@ -57,10 +39,18 @@ module SearchHelper
       # Rails.logger.debug "display_advanced_search() source=[#{source}]"
       return render '/spectrum/summon/advanced_search', source: source, path: source == 'articles' ? articles_index_path : newspapers_index_path
     end
+
+    if options['search_type'] == 'eds' && options['advanced'] == true
+      return render '/eds/advanced_search', source: source, path: eds_index_path
+    end
   end
 
 
   def display_basic_search_form(source)
+    # EDS logic for basic/advanced split
+    return '' if @advanced_search
+
+    # EDS hardcode
     source = 'eds'
     options = DATASOURCES_CONFIG['datasources'][source]['search_box'] || {}
 
@@ -75,6 +65,7 @@ module SearchHelper
     div_classes << 'selected' unless has_advanced_params?
 
     result = ''.html_safe
+    # EDS hardcode
     if @active_source == source || source == 'eds'
 
       # BASIC SEARCH INPUT BOX
@@ -153,6 +144,11 @@ module SearchHelper
         result += content_tag(:a, adv_text, class: 'btn btn-link advanced_search_toggle', href: '#')
       end
 
+      # EDS / CLIO LABS / AAD
+      if @active_source == 'eds'
+        result += link_to "Advanced Search", eds_advanced_path, class: "btn btn-link"
+      end
+
       result = content_tag(:div, result, class: 'search_row input-append', escape: false)
 
       fail "no route in #{source} " unless options['route']
@@ -167,9 +163,9 @@ module SearchHelper
   end
 
 
-  # Override Blacklight's has_search_parameters to handle
-  # our additional datasources
-  def has_search_parameters?
+  # Replace Blacklight's has_search_parameters with a more
+  # general function to handle CLIO's additional datasources
+  def has_clio_search_parameters?
     # Blacklight's logic, covers Catalog, AC, LWeb
     return true if !params[:q].blank?
     return true if !params[:f].blank?
@@ -184,6 +180,15 @@ module SearchHelper
     return true if !params['s.q'].blank?
     return true if !params['s.fq'].blank?
     return true if !params['s.ff'].blank?
+
+    # For advanced searches, we many have q2, q3, q4....
+    (1..5).each do |i|
+      return true if !params["q#{i}"].blank?
+      return true if !params["search_field#{i}"].blank?
+    end
+
+    # Some EDS-specific values
+    return true if !params[:eds_action].blank?
 
     # No, we found no search parameters
     false
