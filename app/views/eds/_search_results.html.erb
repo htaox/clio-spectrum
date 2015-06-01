@@ -72,7 +72,7 @@
   <dt class="blacklight-fulltext">Full-Text:</dt>
   <dd class="blacklight-fulltext">
   <% if has_pdf?(result) %>
-<% Rails.logger.debug "XXXXXXX" + result.inspect %>
+<% # Rails.logger.debug "XXXXXXX" + result.inspect %>
     <%= link_to "PDF Full Text", show_pdf_title_link(result), class: 'eds_dynolink' %>
   <% elsif has_html?(result) %>
     <%= link_to "HTML Full Text", show_best_fulltext_link(result), :target => "_blank" %>

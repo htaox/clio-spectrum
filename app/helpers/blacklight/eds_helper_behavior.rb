@@ -1719,14 +1719,24 @@ module Blacklight::EdsHelperBehavior
     if result['FullText'].present?
       if result['FullText']['CustomLinks'].present?
         result['FullText']['CustomLinks'].each do |customLink|
+
+          # NEXT-1186 - Use the e-link icon instead of the 360 link image
+          link360_icon = 'http://images.serialssolutions.com' +
+                         '/360link_standard_button.jpg'
+          if customLink['Icon'] == link360_icon
+            link_icon = '/assets/elink.gif'
+          else
+            link_icon = customLink['Icon']
+          end
+
           if customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present? and customLink['Icon'].present?
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + customLink['Icon'] + '" border="0">' + customLink['Text'] + '</a>'
+            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_elink_icon">' + customLink['Text'] + '</a>'
             flag = 1
           elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present?
             flag = 1
             fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">' + customLink['Text'] + '</a>'
           elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Icon'].present?
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + customLink['Icon'] + '" border="0"></a>'
+            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_elink_icon"></a>'
             flag = 1
           elsif customLink['Category'] == "fullText" and flag == 0
             fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">Full Text via Custom Link</a>'
