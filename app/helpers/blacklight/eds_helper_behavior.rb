@@ -1727,16 +1727,19 @@ module Blacklight::EdsHelperBehavior
             link_icon = '/assets/elink.gif'
           else
             link_icon = customLink['Icon']
+            # Ebsco's image-server support http or https access.
+            # Switch all image links to https.
+            link_icon.sub!(/http:\/\/imageserver.ebscohost.com/, 'https://imageserver.ebscohost.com')
           end
 
           if customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present? and customLink['Icon'].present?
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_elink_icon">' + customLink['Text'] + '</a>'
+            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon">' + customLink['Text'] + '</a>'
             flag = 1
           elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present?
             flag = 1
             fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">' + customLink['Text'] + '</a>'
           elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Icon'].present?
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_elink_icon"></a>'
+            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon"></a>'
             flag = 1
           elsif customLink['Category'] == "fullText" and flag == 0
             fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">Full Text via Custom Link</a>'
