@@ -1729,7 +1729,10 @@ module Blacklight::EdsHelperBehavior
             link_icon = customLink['Icon']
             # Ebsco's image-server support http or https access.
             # Switch all image links to https.
-            link_icon.sub!(/http:\/\/imageserver.ebscohost.com/, 'https://imageserver.ebscohost.com')
+            if link_icon &&
+               link_icon.start_with?('http://imageserver.ebscohost.com')
+              link_icon.sub!(/http:/, 'https:')
+            end
           end
 
           if customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present? and customLink['Icon'].present?
