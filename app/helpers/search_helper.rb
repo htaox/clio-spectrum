@@ -71,19 +71,20 @@ module SearchHelper
       # BASIC SEARCH INPUT BOX
       # raise
 
-      eds_q = query_has_search_terms? ? search_params[:q] : ''
+      if options['search_type'] == 'eds'
+        eds_q = query_has_search_terms? ? search_params[:q] : ''
 
-      result += text_field_tag(:q,
-                               # another EDS/labs hardcode
-                               # search_params[:q] || '',
-                               eds_q,
-                               class: "search_q form-control",
-                               id: "#{source}_q",
-                               placeholder: options['placeholder'],
-              # This focuses, but also selects-all-text in some browsers - yuck
-              #   http://stackoverflow.com/questions/4740184
-              # , autofocus: true
-              )
+        result += text_field_tag(:q,
+                                 # another EDS/labs hardcode
+                                 # search_params[:q] || '',
+                                 eds_q,
+                                 class: "search_q form-control",
+                                 id: "#{source}_q",
+                                 placeholder: options['placeholder'],
+                )
+        result += standard_hidden_keys_for_search
+      end
+
 
       ### for blacklight (catalog, academic commons)
       if options['search_type'] == 'blacklight'
