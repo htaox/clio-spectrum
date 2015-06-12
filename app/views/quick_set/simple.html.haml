@@ -1,5 +1,6 @@
 -# used in the layout, for html page header and H2 text
-- @page_title = "Quick Set - Simple Search"
+-# - @page_title = "Discipline based Article Search - Simple Search"
+- @page_title = "Discipline based Article Search"
 
 
 .search_panel.container
@@ -7,6 +8,13 @@
   = form_tag scoped_search_path, method: 'GET', class: 'form-inline' do
 
     .row.well
+      .col-sm-12
+        %p
+          Discipline based article search provides the ability to limit 
+          your search to a curated set of subject specific resources. Please
+          <a class="feedback-popup" href="#">share</a>
+          your impression of subject-scoped article discovery.
+        %br
       .col-sm-10
         .input-group
           = text_field_tag(:q, '', {size: '60', class: 'form-control'})

@@ -305,6 +305,11 @@ class ApplicationController < ActionController::Base
       # "Scoped" searching is a feature built on top of EDS
       when /^\/scoped/
         'eds'
+      # Support another variant naming...
+      when /^\/aad/
+        'aad'
+      when /^\/dbas/
+        'aad'
       when /^\/library_web/
         'library_web'
       when /^\/newspapers/

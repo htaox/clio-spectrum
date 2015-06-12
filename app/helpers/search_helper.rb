@@ -197,6 +197,7 @@ module SearchHelper
 
 
   def display_start_over_link(source = @active_source)
+    Rails.logger.debug "display_start_over_link(#{source}) = #{datasource_landing_page_path(source)}"
     link_to content_tag(:span, '', class: 'glyphicon glyphicon-backward') + ' Start Over',
             datasource_landing_page_path(source),
             class: 'btn btn-default'

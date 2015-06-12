@@ -2,7 +2,8 @@ Clio::Application.routes.draw do
 
   # CLIO LABS / EDS OVERRIDE - mask the quicksearch, if any 
   # links slip through, redirect them over to eds anyway
-  match 'quicksearch', to: 'eds#index'
+  # match 'quicksearch', to: 'eds#index'
+  match 'quicksearch', to: 'aad#index'
 
   # This is getting masked.... try it up here?
   get "catalog/endnote", :as => "endnote_catalog"
@@ -165,6 +166,14 @@ Clio::Application.routes.draw do
   get 'eds/:dbid/:an/fulltext' => 'eds#fulltext', :constraints  => { :an => /[^\/]+/ }
   get 'eds/:dbid/:an/fulltext_url' => 'eds#fulltext_url', :constraints  => { :an => /[^\/]+/ }
   get 'eds/switch/' => 'eds#recordSwitch'
+
+  # map all EDS urls to AAD
+  get 'aad' => 'eds#index', as: :eds_index
+  get 'aad/advanced' => 'eds#advanced', as: :eds_advanced
+  get 'aad/:dbid/:an' => 'eds#detail', :constraints  => { :an => /[^\/]+/ }
+  get 'aad/:dbid/:an/fulltext' => 'eds#fulltext', :constraints  => { :an => /[^\/]+/ }
+  get 'aad/:dbid/:an/fulltext_url' => 'eds#fulltext_url', :constraints  => { :an => /[^\/]+/ }
+  get 'aad/switch/' => 'eds#recordSwitch'
 
 
 

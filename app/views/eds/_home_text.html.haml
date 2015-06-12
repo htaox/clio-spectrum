@@ -9,29 +9,33 @@
           Advanced Article Discovery
 
         .well
-          %h4
-          Advanced Article Discovery offers features beyond the 
-          current CLIO Articles discovery, such as the ability to
-          filter results by content provider.  
+          %p
+            As an alternative to CLIO Article Search, 
+            Advanced Article Discovery provides some additional 
+            features such as the ability to filter results by 
+            Content Provider.  Please
+            <a class="feedback-popup" href="#">share</a>
+            your impression of this alternative 
+            article discovery service.
 
 
-        .title
-          Scoped Searching
-
-        .well
-          Visit
-          %strong= link_to "Scoped Quick Search", scoped_simple_path
-          to try out Scoped Searching against EDS.
-
-        - if can? :manage, QuickSet
-          .well
-            %h4
-              QuickSet Management
-              %span.text-danger (authorized users only)
-            %strong= link_to "Manage Quick Sets", quick_set_index_path
-            %br
-            %br
-            QuickSets are configured by selecting one or more databases
-            from the 
-            %strong= link_to "list of available EDS Content Providers", content_providers_path
+        -# .title
+        -#   Scoped Searching
+        -# 
+        -# .well
+        -#   Visit
+        -#   %strong= link_to "Scoped Quick Search", scoped_simple_path
+        -#   to try out Scoped Searching against EDS.
+        -# 
+        -# - if can? :manage, QuickSet
+        -#   .well
+        -#     %h4
+        -#       QuickSet Management
+        -#       %span.text-danger (authorized users only)
+        -#     %strong= link_to "Manage Quick Sets", quick_set_index_path
+        -#     %br
+        -#     %br
+        -#     QuickSets are configured by selecting one or more databases
+        -#     from the 
+        -#     %strong= link_to "list of available EDS Content Providers", content_providers_path
 

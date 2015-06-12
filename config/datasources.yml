@@ -185,6 +185,25 @@ datasources:
         abstract: Abstract
         issn: ISSN
         isbn: ISBN
+  aad:
+    name: Advanced Article Discovery
+    no_facets: true
+    search_box:
+      route: eds_index_path
+      placeholder: Articles and more
+      # which back-end search API?  blacklight / summon / eds
+      search_type: aad
+      # does this data-source support advanced search?
+      advanced: true
+      search_fields:
+        all_fields: All Fields
+        author: Author
+        title: Title
+        subject: Subject
+        source: Journal Title/Source
+        abstract: Abstract
+        issn: ISSN
+        isbn: ISBN
 
   scoped:
     name: Scoped Search
@@ -226,7 +245,8 @@ datasource_bar:
     # - journals
     # - archives
     # - new_arrivals
-    - eds
+    # - eds
+    - aad
     # pretend that "scoped" is a subsource
     - scoped
     # - articles
@@ -245,6 +265,8 @@ datasource_bar:
     - journals
     - archives
     - new_arrivals
-    - scoped
+    # NEXT-1203 -changes to cliolabs
+    # "scoped" is not within aad?  Or is it?
+    # - scoped
 
 

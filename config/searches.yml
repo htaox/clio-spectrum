@@ -27,7 +27,8 @@ layouts:
       - width: 6
         searches:
           # - source: catalog
-          - source: eds
+          # - source: eds
+          - source: aad
             count: 10
             display_footer: true
             row_opts:
@@ -130,6 +131,13 @@ sources:
   eds:
     title: EDS
     description: Ebsco Discovery Service
+    warningXX: We are currently experiencing performance problems with this datasource.  We are working with the vendor to resolve this issue.
+    render_options:
+      format: article
+
+  aad:
+    title: AAD
+    description: Advanced Article Search
     warningXX: We are currently experiencing performance problems with this datasource.  We are working with the vendor to resolve this issue.
     render_options:
       format: article

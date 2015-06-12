@@ -39,7 +39,7 @@ LWEB.setupFeedbackDialog = function() {
 
     $('#feedback_dialog iframe').css(
         {
-        'border':'none'
+        'border':'2px solid grey'
         }
     );
 
@@ -96,7 +96,7 @@ LWEB.centerFeedbackDialog = function() {
 
     var newX = $(window).width()/2 - feedbackDialogElement.width()/2;
     var newY = $(window).height()/2 - feedbackDialogElement.height()/2 + $(window).scrollTop();
-    var maxHeight = $(window).height()*.75;
+    var maxHeight = $(window).height()*.80;
     maxHeight = (maxHeight > 525) ? 525 : maxHeight;
     var maxWidth = $(window).width()*.5;
     maxWidth = (maxWidth > 800) ? 600 : maxWidth;
