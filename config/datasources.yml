@@ -206,7 +206,7 @@ datasources:
         isbn: ISBN
 
   scoped:
-    name: Scoped Search
+    name: Subject Article Search
     # no_facets: true
     # search_box:
     #   route: eds_index_path
