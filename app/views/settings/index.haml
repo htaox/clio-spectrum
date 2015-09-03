@@ -1,0 +1,48 @@
+
+%div{'ng-app' => 'bannerApp', 'ng-controller' => 'BannerController'}
+
+  .container
+
+    .well
+      %form{'ng-submit' => 'create(newBanner); newBanner={};'}
+        .row
+          .col-sm-12
+            %h4 New Banner
+        .row
+          .col-sm-3
+            %h5 icon
+            %input{type: 'text', 'ng-model' => 'newBanner.icon'}
+          .col-sm-3
+            %h5 color
+            %input{type: 'text', 'ng-model' => 'newBanner.color'}
+          .col-sm-3
+            %h5 message
+            %input{type: 'text', 'ng-model' => 'newBanner.message'}
+          .col-sm-3
+            %h5 datasource
+        .row
+          .col-sm-12
+            &nbsp;
+        .row
+          .col-sm-2
+          .col-sm-8
+            .alert{class: "{{color2class(newBanner.color)}}" }
+              %span.glyphicon{style: "font-size:120%;padding-right:0.5em;", 
+                              class: "{{newBanner.icon}}" }
+              -# %div(ng_bind_html="icon2html(newBanner.icon)")
+              {{ newBanner.message }}
+          .col-sm-2
+      
+      -# .col-sm-12
+      -#   %form{'ng-submit' => 'create(newBanner); newBanner={};'}
+      -#     %input{type: 'text', 'ng-model' => 'newBanner.message'}
+      -#     %input{type: 'submit'}
+
+    .row{{'ng-repeat' => "item in banners"}}
+      .col-sm-2
+      .col-sm-8
+        .alert{class: "{{color2class(item.color)}}" }
+          {{ item.message }}
+      .col-sm-2
+
+

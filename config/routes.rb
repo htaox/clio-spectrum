@@ -18,6 +18,15 @@ Clio::Application.routes.draw do
   # resources :saved_list_items
   resources :saved_lists
 
+  # Banners - only expose a JSON API
+  namespace :api, defaults: {format: :json} do
+    resources :banners, only: [:index, :create, :update, :destroy, :show]
+  end
+
+  # CLIO Settings screen
+  get '/settings' => 'settings#index'
+
+
   match 'lists/add(/:item_key_list)', via: [:get, :post], to: 'saved_lists#add', as: :savedlist_add
   # Cannot restrict to POST, WIND auth always redirects via GET
   # get 'lists/add', via: [:post], to: 'saved_lists#add', as: :savedlist_add

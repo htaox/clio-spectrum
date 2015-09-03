@@ -39,6 +39,9 @@ gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blackl
 gem 'rest-client'
 gem 'gmaps4rails'
 
+# Only used for Angular pages
+gem 'angularjs-rails'
+
 # pagination
 gem 'kaminari'
 

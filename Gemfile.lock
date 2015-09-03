@@ -49,6 +49,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    angularjs-rails (1.4.4)
     arel (5.0.1.20140414130214)
     autoprefixer-rails (5.2.1.2)
       execjs
@@ -312,6 +313,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  angularjs-rails
   better_errors
   binding_of_caller
   blacklight (~> 5.11.0)

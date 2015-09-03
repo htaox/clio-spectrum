@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+DATASOURCES_CONFIG ||= YAML.load(File.read(Rails.root.to_s + '/config/datasources.yml'))
+
+DATASOURCES_CONFIG['datasources'].each_key do |datasource|
+  Datasource.find_or_create_by(name: datasource)
+end

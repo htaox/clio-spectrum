@@ -1,0 +1,17 @@
+<div ng-app='bannerApp' ng-controller='BannerController'>
+  <div class='container'>
+    <form ng-submit='create(newBanner); newBanner={};'>
+      <input ng-model='newBanner.message' type='text'>
+      <input type='submit'>
+    </form>
+    <div class='row' ng-repeat='item in banners'>
+      <div class='col-sm-2'></div>
+      <div class='col-sm-8'>
+        <div class='alert {{color2class(item.color)}}'>
+          {{ color2class(item.color) }} // {{ item.message }}
+        </div>
+      </div>
+      <div class='col-sm-2'></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div ng-app="bannerApp" ng-controller="BannerController">
+  <div class='container'>
+
+    <form ng-submit='create(newBanner); newBanner={};'>
+      <input type='text' ng-model='newBanner.message'>
+      <input type=submit>
+    </form>
+
+    <div class='row' ng-repeat = 'item in banners'>
+      <div class='alert {{color2class(item.color)}}'>
+        {{ color2class(item.color) }} // {{ item.message }}
+      </div>
+<!--
+      <div class='alert {{color2class(item.color)}}'}'>
+        {{ item.message }} // {{ item.message }}
+      </div>
+-->
+      <!--
+      <div class='alert {{item.color}}'></div>
+    -->
+    </div>
+  </div>
+</div>
+
+<!--
+%div{'ng-app' => 'bannerApp', 'ng-controller' => 'BannerController'}
+
+  .container
+
+    %form{'ng-submit' => 'create(newBanner); newBanner={};'}
+      %input{type: 'text', 'ng-model' => 'newBanner.message'}
+      %input{type: 'submit'}
+
+    .row{{'ng-repeat' => "item in banners"}}
+      .col-sm-2
+      .col-sm-8
+        -# .alert{'ng-class': "color2class( {{ item.color }} );" }
+        -# .alert{'ng-class': "color2class( 'yellow');" }
+        -# .alert{class: "ng_class: alert-warning" }
+        .alert(ng_class: {item.color} )
+          {{ item.message }}
+      .col-sm-2
+-->

@@ -39,13 +39,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionView::MissingTemplate do |exception|
     if request.format == 'html'
-      redirect_to root_url, alert: exception.message
-      return
+      redirect_to root_url, alert: "Missing Template"
+    else
+      Rails.logger.warn "request.format = #{request.format}"
+      Rails.logger.warn "#{exception}"
+      render nothing: true and return
     end
-
-    Rails.logger.warn "request.format = #{request.format}"
-    Rails.logger.warn "#{exception}"
-    render nothing: true and return
   end
 
   def apply_random_q
