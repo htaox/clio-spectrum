@@ -206,7 +206,9 @@ datasources:
         isbn: ISBN
 
   scoped:
-    name: Subject Article Search
+    # NEXT-1219 - workshop -- labels
+    # name: Subject Article Search
+    name: Discipline based Article Search
     # no_facets: true
     # search_box:
     #   route: eds_index_path

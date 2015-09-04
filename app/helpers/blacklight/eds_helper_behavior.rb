@@ -42,7 +42,8 @@ module Blacklight::EdsHelperBehavior
           deeperClean = deep_clean(v)
           parameters[k] = deeperClean
         else
-          raise
+          # e.g.:
+          # "boolean_operator1"=>"AND"
           parameters[k] = h(v)
         end
       else
@@ -1520,7 +1521,7 @@ module Blacklight::EdsHelperBehavior
   # generate full text link for the detailed record area (not the title link)
   def show_best_fulltext_link_detail(result)
     if has_pdf?(result)
-      link = '<a href="' + show_pdf_title_link(result) + '">PDF Full Text</a>'
+      link = '<a href="' + show_pdf_title_link(result) + '">' + pdfIcon + 'PDF Full Text</a>'
     elsif has_html?(result)
       link = '<a href="' + show_best_fulltext_link(result) + '" target="_blank">HTML Full Text</a>'
     elsif has_smartlink?(result)
@@ -1716,41 +1717,55 @@ module Blacklight::EdsHelperBehavior
   def best_customlink_detail(result)
     fulltext_links = ''
     flag = 0
-    if result['FullText'].present?
-      if result['FullText']['CustomLinks'].present?
-        result['FullText']['CustomLinks'].each do |customLink|
+    # return immediately if there's nothing to work with
+    return fulltext_links unless result['FullText'].present?
+    return fulltext_links unless result['FullText']['CustomLinks'].present?
 
-          # NEXT-1186 - Use the e-link icon instead of the 360 link image
-          link360_icon = 'http://images.serialssolutions.com' +
-                         '/360link_standard_button.jpg'
-          if customLink['Icon'] == link360_icon
-            link_icon = '/assets/elink.gif'
-          else
-            link_icon = customLink['Icon']
-            # Ebsco's image-server support http or https access.
-            # Switch all image links to https.
-            if link_icon &&
-               link_icon.start_with?('http://imageserver.ebscohost.com')
-              link_icon.sub!(/http:/, 'https:')
-            end
-          end
+    result['FullText']['CustomLinks'].each do |customLink|
 
-          if customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present? and customLink['Icon'].present?
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon">' + customLink['Text'] + '</a>'
-            flag = 1
-          elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present?
-            flag = 1
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">' + customLink['Text'] + '</a>'
-          elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Icon'].present?
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon"></a>'
-            flag = 1
-          elsif customLink['Category'] == "fullText" and flag == 0
-            fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">Full Text via Custom Link</a>'
-            flag = 1
-          end
-        end
+      # NEXT-1186 - Use the e-link icon instead of the 360 link image
+      link360_icon = 'http://images.serialssolutions.com' +
+                     '/360link_standard_button.jpg'
+      if customLink['Icon'] == link360_icon
+        link_icon = '/assets/elink.gif'
+      else
+        # link_icon = customLink['Icon']
+        # # Ebsco's image-server support http or https access.
+        # # Switch all image links to https.
+        # if link_icon &&
+        #    link_icon.start_with?('http://imageserver.ebscohost.com')
+        #   link_icon.sub!(/http:/, 'https:')
+        # end
+        # Don't use any EDS-supplied icons!
+        # NEXT-1228 - workshop -- jstor bitmap
+        customLink.delete('Icon')
+      end
+
+      # Rails.logger.debug "XXXX customLink=#{customLink.inspect}"
+      if customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present? and customLink['Icon'].present?
+        fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon">' + customLink['Text'] + '</a>'
+        flag = 1
+      elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Text'].present?
+        flag = 1
+        fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">' + customLink['Text'] + '</a>'
+
+      # New clauses, per NEXT-1228, for MouseOverText and Name
+      elsif customLink['Category'] == "fullText" and flag == 0 and customLink['MouseOverText'].present?
+        flag = 1
+        fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">' + customLink['MouseOverText'] + '</a>'
+      elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Name'].present?
+        flag = 1
+        fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">' + customLink['Name'] + '</a>'
+
+      elsif customLink['Category'] == "fullText" and flag == 0 and customLink['Icon'].present?
+        fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon"></a>'
+        flag = 1
+      elsif customLink['Category'] == "fullText" and flag == 0
+        fulltext_links << '<a href="' + customLink['Url'] + '" target="_blank">Full Text via Custom Link</a>'
+        flag = 1
       end
     end
+
     return fulltext_links
   end
 
@@ -1794,6 +1809,9 @@ module Blacklight::EdsHelperBehavior
     response.response['numFound'] > 1
   end
 
+  def pdfIcon
+    image_tag('/static_icons/pdf.png', size: '20x20', class: 'format_icon')
+  end
 
   ################
   # Columbia local, modeled after other CLIO work

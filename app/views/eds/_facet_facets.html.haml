@@ -21,12 +21,12 @@
   
   .panel.panel-default.facet_limit{class: "blacklight-#{facet['Id']}"}
 
-    .collapse-toggle.panel-heading.collapsed{data: {target: "#facet-#{facet['Id']}", toggle: 'collapse'}}
+    .collapse-toggle.panel-heading{class: "#{'collapsed' if should_collapse_facet?(facet['Id'])}", data: {target: "#facet-#{facet['Id']}", toggle: 'collapse', 'facet-tag' => build_facet_tag(facet['Id'])}}
 
       %h5.panel-title
         = link_to facet['Label'], "#", :"data-no-turbolink" => true
 
-    .panel-collapse.facet-content.collapse{id: "facet-#{facet['Id']}"}
+    .panel-collapse.facet-content{id: "facet-#{facet['Id']}", class:  "#{should_collapse_facet?(facet['Id']) ? 'collapse' : 'in'}"}
       .panel-body
         %ul.facet-values.list-unstyled
   

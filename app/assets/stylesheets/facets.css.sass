@@ -224,3 +224,32 @@ li.callnumber_subclass
   /* symbol for "collapsed" panels */
   content: "\2b"    /* adjust as needed, taken from bootstrap.css */
 
+
+
+
+
+
+//  BRING IN SOME STYLES FROM MORE CURRENT BLACKLIGHT VERSIONS
+
+
+.facet-values .facet-label
+  // breaks long words apart so they don't cause the containing div to
+  // be too big
+  // from http://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
+  -ms-word-break: break-all
+  word-break: break-all
+
+  // Non standard for webkit
+  word-break: break-word
+
+  -webkit-hyphens: auto
+  -moz-hyphens: auto
+  -ms-hyphens: auto
+  hyphens: auto
+  
+
+
+
+
+
+

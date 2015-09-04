@@ -128,8 +128,16 @@ module CulFacetsHelper
     # Do we have an explicit browser-display setting saved?
     # If so, respect that saved setting ("Sticky").
     facet_tag = build_facet_tag(facet_field, @active_source)
-    return false if get_browser_option(facet_tag) == 'open'
-    return true if get_browser_option(facet_tag) == 'closed'
+    case get_browser_option(facet_tag)
+    when 'open'
+      Rails.logger.debug "get_browser_option(#{facet_tag}) = open"
+      return false
+    when 'closed'
+      Rails.logger.debug "get_browser_option(#{facet_tag}) = closed"
+      return true
+    end
+    # return false if get_browser_option(facet_tag) == 'open'
+    # return true if get_browser_option(facet_tag) == 'closed'
 
 
     # 3) "if the facet is configured..."

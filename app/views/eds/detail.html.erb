@@ -105,7 +105,7 @@
 	    <% fulltextlinks = [] %>
 	    <dd class="blacklight-fulltext">
 	    <% if has_pdf?(record) %>
-	      <% fulltextlinks.push(link_to("PDF Full Text", show_pdf_link(record))) %>
+	      <% fulltextlinks.push(link_to(pdfIcon + "PDF Full Text", show_pdf_link(record))) %>
 	    <% end %>
 	    <% if has_html?(record) %>
 	      <% fulltextlinks.push(link_to("HTML Full Text", "#fulltext")) %>
