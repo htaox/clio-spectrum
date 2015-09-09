@@ -124,22 +124,31 @@ module EDSApi
 
     # Run a search query, XML results are returned
     def search(options, format = :xml)
+
+      # *** GET ***
       uri = URI "#{API_URL}edsapi/rest/Search?#{options}"
-      #return uri.request_uri
       req = Net::HTTP::Get.new(uri.request_uri)
+
+      # # *** POST ***
+      # uri = URI "#{API_URL}edsapi/rest/Search"
+      # req = Net::HTTP::Post.new(uri.request_uri)
+      # req.set_form_data(Rack::Utils.parse_query(options))
+
+
       req['x-authenticationToken'] = @auth_token
       req['x-sessionToken'] = @session_token
       req['Accept'] = 'application/json' #if format == :json
       @debug_notes << "<p>SEARCH Call to " << uri.to_s << " with auth token: " << req['x-authenticationToken'].to_s << " and session token: " << req['x-sessionToken'].to_s << "</p>";
 
       Net::HTTP.start(uri.hostname, uri.port) { |http|
-        begin
+      begin
         return http.request(req).body
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
         abort "No response from server"
       end
       }
-        end
+    end
+
     # Retrieve specific information
     def retrieve(dbid, an, highlightterms = "", format = :xml)
       uri = URI "#{API_URL}edsapi/rest/retrieve?dbid=#{dbid}&an=#{an}"
