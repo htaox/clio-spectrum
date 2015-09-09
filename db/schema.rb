@@ -11,19 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150604161023) do
+ActiveRecord::Schema.define(:version => 20150304151755) do
 
   create_table "bookmarks", :force => true do |t|
-    t.integer  "user_id",       :null => false
+    t.integer  "user_id",     :null => false
     t.string   "document_id"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "user_type"
-    t.string   "document_type"
   end
-
-  add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
 
   create_table "content_providers", :force => true do |t|
     t.string   "name"
@@ -44,8 +41,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   add_index "item_alerts", ["source", "item_key"], :name => "index_item_alerts_on_source_and_item_key"
@@ -56,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.string   "name"
     t.text     "comment"
     t.text     "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "libraries", ["hours_db_code"], :name => "index_libraries_on_hours_db_code"
@@ -68,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.datetime "opens"
     t.datetime "closes"
     t.text     "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "library_hours", ["library_id", "date"], :name => "index_library_hours_on_library_id_and_date"
@@ -79,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.text     "found_in"
     t.integer  "library_id"
     t.string   "category",      :limit => 12
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.text     "location_code"
   end
 
@@ -93,8 +90,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.string   "association_type", :limit => 30
     t.string   "name",                           :null => false
     t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "options", ["entity_type", "entity_id", "association_type", "name"], :name => "entity_association_name"
@@ -112,8 +109,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.string   "item_source"
     t.string   "item_key",      :limit => 200
     t.integer  "sort_order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "saved_list_items", ["saved_list_id", "item_key"], :name => "index_saved_list_items_on_saved_list_id_and_item_key", :unique => true
@@ -125,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.string   "description",                :default => ""
     t.string   "sort_by"
     t.string   "permissions",                :default => "private"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   add_index "saved_lists", ["owner", "name"], :name => "savedlist_name", :unique => true
@@ -135,8 +132,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
   create_table "searches", :force => true do |t|
     t.text     "query_params"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "user_type"
   end
 
@@ -145,8 +142,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -156,8 +153,8 @@ ActiveRecord::Schema.define(:version => 20150604161023) do
     t.string   "first_name",             :limit => 40
     t.string   "last_name",              :limit => 40
     t.string   "login",                  :limit => 10
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.string   "email",                                :default => "", :null => false
     t.string   "encrypted_password",                   :default => "", :null => false
     t.string   "reset_password_token"

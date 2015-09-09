@@ -39,7 +39,7 @@ module QuickSetHelper
     end
     popover_content += "</ul>"
 
-    popover_content
+    popover_content.html_safe
   end
 
 
