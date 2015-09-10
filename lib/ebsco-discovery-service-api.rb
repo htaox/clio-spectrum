@@ -43,6 +43,9 @@ module EDSApi
 
     # Auth with the server. Currently only uid auth is supported.
     def uid_authenticate(format = :xml)
+      abort "uid_authenticate needs @userid" unless @userid
+      abort "uid_authenticate needs @password" unless @password
+
       # DO NOT SEND CALL IF YOU HAVE A VALID AUTH TOKEN
       xml = "<UIDAuthRequestMessage xmlns='http://www.ebscohost.com/services/public/AuthService/Response/2012/06/01'><UserId>#{@userid}</UserId><Password>#{@password}</Password></UIDAuthRequestMessage>"
       uri = URI "#{API_URL_S}authservice/rest/uidauth"
@@ -57,12 +60,14 @@ module EDSApi
       begin
         doc = JSON.parse(https.request(req).body)
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
-        about "No response from server"
+        abort "No response from server"
       end
       if doc.has_key?('ErrorNumber')
-         abort "Bad response from server - error code #{result['ErrorNumber']}"
+        abort "Bad response from server - error code #{result['ErrorNumber']}"
+      elsif doc.has_key?('ErrorCode')
+        abort "Bad response from server - #{doc.inspect}"
       else
-         @auth_token = doc['AuthToken']
+        @auth_token = doc['AuthToken']
       end
     end
 
