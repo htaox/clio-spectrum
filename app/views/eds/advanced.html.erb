@@ -41,7 +41,7 @@
 
 </div>
 
-<% if current_user.present? and current_user.has_role?('site', 'admin') %>
+<% if current_user.present? and current_user.has_role?('site', 'pilot') %>
   <%= render :partial=>'debug' %>
 <% end %>
 

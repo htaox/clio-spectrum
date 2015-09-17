@@ -236,9 +236,16 @@ module EDSApi
       @session_token = session_token
       @auth_token = auth_token
       loop do
+        start = Time.now
         result = JSON.parse(super(options, format))
+        finish = Time.now
+        elapsed = (finish - start) * 1000.0
+        Rails.logger.debug "EDS search took: #{elapsed}ms"
+        @debug_notes << "<p>EDS search took: #{elapsed}ms</p>"
+
         if result.has_key?('ErrorNumber')
-          @debug_notes << "<p>Found ERROR " << result['ErrorNumber'].to_s
+          Rails.logger.debug "EDS search returned ErrorNumber #{result['ErrorNumber']}"
+          @debug_notes << "<p>EDS Search ERROR " << result['ErrorNumber'].to_s
           case result['ErrorNumber']
                 when "108"
                   @session_token = self.create_session
