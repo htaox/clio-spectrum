@@ -239,9 +239,9 @@ module EDSApi
         start = Time.now
         result = JSON.parse(super(options, format))
         finish = Time.now
-        elapsed = (finish - start) * 1000.0
-        Rails.logger.debug "EDS search took: #{elapsed}ms"
-        @debug_notes << "<p>EDS search took: #{elapsed}ms</p>"
+        elapsed = (finish - start).round(2)
+        Rails.logger.debug "EDS search took: #{elapsed} sec"
+        @debug_notes << "<p><b>EDS search took: #{elapsed} sec</b></p>"
 
         if result.has_key?('ErrorNumber')
           Rails.logger.debug "EDS search returned ErrorNumber #{result['ErrorNumber']}"

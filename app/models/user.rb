@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def has_role?(area, role, admin_okay = true)
+    Rails.logger.debug "has_role?(area=#{area}, role=#{role}) for login=#{login}"
     # If the area or role aren't in the config file, deny.
     return false unless PERMISSIONS_CONFIG[area] && PERMISSIONS_CONFIG[area][role]
     login.in?(PERMISSIONS_CONFIG[area][role]) ||

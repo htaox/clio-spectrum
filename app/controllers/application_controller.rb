@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
 
   # Rails method for browser-option setting/getting
   def get_browser_option(name)
-    Rails.logger.debug ">>>>>>>>  get_browser_option(#{name})"
+    # Rails.logger.debug ">>>>>>>>  get_browser_option(#{name})"
     _clio_browser_options = YAML.load(cookies[:_clio_browser_options] || '{}')
     _clio_browser_options.is_a?(Hash) ? _clio_browser_options[name] : nil
   end

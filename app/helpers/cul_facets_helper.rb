@@ -130,10 +130,10 @@ module CulFacetsHelper
     facet_tag = build_facet_tag(facet_field, @active_source)
     case get_browser_option(facet_tag)
     when 'open'
-      Rails.logger.debug "get_browser_option(#{facet_tag}) = open"
+      # Rails.logger.debug "get_browser_option(#{facet_tag}) = open"
       return false
     when 'closed'
-      Rails.logger.debug "get_browser_option(#{facet_tag}) = closed"
+      # Rails.logger.debug "get_browser_option(#{facet_tag}) = closed"
       return true
     end
     # return false if get_browser_option(facet_tag) == 'open'
