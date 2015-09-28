@@ -1486,7 +1486,9 @@ module Blacklight::EdsHelperBehavior
   end
 
   def show_detail_link(result, resultId = "0", highlight = "")
-    link = ""
+    # hardcode these links to work from root - relative
+    # links were getting confused with non-default actions
+    link = "/"
     highlight.gsub! '&quot;', '%22' unless highlight.nil?
     if result['Header'].present?
       if result['Header']['DbId'].present?
