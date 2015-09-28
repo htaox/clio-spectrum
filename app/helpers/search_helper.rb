@@ -40,7 +40,7 @@ module SearchHelper
       return render '/spectrum/summon/advanced_search', source: source, path: source == 'articles' ? articles_index_path : newspapers_index_path
     end
 
-    if options['search_type'] == 'eds' && options['advanced'] == true
+    if options['search_type'] == 'aad' && options['advanced'] == true
       return render '/eds/advanced_search', source: source, path: eds_index_path
     end
   end
@@ -146,7 +146,7 @@ module SearchHelper
       end
 
       # EDS / CLIO LABS / AAD
-      if @active_source == 'eds'
+      if @active_source == 'aad'
         result += link_to "Advanced Search", eds_advanced_path, class: "btn btn-link"
       end
 
