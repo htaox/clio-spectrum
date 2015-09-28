@@ -3,16 +3,15 @@
 - @page_title = "EDS Content Providers"
 
 
-%table
-  -# %tr
-  -#   %th Name
-  -#   %th
-  -#   %th
-  -#   %th
+%table.table
 
   - @content_providers.each do |content_provider|
     %tr
-      %td= content_provider.name.gsub('&amp;', '&')
+      %td= content_provider.id
+      %td= content_provider.active
+      %td= content_provider.last_seen
+      %td= content_provider.eds_database_id
+      %td= content_provider.name
       - if can? :manage, content_provider
         %td= link_to 'Show', content_provider
         %td= link_to 'Edit', edit_content_provider_path(content_provider)

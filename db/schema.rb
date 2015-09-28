@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(:version => 20150910000000) do
 
   create_table "content_providers", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "eds_database_id"
+    t.datetime "last_seen"
+    t.boolean  "active",          :default => false
   end
 
   create_table "content_providers_quick_sets", :id => false, :force => true do |t|
