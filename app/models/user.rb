@@ -105,6 +105,16 @@ class User < ActiveRecord::Base
       end
     end
 
+    # From /wwws/cgi/cul/borrowdirect/BDauthProxy:
+    #   $query="select patron_barcode from
+    #   patron_barcode, patron
+    #   where patron.patron_id=patron_barcode.patron_id
+    #   and patron_barcode.barcode_status='1'
+    #   and patron.institution_id='$uni'";
+    def voyager_patron_barcode
+      return nil unless login
+    end
+
     self
   end
 end
