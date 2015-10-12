@@ -21,6 +21,10 @@
     - if key == "FacetValuesWithAction"
       - val.each do |facetValue|
         - cleanId = facetValue['FacetValue']['Id'].to_s.gsub("EDS","")
+
+        -### special-case processing of content provider?
+        -# - next if cleanId.titleize == 'Content Provider'
+
         - filterClass = 'filter-' + cleanId.gsub(" ","").titleize
         - removeHref = request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + CGI.escape(facetValue['RemoveAction'].to_s)
 

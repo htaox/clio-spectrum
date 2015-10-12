@@ -9,6 +9,13 @@
 .well.well-constraints
   %span.constraints-label You searched for:
 
+  - if params['scope_name']
+    .constraint-box
+      %strong Scope: #{params['scope_name']}
+    -# %span.xfilterValue.bold Scope: #{params['scope_name']}
+
+      
+
   -# This was what summon's constraint box did
   -# - result.constraints_with_links.each do |text, link|
   -# 

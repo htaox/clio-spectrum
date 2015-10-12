@@ -80,7 +80,13 @@ class QuickSetController < ApplicationController
       return redirect_to scoped_simple_path
     end
     @quickset = QuickSet.find(quickset_id)
-    @content_providers = @quickset.content_providers
+    # @content_providers = @quickset.content_providers
+    @scope_name = @quickset.name
+    
+    # DEMO DEMO DEMO
+    # - truncate to first few content providers so it doesn't break in the demo
+    @content_providers = @quickset.content_providers[0..4]
+    
     @escaped_names = @content_providers.collect do |provider|
       # backslash-escape colons, commas, and parens.
       "ContentProvider:" +
@@ -104,7 +110,7 @@ class QuickSetController < ApplicationController
     # OK, now preform the search....
     # ...by redirecting to a full-CLIO-interface EDS search...
     # redirect_to eds_index_path(q: @q, facetfilter: facetfilter, params)
-    redirect_to eds_index_path(params.merge(facetfilter: facetfilter))
+    redirect_to eds_index_path(params.merge(facetfilter: facetfilter, scope_name: @scope_name))
   end
 
 end
