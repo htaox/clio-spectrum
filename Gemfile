@@ -79,7 +79,7 @@ group :development, :clio_dev do
   # "MiniProfiler allows you to see the speed of a request on the page"
   # http://railscasts.com/episodes/368-miniprofiler
 # Disable while we straighten out the Bootstrap 3 style issues.
-  # gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler'
 
 end
 
