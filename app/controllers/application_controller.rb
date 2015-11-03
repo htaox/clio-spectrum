@@ -31,6 +31,14 @@ class ApplicationController < ActionController::Base
   # How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
   before_filter :store_location
 
+  # turn on Rack Mini Profiler for non-development environments
+  #   https://github.com/MiniProfiler/rack-mini-profiler
+  before_action do
+    if Rails.env != 'clio_prod' && current_user && current_user.has_role?('site', 'admin')
+      Rack::MiniProfiler.authorize_request
+    end
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     # note - access denied gives a 302 redirect, not 403 forbidden.
     # see https://github.com/ryanb/cancan/wiki/exception-handling
