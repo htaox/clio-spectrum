@@ -97,7 +97,11 @@ end
 # assets precompilation works on clio-dev and clio-test, but
 # not on clio-prod.  Maybe difference in local gems?
 # OK, node now installed on bruckner, try deploy w/out this.
-# gem 'therubyracer'
+# @#$%, something happened to the deploy environments, and 
+# /usr/local/bin dropped from the path - no node, broken CLIO.
+# Just put this back in there, it's a bit more code, but it
+# defends us against unstable server environments.
+gem 'therubyracer'
 
 gem 'httpclient'
 
@@ -113,6 +117,9 @@ gem 'haml'
 
 # CSS replacement language
 gem 'sass'
+
+# use Redis for our cache store
+gem 'redis-rails'
 
 # are we using this anywhere?
 # gem 'unicode'
@@ -138,11 +145,12 @@ gem 'cancan'
 gem 'exception_notification'
 gem 'net-ldap'
 
-# 3/15, comment out for now to simplify output,
-#  we can turn it back on when we want it again.
-# 9/15 - let's try to improve things a bit more
-# application monitoring tool
-gem 'newrelic_rpm'
+# 10/15 - not giving us insight beyond our debug_timestamp info
+# # 3/15, comment out for now to simplify output,
+# #  we can turn it back on when we want it again.
+# # 9/15 - let's try to improve things a bit more
+# # application monitoring tool
+# gem 'newrelic_rpm'
 
 # "Rack middleware which cleans up invalid UTF8 characters"
 gem 'rack-utf8_sanitizer'
@@ -154,12 +162,11 @@ gem 'jquery-rails'
 # # jQuery UI - JavaScript, CSS, Images
 # gem 'jquery-ui-rails'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'bootstrap-sass'
-end
+# Assets processing
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'bootstrap-sass'
 
 
 # To build slugs for saved-list URLs
@@ -193,21 +200,27 @@ group :development do
   # Rails and Bundler integrations were moved out from Capistrano 3
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
-  # # "idiomatic support for your preferred ruby version manager"
-  # gem 'capistrano-rvm',   '~> 0.1', require: false
+  # "idiomatic support for your preferred ruby version manager"
+  gem 'capistrano-rvm',   '~> 0.1', require: false
   # The `deploy:restart` hook for passenger applications is now in a separate gem
   # Just add it to your Gemfile and require it in your Capfile.
   gem 'capistrano-passenger',   '~> 0.1', require: false
 
 
-  # don't log every rendered view/partial
+  # Rails 4 - use config.action_view.logger instead
+  # # don't log every rendered view/partial
+  # gem 'quiet_assets'
+  # But rails outputs two blank lines to log?
+  # Ok, use this - but only for dev.
   gem 'quiet_assets'
 
   # browser-based live debugger and REPL
   # http://railscasts.com/episodes/402-better-errors-railspanel
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request'
+
+  # Works with the Rails Panel plugin for Chrome
+  # gem 'meta_request'
 
   # Trouble building on Yosemite 10.10, and since 
   # I don't use it, remove it.

@@ -104,7 +104,9 @@ class CatalogController < ApplicationController
 
       # runs ApplicationController.blacklight_search() using the params,
       # returns the engine with embedded results
+      debug_timestamp('CatalogController#index() before blacklight_search()')
       search_engine = blacklight_search(params)
+      debug_timestamp('CatalogController#index() after blacklight_search()')
 
       # These will only be set if the search was successful
       @response = search_engine.search
@@ -362,6 +364,9 @@ class CatalogController < ApplicationController
     end
     unless search_params_logic.include? :add_range_limit_params
       search_params_logic << :add_range_limit_params
+    end
+    unless search_params_logic.include? :add_debug_to_solr
+      search_params_logic << :add_debug_to_solr
     end
   end
 

@@ -86,26 +86,41 @@ class Hash
   end
 end
 
-# This is in Rails 4.1, 4.2, and onward.
-# Add it here as a monkey-patch for Rails 4.0,
-# *** try to remember to remove this after Rails upgrade ***
-# https://github.com/rails/rails/pull/19941
-module ActionView
-  module Helpers
-    module CacheHelper
+# class ActiveSupport::Cache::MemoryStore
+class ActiveSupport::Cache::Store
 
-      def cache(name = {}, options = nil, &block)
-        if controller.respond_to?(:perform_caching) && controller.perform_caching
-          safe_concat(fragment_for(cache_fragment_name(name, options), options, &block))
-        else
-          yield
-        end
+  def clio_key_count
+    return @data.keys.size if defined? @data
+    'unknown'
+  end
 
-        nil
-      end
-    end
+  def clio_cache_size
+    return @cache_size.to_s(:human_size) if defined? @cache_size
+    return self.stats['used_memory_human'] if self.respond_to?(:stats)
+    'unknown'
   end
 end
+
+# # This is in Rails 4.1, 4.2, and onward.
+# # Add it here as a monkey-patch for Rails 4.0,
+# # *** try to remember to remove this after Rails upgrade ***
+# # https://github.com/rails/rails/pull/19941
+# module ActionView
+#   module Helpers
+#     module CacheHelper
+# 
+#       def cache(name = {}, options = nil, &block)
+#         if controller.respond_to?(:perform_caching) && controller.perform_caching
+#           safe_concat(fragment_for(cache_fragment_name(name, options), options, &block))
+#         else
+#           yield
+#         end
+# 
+#         nil
+#       end
+#     end
+#   end
+# end
 
 # Some monkey patching to add some network debugging
 
