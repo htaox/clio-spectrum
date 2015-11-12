@@ -2,7 +2,7 @@
 - @page_title = "Quick Set Management"
 
 
-%table
+%table.table.table-striped.table-bordered
   %tr
     %th
       Name
@@ -20,8 +20,10 @@
       %td= link_to quickset.name, edit_quick_set_path(quickset.id)
       %td= quickset.description
       %td
-        - quickset.content_providers.each do |db|
-          .db= db.name
+        -# - quickset.content_providers.each do |db|
+        -#   .db= db.name
+        - quickset.content_provider_names.each do |name|
+          .db= name
       %td= quickset.suppressed ? "[suppressed]" : ""
       %td= quickset.updated_at.strftime("%F %H:%M")
 

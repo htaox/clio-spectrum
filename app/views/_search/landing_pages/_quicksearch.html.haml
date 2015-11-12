@@ -37,6 +37,18 @@
       %p
       Discipline based article search provides the ability to limit your search to a curated set of subject specific resources. 
 
+    - if can? :manage, QuickSet
+      .panel.panel-danger
+        .panel-heading
+          %h3.panel-title
+            Authorized
+          %br
+          The current user (#{current_user}) is authorized to manage QuickSets.
+          QuickSets are lists of Content Providers (Databases) which have been
+          selected as most useful for searching within particular disciplines.
+          %br
+          %b
+            = link_to "Manage QuickSets", quick_set_index_path
 
   -#   %p Quicksearch performs a combined search of:
   -#   %ul
