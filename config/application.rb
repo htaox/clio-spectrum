@@ -66,7 +66,14 @@ module Clio
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.precompile += %w(.svg .eot .woff .ttf)
-    config.assets.precompile += %w(.js .css)
+    # This cannot be right....
+    config.assets.precompile += %w(
+      location.js
+      jquery.quicksearch.js
+      jquery.select-multiple.js
+      quicksets.js
+      select-multiple.css
+    )
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
