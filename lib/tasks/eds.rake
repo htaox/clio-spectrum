@@ -101,6 +101,7 @@ namespace :eds do
               puts "new match on [#{match['Id']}]  #{clean_name}"
               stored.eds_database_id = match['Id']
             end
+            stored.name = clean_name
             stored.last_seen = Time.now()
             stored.active = true
             stored.save!
