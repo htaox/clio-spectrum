@@ -5,8 +5,7 @@
 
 
 -  unless has_clio_search_parameters?
-  - cache("datasource_landing_page_#{@active_source}_#{params_digest}") do
-    = datasource_landing_page(@active_source)
+  = datasource_landing_page(@active_source)
 
 - else
 
