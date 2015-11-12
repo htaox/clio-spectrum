@@ -2,6 +2,7 @@ site:
   manage:
     - gb8
     - sam119
+    - slt
     - test_site_manager
 
   # for any pre-production features we want to play with
@@ -20,7 +21,7 @@ site:
 scoped_search:
   manage:
     - gb8
-    - mem2308
+    - slt
     - sam119
     - hhb2119
     - trd2119
