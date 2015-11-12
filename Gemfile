@@ -130,6 +130,9 @@ gem 'summon', :git => 'git://github.com/cul/summon.git'
 # Point to local copy during development...
 # gem 'summon', :path => "/Users/marquis/src/summon"
 
+# https://github.com/jrochkind/borrow_direct
+gem 'borrow_direct'
+
 # auth library
 gem 'cancan'
 
