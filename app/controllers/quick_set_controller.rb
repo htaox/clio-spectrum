@@ -24,10 +24,10 @@ class QuickSetController < ApplicationController
   end
 
   def create
-    @quickset = QuickSet.new(article_params)
-
+    @quickset = QuickSet.new(params['quick_set'])
     if @quickset.save
-      redirect_to @quickset
+      # redirect_to @quickset
+      redirect_to quick_set_index_path
     else
       render 'new'
     end
@@ -44,12 +44,12 @@ class QuickSetController < ApplicationController
     end
   end
 
-  def destroy
-    @quickset = QuickSet.find(params[:id])
-    @quickset.destroy
-
-    redirect_to articles_path
-  end
+  # def destroy
+  #   @quickset = QuickSet.find(params[:id])
+  #   @quickset.destroy
+  # 
+  #   redirect_to quick_set_index_path
+  # end
 
   # QUICKSET SEARCHING - PATRON USE OF QUICK SETS
 

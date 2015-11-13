@@ -14,6 +14,8 @@ Clio::Application.routes.draw do
   # EDS Scoped Search support
   resources :content_providers
   # alias, for simpler urls (/quicksets/...)
+  # (but, rails internals expect POST path of 'quick_sets_path')
+  match '/quicksets', via: [:post], to: 'quick_set#create', as: :quick_sets
   resources :quick_set, :path => 'quicksets'
   resources :scope_subcategory
   resources :scope_subject
