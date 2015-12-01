@@ -1,21 +1,21 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe 'Spectrum::SearchEngines::GoogleAppliance' do
+describe 'Spectrum::SearchEngines::GoogleAppliance', :vcr do
 
   describe 'Libraries Website search for "books"' do
-    before(:all) do
+    before(:each) do
       @search_engine = Spectrum::SearchEngines::GoogleAppliance.new('q' => 'books')
     end
 
     it 'should get many items, successfully' do
-      @search_engine.total_items.should be > 500
-      @search_engine.successful?.should be true
+      expect(@search_engine.total_items).to be > 500
+      expect(@search_engine.successful?).to be true
     end
 
     it 'should have "next" but no "prev"' do
-      @search_engine.previous_page?.should be false
-      @search_engine.next_page?.should be true
+      expect(@search_engine.previous_page?).to be false
+      expect(@search_engine.next_page?).to be true
     end
 
   end

@@ -7,7 +7,6 @@ $(document).ready(function() {
           LWEB.feedbackDialogIsSetup = true;
         }
         LWEB.showFeedbackDialog();
-        return false;
     });
 
     $(window).resize(function(){
@@ -30,11 +29,13 @@ LWEB.feedbackDialogIsSetup = false;
 LWEB.feedbackDialogIsVisible = false;
 
 LWEB.setupFeedbackDialog = function() {
-    $('<div id="feedback_dialog"><a id="close_feedback_dialog" href="#" onclick="LWEB.hideFeedbackDialog();"><span class="glyphicon glyphicon-remove"></span></a><iframe width="600" height="400" src="http://culwcm.cul.columbia.edu/clio_feedback?current_page=' + window.location.href + '"></iframe></div>').hide().appendTo('body');
+    $('<div id="feedback_dialog"><a id="close_feedback_dialog" href="#" onclick="LWEB.hideFeedbackDialog();"><span class="glyphicon glyphicon-remove"></span></a><iframe width="600" height="400" src="https://feedback.cul.columbia.edu/feedback_submission/clio?submitted_from_page=' + window.location.href + '"></iframe></div>').hide().appendTo('body');
     $('#feedback_dialog').css(
         {
         'z-index':'10000',
-        'position':'absolute'
+        'position':'absolute',
+        'border': '3px solid rgb(187, 187, 187)' 
+        
         }
     );
 
@@ -44,19 +45,26 @@ LWEB.setupFeedbackDialog = function() {
         }
     );
 
+    $('.glyphicon-remove').css(
+        {
+        'position':'relative',
+        'right':'4px',
+        'top':'-6px',
+        }
+    );
+
     $('#feedback_dialog #close_feedback_dialog').css(
         {
         'position':'absolute',
-        'right' : '-14px',
-        'top' : '-14px',
+        'right' : '20px',
+        'top' : '8px',
         'display' : 'inline-block',
-        'width' : '16px',
-        'height' : '16px',
+        'width' : '1px',
+        'height' : '1px',
         'text-align' : 'center',
-        'border' : '2px solid #888',
-        'border-radius' : '20px',
+        'border' : 'none',
         'padding' : '5px',
-        'background-color' : '#fff'
+        'background-color' : '#EEEEFF'
         }
     );
 

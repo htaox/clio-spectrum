@@ -29,17 +29,21 @@ module HoldingsHelper
     SHORTER_LOCATIONS[location.strip] || location
   end
 
+
   def process_holdings_location(loc_display)
     location, call_number = loc_display.split(' >> ')
     output = ''.html_safe
     output << shorten_location(location)  # append will html-escape content
-    if call_number
-      # NEXT-437 - remove the separator between location and call number
-      # output << " >> "
-      output << content_tag(:span, " #{call_number} ", class: 'call_number').html_safe
-    end
+    # if call_number
+    #   # NEXT-437 - remove the separator between location and call number
+    #   # output << " >> "
+    #   output << content_tag(:span, " #{call_number} ", class: 'call_number').html_safe
+    # end
+    # simplify:
+    output << "  #{call_number}" if call_number
     output
   end
+
 
   # Support for:
   #   NEXT-113 - Do not make api request for online-only resources
@@ -107,7 +111,10 @@ module HoldingsHelper
       # return empty links[] if the $u isn't a URL (bad input data)
       url_regex = Regexp.new('(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))')
 
-      return links unless subfieldU =~ url_regex
+      # No, don't stop on first non-URL, 
+      # just skip it and move on to the next munged 856.
+      # return links unless subfieldU =~ url_regex
+      next unless subfieldU =~ url_regex
 
       title = "#{subfield3} #{subfieldZ}".strip
       title = subfieldU unless title.length > 0
@@ -123,19 +130,6 @@ module HoldingsHelper
       # links << [title, note, url]   # as ARRAY
       links << { title: title, note: note, url: url }  # as HASH
 
-      # url_parts = url_munge.split('~|Z|~').collect(&:strip)
-      # title = url =  ""
-      # if (url_index = url_parts.index { |part| part =~ URL_REGEX })
-      #   url = url_parts.delete_at(url_index)
-      #   title = url_parts.join(" ").to_s
-      #   title = url if title.empty?
-      #   links << [title, url]
-      # # Actually, just ignore bad URLs, don't display in the interface
-      # # else
-      # #   title = "Bad URL: " + url_parts.join(" ")
-      # #   url = ""
-      # end
-
     end
 
     # remove google links if more than one exists
@@ -149,26 +143,6 @@ module HoldingsHelper
   end
 
   SERVICE_ORDER = %w(offsite spec_coll precat recall_hold on_order borrow_direct ill in_process doc_delivery)
-  # # parameters: title, link, whether to append clio_id to link
-  # SERVICES = {
-  #   'offsite' => ["Offsite", "http://www.columbia.edu/cgi-bin/cul/offsite2?", true],
-  #   'spec_coll' => ["Special Collections", "http://www.columbia.edu/cgi-bin/cul/aeon/request.pl?bibkey=", true],
-  #   'precat' => ["Precataloging", "https://www1.columbia.edu/sec-cgi-bin/cul/forms/Sprecat?", true],
-  #   'recall_hold' => ["Recall/Hold", "http://clio.cul.columbia.edu:7018/vwebv/patronRequests?sk=patron&bibId=", true],
-  #   'on_order' => ["On Order", "https://www1.columbia.edu/sec-cgi-bin/cul/forms/Sinprocess?", true],
-  #   'borrow_direct' => ['Borrow Direct', "http://www.columbia.edu/cgi-bin/cul/borrowdirect?", true],
-  #   'ill' => ['ILL', "https://www1.columbia.edu/sec-cgi-bin/cul/forms/illiad?", true],
-  #   'in_process' => ['In Process', "https://www1.columbia.edu/sec-cgi-bin/cul/forms/Sinprocess?", true],
-  #   'doc_delivery' => ['Document Delivery', "https://www1.columbia.edu/sec-cgi-bin/cul/forms/docdel?", true]
-  # }
-  #
-  # def service_links(services, clio_id, options = {})
-  #   services.select {|svc| SERVICE_ORDER.index(svc)}.sort_by { |svc| SERVICE_ORDER.index(svc) }.collect do |svc|
-  #     title, uri, add_clio_id = SERVICES[svc]
-  #     uri += clio_id.to_s if add_clio_id
-  #     link_to title, uri, options
-  #   end
-  # end
 
   # parameters: title, link (url or javascript)
   SERVICES = {
@@ -224,6 +198,7 @@ module HoldingsHelper
     entry
   end
 
+
   def add_display_elements(entries)
     entries.each do |entry|
 
@@ -232,8 +207,11 @@ module HoldingsHelper
       entry['location'] = location
 
       if location && location.category == 'physical'
-        check_at = DateTime.now
-        entry['location_link'] = link_to(entry['location_name'], location_display_path(CGI.escape(entry['location_name'])), class: :location_display)
+        # NEXT-1041 - Icon or other visual cue
+        # %span.glyphicon.glyphicon-map-marker.text-primary
+        map_marker = content_tag(:span, "".html_safe, class: 'glyphicon glyphicon-map-marker text-primary').html_safe
+
+        entry['location_link'] = link_to(map_marker + entry['location_name'], location_display_path(CGI.escape(entry['location_name'])), class: :location_display)
       else
         entry['location_link'] = entry['location_name']
       end
@@ -251,14 +229,15 @@ module HoldingsHelper
       else
         entry['location_note'] = []
       end
-      # entry['location_note'].html_safe if entry['location_note']
-      # entry['location_note'] = Array.wrap(entry['location_note'])
       entry['location_note'].concat(more_notes) if (more_notes && more_notes.size > 0)
 
       # add status icons
       entry['copies'].each do |copy|
         copy['items'].each_pair do |message, details|
-          details['image_link'] = image_tag('icons/' + details['status'] + '.png')
+          status_image = 'icons/' + details['status'] + '.png'
+          status_label = details['status'].humanize
+          # details['image_link'] = image_tag('icons/' + details['status'] + '.png')
+          details['image_link'] = image_tag(status_image, title: status_label, alt: status_label)
         end
       end
 
@@ -268,6 +247,7 @@ module HoldingsHelper
 
     entries
   end
+
 
   ITEM_STATUS_RANKING = %w(available some_available not_available none online)
 
@@ -286,26 +266,67 @@ module HoldingsHelper
     # in order to preserve the sort order.
   end
 
+  # Extract bibkeys for a particular type of key
+  # (e.g., 'isbn', 'issn', 'oclc', 'lccn')
+  def extract_by_key(document, key)
+    display_values = document[key + "_display"]
+    return unless display_values
+
+    Array.wrap(display_values).map { |value|
+      # always remove all white-space from any key
+      value.gsub!(/\s/, '')
+      # LCCN sometimes has a strange suffix.  Remove it.
+      # e.g., "84162131 /HE" or "78309771 //r83"
+      value.gsub!(/\/.+$/, '') if value == 'lccn'
+      # For OCLC numbers, strip away the prefix ('ocm' or 'ocn')
+      value.gsub!(/^oc[mn]/, '') if value == 'oclc'
+      # Here's what we want returned - key:value, e.g. 
+      "#{key}:#{value}"
+    }
+  end
+
   def extract_standard_bibkeys(document)
     bibkeys = []
 
-    unless document['isbn_display'].nil?
-      bibkeys << Array.wrap(document['isbn_display']).map { |isbn| 'isbn:' + isbn }.uniq
+    bibkeys << extract_by_key(document, 'isbn')
+    bibkeys << extract_by_key(document, 'issn')
+    bibkeys << extract_by_key(document, 'oclc')
+    bibkeys << extract_by_key(document, 'lccn')
+
+    # unless document['isbn_display'].nil?
+    #   bibkeys << Array.wrap(document['isbn_display']).map { |isbn| 'isbn:' + isbn }.uniq
+    # end
+    # 
+    # unless document['issn_display'].nil?
+    #   bibkeys << Array.wrap(document['issn_display']).map { |issn| 'issn:' + issn }.uniq
+    # end
+    # 
+    # unless document['oclc_display'].nil?
+    #   bibkeys << document['oclc_display'].map { |oclc| 'oclc:' + oclc.gsub(/^oc[mn]/, '') }.uniq
+    # end
+    # 
+    # unless document['lccn_display'].nil?
+    #   bibkeys << document['lccn_display'].map { |lccn| 'lccn:' + lccn.gsub(/\s/, '').gsub(/\/.+$/, '') }
+    # end
+
+    # Some Hathi records were directly loaded into Voyager.
+    # These have direct Hathi links in their 856 - and these
+    # links have a standard ID number not otherwise available.
+    online_link_hash(document).each do |link|
+      next unless link[:url].start_with? "http://catalog.hathitrust.org"
+      next unless link[:url].match( /api\/volumes\/\w+\/\d+.html/ )
+
+      id_type, id_value = link[:url].match( /api\/volumes\/(\w+)\/(\d+).html/ ).captures
+
+      # put at the front - so later first-found processing hits this one
+      bibkeys.unshift(id_type + ':' + id_value)
     end
 
-    unless document['issn_display'].nil?
-      bibkeys << Array.wrap(document['issn_display']).map { |issn| 'issn:' + issn }.uniq
-    end
-
-    unless document['oclc_display'].nil?
-      bibkeys << document['oclc_display'].map { |oclc| 'oclc:' + oclc.gsub(/^oc[mn]/, '') }.uniq
-    end
-
-    unless document['lccn_display'].nil?
-      bibkeys << document['lccn_display'].map { |lccn| 'lccn:' + lccn.gsub(/\s/, '').gsub(/\/.+$/, '') }
-    end
-
-    bibkeys.flatten.compact
+    # Sometimes the document data from Solr has invalid chars in the bib keys.
+    # Strip these out so they don't trip up any code which uses these bibkeys.
+    bibkeys.flatten.compact.map { |bibkey|
+      bibkey.gsub(/[^a-zA-Z0-9\:\-]/, '').strip
+    }.uniq
   end
 
   # When bib records have a URL in their 856, they will have a holdings
@@ -330,4 +351,53 @@ module HoldingsHelper
     # which is marked Online but is missing URL details.
     true
   end
+
+  def get_hathi_holdings_data(document)
+    return nil unless document
+
+    hathi_holdings_data = nil
+
+    # format will be type:value, type:value,
+    # e.g., lccn:2006921508, oclc:70850767
+    bibkeys = extract_standard_bibkeys(document)
+    bibkeys.each do |bibkey|
+      id_type, id_value = bibkey.split(':')
+      next unless id_type and id_value
+
+      hathi_holdings_data = fetch_hathi_brief(id_type, id_value)
+      break unless hathi_holdings_data.nil?
+    end
+
+    return hathi_holdings_data
+  end
+
+  def fetch_hathi_brief(id_type, id_value)
+    return nil unless id_type and id_value
+
+    hathi_brief_url = "http://catalog.hathitrust.org/api/volumes" +
+                      "/brief/#{id_type}/#{id_value}.json"
+    http_client = HTTPClient.new
+    http_client.connect_timeout = 5 # default 60
+    http_client.send_timeout    = 5 # default 120
+    http_client.receive_timeout = 5 # default 60
+
+    Rails.logger.debug "get_content(#{hathi_brief_url})"
+    begin
+      json_data = http_client.get_content(hathi_brief_url)
+      hathi_holdings_data = JSON.parse(json_data)
+
+      # Hathi will pass back a valid, but empty, response.
+      #     {"records"=>{}, "items"=>[]}
+      # This means no hit with this bibkey, so return nil.
+      return nil unless hathi_holdings_data &&
+                        hathi_holdings_data['records'] &&
+                        hathi_holdings_data['records'].size > 0
+      return hathi_holdings_data
+    rescue => error
+      Rails.logger.error "Error fetching #{hathi_brief_url}: #{error.message}"
+      return nil
+    end
+  end
+
 end
+

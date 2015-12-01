@@ -2,8 +2,12 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
+
+# Rails 4 - remove
+# require 'rspec-expectations' if Rails.env == 'test'
 if defined?(Bundler)
   Bundler.require *Rails.groups(assets: %w(development test))
 end
@@ -31,7 +35,7 @@ module Clio
     # require File.expand_path('../../lib/monkey_patches', __FILE__)
     require 'monkey_patches'
     # require File.expand_path('../../lib/rsolr_notifications', __FILE__)
-    require 'rsolr_notifications'
+    # require 'rsolr_notifications'
     require 'browse_support'
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -54,6 +58,9 @@ module Clio
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.precompile += %w(.svg .eot .woff .ttf)
+    config.assets.precompile += %w(
+      location.js
+    )
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
@@ -72,7 +79,9 @@ module Clio
     #
     # Catch 404s
     config.after_initialize do |app|
-      app.routes.append { match '*catch_unknown_routes', to: 'application#catch_404s' }
+      # 3/15 - no more bare 'match'
+      # app.routes.append { match '*catch_unknown_routes', to: 'application#catch_404s' }
+      app.routes.append { match '*catch_unknown_routes', to: 'application#catch_404s', via: [:get, :post] }
     end
 
     # After seeing some: ActionDispatch::RemoteIp::IpSpoofAttackError
@@ -96,7 +105,8 @@ module Clio
     # https://github.com/whitequark/rack-utf8_sanitizer
     # Rack::UTF8Sanitizer is a Rack middleware which cleans up
     # invalid UTF8 characters in request URI and headers.
-    config.middleware.insert_before 'Rack::Runtime', Rack::UTF8Sanitizer
+    # config.middleware.insert_before 'Rack::Runtime', Rack::UTF8Sanitizer
+    config.middleware.insert 0, Rack::UTF8Sanitizer
 
     # [deprecated] I18n.enforce_available_locales will default to true in the
     # future. If you really want to skip validation of your locale you can set
@@ -116,5 +126,8 @@ module Clio
     # (from http://api.rubyonrails.org/classes/ActionDispatch/Request.html
     # e.g., :original_url, :remote_ip, etc.)
     config.log_tags = [:remote_ip]
+
+    # Set a default.  This'll be set to true in per-environment files.
+    config.eager_load = false
   end
 end

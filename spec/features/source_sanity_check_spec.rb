@@ -1,226 +1,264 @@
 require 'spec_helper'
 
-describe 'Datasource Sanity', js: true do
+describe 'Datasource Sanity', :vcr do
 
   it "LWeb should be labeled 'Libraries Website'" do
     visit root_path
-    find('#datasources').should have_text('Libraries Website')
+    expect(find('#datasources')).to have_text('Libraries Website')
   end
 
-  it 'direct datasources links should go to correct datasource landing pages' do
+  context 'direct datasources links go to landing pages' do
 
-    visit '/quicksearch'
-    find('.landing_main .title').should have_text('Quicksearch')
+    it 'quicksearch' do
+      visit '/quicksearch'
+      expect(find('.landing_main .title')).to have_text('Quicksearch')
+    end
 
-    visit '/catalog'
-    find('.landing_main .title').should have_text('Catalog')
+    it 'catalog' do
+      visit '/catalog'
+      expect(find('.landing_main .title')).to have_text('Catalog')
+    end
 
-    visit '/articles'
-    find('.landing_main .title').should have_text('Articles')
+    it 'articles' do
+      visit '/articles'
+      expect(find('.landing_main .title')).to have_text('Articles')
+    end
 
-    visit '/journals'
-    find('.landing_main .title').should have_text('E-Journal Titles')
+    it 'journals' do
+      visit '/journals'
+      expect(find('.landing_main .title')).to have_text('E-Journal Titles')
+    end
 
-    visit '/databases'
-    find('.landing_main .title').should have_text('Databases')
+    it 'databases' do
+      visit '/databases'
+      expect(find('.landing_main .title')).to have_text('Databases')
+    end
 
-    visit '/academic_commons'
-    find('.landing_main .title').should have_text('Academic Commons')
+    it 'ac' do
+      visit '/academic_commons'
+      expect(find('.landing_main .title')).to have_text('Academic Commons')
+    end
 
-    visit '/library_web'
-    find('.landing_main .title').should have_text('Libraries Website')
+    it 'lweb' do
+      visit '/library_web'
+      expect(find('.landing_main .title')).to have_text('Libraries Website')
+    end
 
-    visit '/archives'
-    find('.landing_main .title').should have_text('Archives')
+    it 'archives' do
+      visit '/archives'
+      expect(find('.landing_main .title')).to have_text('Archives')
+    end
 
-    visit '/dissertations'
-    find('.landing_main .title').should have_text('Dissertations')
+    it 'dissertations' do
+      visit '/dissertations'
+      expect(find('.landing_main .title')).to have_text('Dissertations')
+    end
 
-    visit '/ebooks'
-    find('.landing_main .title').should have_text('E-Books')
+    it 'ebooks' do
+      visit '/ebooks'
+      expect(find('.landing_main .title')).to have_text('E-Books')
+    end
 
-    visit '/new_arrivals'
-    find('.landing_main .title').should have_text('New Arrivals')
-
-    # visit '/newspapers'
-    # find('.landing_main .title').should have_text('Newspapers')
+    it 'newarrivals' do
+      visit '/new_arrivals'
+      expect(find('.landing_main .title')).to have_text('New Arrivals')
+    end
 
   end
 
 end
 
-describe 'Simple query should retrieve results ', js: true do
+describe 'Simple query should retrieve results', :vcr do
 
-  it 'within all datasources' do
-
-    visit quicksearch_index_path('q' => 'test')
-    page.should have_css('.result_set', count: 4)
+  it 'in quicksearch datasource', :js do
+    visit quicksearch_index_path(q: 'test')
+    expect(page).to have_css('.result_set', count: 4)
+    expect(page).to have_css('.nested_result_set', count: 4)
     all('.result_set').each do |result_set|
-      result_set.should have_css('.result')
+      expect(result_set).to have_css('.result')
     end
+  end
 
+  it 'in catalog datasource' do
     visit catalog_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in articles datasource' do
     visit articles_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in journals datasource' do
     visit journals_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in databases datasource' do
     visit databases_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in ac datasource' do
     visit academic_commons_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in lweb datasource' do
     visit library_web_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in archives datasource' do
     visit archives_index_path('q' => 'test')
-    page.should have_css('.result')
+    expect(page).to have_css('.result')
+  end
 
+  it 'in dissertations datasource', :js do
     visit dissertations_index_path('q' => 'test')
-    page.should have_css('.result_set', count: 3)
+    expect(page).to have_css('.result_set', count: 3)
+    expect(page).to have_css('.nested_result_set', count: 3)
     all('.result_set').each do |result_set|
-      result_set.should have_css('.result')
+      expect(result_set).to have_css('.result')
     end
+  end
 
+  it 'in ebooks datasource', :js do
     visit ebooks_index_path('q' => 'test')
-    page.should have_css('.result_set', count: 2)
+    expect(page).to have_css('.result_set', count: 2)
+    expect(page).to have_css('.nested_result_set', count: 2)
     all('.result_set').each do |result_set|
-      result_set.should have_css('.result')
+      expect(page).to have_css('.result')
     end
+  end
 
+  # Every time we hit new-arrivals, we need to tell the VCR
+  # request matcher to ignore 'fq', to get stable cassettes
+  it 'in new arrivals datasource', :vcr => {:match_requests_on => [:method, VCR.request_matchers.uri_without_params('facet.query', 'fq')]} do
     visit new_arrivals_index_path('q' => 'test')
-    page.should have_css('.result')
-
-    # visit newspapers_index_path('q' => 'test')
-    # page.should have_css('.result')
+    expect(page).to have_css('.result')
   end
 
 end
 
-describe 'Switching between data-source', js: true do
 
-  it 'should carry forward simple search to each datasource', XXfocus: true do
+describe 'Switching between data-source', :vcr do
+
+  # Every time we hit new-arrivals, we need to tell the VCR
+  # request matcher to ignore 'fq', to get stable cassettes
+  it 'should carry forward simple search to each datasource', :js, :vcr => {:match_requests_on => [:method, VCR.request_matchers.uri_without_params('facet.query', 'fq')]} do
     visit root_path
-    # page.save_and_open_page # debug
+
     # terminal newline submits form
     fill_in 'q', with: "test\n"
 
-    page.should have_css('.result_set', count: 4)
+    expect(page).to have_css('.result_set', count: 4)
+    expect(page).to have_css('.nested_result_set', count: 4)
     all('.result_set').each do |result_set|
-      result_set.should have_css('.result')
+      expect(result_set).to have_css('.result')
     end
-    # page.save_and_open_page # debug
 
     within('#datasources') do
       click_link('Catalog')
     end
-    find('div.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    all('#documents .result').first['source'].should eq 'catalog'
+    expect(find('div.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
+    expect(all('#documents .result').first['source']).to eq 'catalog'
 
     click_link('Articles')
-    # find('input#articles_q').should have_text('test')
-    find('input#articles_q').value.should eq 'test'
-    find('.well-constraints').should have_text('test')
-    page.should have_css('.result')
-    # puts "==========" + all('#documents .result').first.inspect
-    # all('#documents .result').first.should have_selector('.article_list')
+    expect(find('input#articles_q').value).to eq 'test'
+    expect(find('.well-constraints')).to have_text('test')
+    expect(page).to have_css('.result')
 
     click_link('E-Journal Titles')
-    find('input#journals_q').value.should eq 'test'
-    find('.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    all('#documents .result').first['source'].should eq 'catalog'
+    expect(find('input#journals_q').value).to eq 'test'
+    expect(find('.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
+    expect(all('#documents .result').first['source']).to eq 'catalog'
 
     click_link('Databases')
-    find('input#databases_q').value.should eq 'test'
-    find('.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    all('#documents .result').first['source'].should eq 'catalog'
+    expect(find('input#databases_q').value).to eq 'test'
+    expect(find('.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
+    expect(all('#documents .result').first['source']).to eq 'catalog'
 
     click_link('Academic Commons')
-    find('input#academic_commons_q').value.should eq 'test'
-    find('.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    all('#documents .result').first['source'].should eq 'academic_commons'
+    expect(find('input#academic_commons_q').value).to eq 'test'
+    expect(find('.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
+    expect(all('#documents .result').first['source']).to eq 'academic_commons'
 
     click_link('Libraries Website')
-    find('input#library_web_q').value.should eq 'test'
-    find('.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    # all('#documents .result').first['source'].should eq 'XXX'
+    expect(find('input#library_web_q').value).to eq 'test'
+    expect(find('.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
 
     click_link('Archives')
-    find('input#archives_q').value.should eq 'test'
-    find('.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    all('#documents .result').first['source'].should eq 'catalog'
+    expect(find('input#archives_q').value).to eq 'test'
+    expect(find('.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
+    expect(all('#documents .result').first['source']).to eq 'catalog'
 
     click_link('More...')
     click_link('Dissertations')
-    find('input#dissertations_q').value.should eq 'test'
-    page.should have_css('.result_set', count: 3)
+
+    expect(find('input#dissertations_q').value).to eq 'test'
+
+    expect(page).to have_css('.result_set', count: 3)
+    expect(page).to have_css('.nested_result_set', count: 3)
     all('.result_set').each do |result_set|
-      result_set.should have_css('.result')
+      expect(result_set).to have_css('.result')
     end
 
     click_link('E-Books')
-    find('input#ebooks_q').value.should eq 'test'
-    page.should have_css('.result_set', count: 2)
+    expect(find('input#ebooks_q').value).to eq 'test'
+    expect(page).to have_css('.result_set', count: 2)
+    expect(page).to have_css('.nested_result_set', count: 2)
     all('.result_set').each do |result_set|
-      result_set.should have_css('.result')
+      expect(result_set).to have_css('.result')
     end
 
     click_link('New Arrivals')
-    find('input#new_arrivals_q').value.should eq 'test'
-    find('.constraint-box').should have_text('test')
-    page.should have_css('.result')
-    all('#documents .result').first['source'].should eq 'catalog'
-
-    # click_link('More...')
-    # click_link('Newspapers')
-    # find('input#newspapers_q').value.should eq 'test'
-    # find('.well-constraints').should have_text('test')
-    # page.should have_css('.result')
+    expect(find('input#new_arrivals_q').value).to eq 'test'
+    expect(find('.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
+    expect(all('#documents .result').first['source']).to eq 'catalog'
 
   end
 
+
   # NEXT-978 - "Back" button broken in CLIO
-  it 'should allow back/forward navigation' do
+  it 'should allow back/forward navigation', :js do
     visit root_path
 
     within('#datasources') do
       click_link('Catalog')
     end
     # page.save_and_open_page # debug
-    find('.landing_main .title').should have_text('Catalog')
+    expect(find('.landing_main .title')).to have_text('Catalog')
 
     within('#datasources') do
       click_link('Articles')
     end
-    find('.landing_main .title').should have_text('Articles')
+    expect(find('.landing_main .title')).to have_text('Articles')
 
     within('#datasources') do
       click_link('Databases')
     end
-    find('.landing_main .title').should have_text('Databases')
+    expect(find('.landing_main .title')).to have_text('Databases')
 
     page.evaluate_script('window.history.back()')
-    find('.landing_main .title').should have_text('Articles')
+    expect(find('.landing_main .title')).to have_text('Articles')
 
     page.evaluate_script('window.history.back()')
-    find('.landing_main .title').should have_text('Catalog')
+    expect(find('.landing_main .title')).to have_text('Catalog')
 
     page.evaluate_script('window.history.forward()')
-    find('.landing_main .title').should have_text('Articles')
+    expect(find('.landing_main .title')).to have_text('Articles')
 
     page.evaluate_script('window.history.forward()')
-    find('.landing_main .title').should have_text('Databases')
-
+    expect(find('.landing_main .title')).to have_text('Databases')
   end
 
 end
+

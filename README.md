@@ -1,5 +1,9 @@
-clio-spectrum
-=============
+# clio-spectrum
+
+
+[![Build Status](https://travis-ci.org/cul/clio-spectrum.svg?branch=master)](https://travis-ci.org/cul/clio-spectrum)  [![Coverage Status](https://coveralls.io/repos/cul/clio-spectrum/badge.svg?branch=master&service=github)](https://coveralls.io/github/cul/clio-spectrum?branch=master)
+  [![Code Climate](https://codeclimate.com/github/cul/clio-spectrum/badges/gpa.svg)](https://codeclimate.com/github/cul/clio-spectrum)
+
 
 Columbia Libraries Unified Search &amp; Discovery
 
@@ -65,15 +69,29 @@ Columbia Libraries Unified Search &amp; Discovery
 
  - rename the config files
         ````
-        mv config/solr.yml.SAMPLE config/solr.yml
+        mv config/blacklight.yml.SAMPLE config/blacklight.yml
         mv config/database.yml.SAMPLE config/database.yml
         mv config/app_config.yml.SAMPLE config/app_config.yml
+        ````
+ - load the Locations, Libraries and Library Hours 
+ 
+        ````
+        rake hours:sync
+        rake locations:load
         ````
 6. Start the server `rails s`
 
 7. Visit the running app in your browser at `localhost:3000`
 
-8. Run the test suite `rspec` and ensure that all tests are passing (green)
+8. Run the test suite
+  - prepare your test database
+  
+        ````
+        rake db:test:prepare
+        rake hours:sync RAILS_ENV=test
+        rake locations:load RAILS_ENV=test
+        ````
+  - run `rspec` and ensure that all tests are passing (green)
 
 
 **Contributing to CLIO**

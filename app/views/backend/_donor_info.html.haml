@@ -1,0 +1,30 @@
+- if copy['donor_info_icon'].present?
+  - message = copy['donor_info_icon'].first['message']
+  - message = message.gsub(/ -- /, '<br/>').html_safe if message.present?
+  - href = copy['donor_info_icon'][0]['url']
+  - disabled = true
+  - if copy['donor_info_icon'][0]['url'].present?
+    - disabled = false
+
+  -# override for testing
+  - disabled = false
+
+  - if disabled
+    .col-md-2
+      %button.donor_info_icon{:disabled => disabled}
+        GIFT
+    .col-md-10
+      .area
+        .bubble
+          %p
+            =message
+  - else
+    .col-md-2
+      %a.btn.donor_info_icon{:disabled => disabled, href: "#{href}"}
+        GIFT
+    .col-md-10
+      .area
+        .bubble
+          %p
+            =link_to(message, href)
+

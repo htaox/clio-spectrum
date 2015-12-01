@@ -3,7 +3,7 @@
 # classes, etc.
 require 'mail'
 class ApplicationController < ActionController::Base
-  helper_method :set_browser_option, :get_browser_option
+  helper_method :set_browser_option, :get_browser_option, :debug_timestamp
 
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   # from the Devise how-to docs...
   # https://github.com/plataformatec/devise/wiki/
   # How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
-  after_filter :store_location
+  before_filter :store_location
 
   rescue_from CanCan::AccessDenied do |exception|
     # note - access denied gives a 302 redirect, not 403 forbidden.
@@ -168,6 +168,8 @@ class ApplicationController < ActionController::Base
   # Called from SpectrumController.get_results()
   # and from CatalogController.index()
   def blacklight_search(sent_options = {})
+    # raise
+    Rails.logger.debug "ApplicationController#blacklight_search(sent_options=#{sent_options.inspect})"
     options = sent_options.deep_clone
     options['source'] = @active_source unless options['source']
     options['debug_mode'] = @debug_mode
@@ -175,9 +177,9 @@ class ApplicationController < ActionController::Base
 
     # this new() actually runs the search.
     # [ the Solr engine call perform_search() within it's initialize() ]
-    debug_timestamp('calling Solr.new()')
+    debug_timestamp('blacklight_search() calling Solr.new()')
     search_engine = Spectrum::SearchEngines::Solr.new(options)
-    debug_timestamp('done.')
+    debug_timestamp('blacklight_search() Solr.new() complete.')
 
     if search_engine.successful?
       @response = search_engine.search
@@ -233,8 +235,8 @@ class ApplicationController < ActionController::Base
   end
 
   def trigger_debug_mode
-    RSolr::Client.send(:include, RSolr::Ext::Notifications)
-    RSolr::Client.enable_notifications!
+    # RSolr::Client.send(:include, RSolr::Ext::Notifications)
+    # RSolr::Client.enable_notifications!
 
     params_debug_mode = params['debug_mode']
 
@@ -262,7 +264,11 @@ class ApplicationController < ActionController::Base
     @debug_start_time = Time.now
     @debug_entries = Hash.arbitrary_depth
     @debug_entries['params'] = params
-    @debug_entries['session'] = session
+
+    # Rails 4?  session.inspect now dumps full object internals,
+    # instead of just stored keys/values.  Convert to hash first.
+    @debug_entries['session'] = session.to_hash
+
     # ENV is environment variables, but not the HTTP-related env variables
     # @debug_entries['environment'] = ENV
     @debug_entries['request.referer'] = request.referer
@@ -298,8 +304,6 @@ class ApplicationController < ActionController::Base
         'ebooks'
       when /^\/academic_commons/
         'academic_commons'
-      when /^\/dcv/
-        'dcv'
       when /^\/library_web/
         'library_web'
       when /^\/newspapers/
@@ -316,10 +320,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def blacklight_solr(source = @active_source)
+  def connection(source = @active_source)
     if self.respond_to?(:blacklight_config)
-      @blacklight_solrs ||= {}
-      @blacklight_solrs[source] || (@blacklight_solrs[source] = Spectrum::SearchEngines::Solr.generate_rsolr(source))
+      @connections ||= {}
+      @connections[source] || (@connections[source] = Spectrum::SearchEngines::Solr.generate_rsolr(source))
     end
   end
 
@@ -517,6 +521,8 @@ class ApplicationController < ActionController::Base
       fullpath =~ /\/users/ or
       fullpath =~ /\/backend/ or
       fullpath =~ /\/catalog\/unapi/ or
+      fullpath =~ /\/catalog\/.*\.endnote/ or
+      fullpath =~ /\/catalog\/email/ or
       # exclude lists VERBS, but don't wildcare /lists or viewing will break
       fullpath =~ /\/lists\/add/ or
       fullpath =~ /\/lists\/move/ or

@@ -1,7 +1,7 @@
 
 # require "config/initializers/load_app_config.rb"
 
-require File.join(Rails.root.to_s, 'config', 'initializers/load_app_config.rb')
+require File.join(Rails.root.to_s, 'config', 'initializers/aaa_load_app_config.rb')
 
 # EXTRACT_SCP_SOURCE = 'scp deployer@taft.cul.columbia.edu:/opt/dumps'
 EXTRACT_SCP_SOURCE = APP_CONFIG['extract_scp_source']
@@ -132,7 +132,7 @@ namespace :solr do
 end
 
 def solr_find_ids_by_timespan(start, stop)
-  response = Blacklight.solr.find(:fl => "id", :filters => {:timestamp => "[" + start + " TO " + stop+"]"}, :rows => 100000000)["response"]["docs"].collect(&:id).flatten
+  response = Blacklight.default_index.connection.find(:fl => "id", :filters => {:timestamp => "[" + start + " TO " + stop+"]"}, :rows => 100000000)["response"]["docs"].collect(&:id).flatten
 end
 
 
@@ -164,10 +164,10 @@ def solr_delete_ids(ids)
   begin
     ids = ids.listify.collect { |x| x.strip}
     puts_and_log(ids.length.to_s + " deleting", :debug)
-    Blacklight.solr.delete_by_id(ids)
+    Blacklight.default_index.connection.delete_by_id(ids)
 
     puts_and_log("Committing changes", :debug)
-    Blacklight.solr.commit
+    Blacklight.default_index.connection.commit
 
   rescue Timeout::Error
     puts_and_log("Timed out!", :info)

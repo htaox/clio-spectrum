@@ -1,5 +1,5 @@
 class HoursDb::HoursLibrary < ActiveRecord::Base
-  establish_connection 'hours_db_prod'
+  establish_connection :hours_db_prod
   self.table_name = 'Libraries'
   belongs_to :library, class_name: 'Library', primary_key: 'hours_db_code', foreign_key: 'lib_code'
   has_many :calendars, class_name: 'HoursDb::Calendar', primary_key: 'lib_code', foreign_key: 'cal_library'
@@ -11,14 +11,18 @@ class HoursDb::HoursLibrary < ActiveRecord::Base
   def self.sync_all!(startdate = Date.yesterday, days_to_add = 31)
     enddate = startdate + days_to_add.days
 
-    find(:all).each do |hl|
+    all().each do |hl|
       # debugging...
       # next unless /Burk/ =~ hl.lib_name
       # puts "XXXXXXXXXXXXXXXXXXXXXXXX  #{hl.lib_name}"
       library = hl.find_or_create_for_new_books!
-      library.hours.delete_all
+      # Use "destroy" instead of delete, so that it'll
+      # also clear out associated 'has_options' rows
+      # library.hours.delete_all
+      library.hours.destroy_all
 
-      calendars = hl.calendars.find(:all, conditions: ['cal_date BETWEEN ? and ?', startdate, enddate])
+      # calendars = hl.calendars.find(:all, conditions: ['cal_date BETWEEN ? and ?', startdate, enddate])
+      calendars = hl.calendars.where('cal_date BETWEEN ? and ?', startdate, enddate)
 
       calendars.each do |calendar|
         library.hours.create(calendar.to_new_books_fmt)

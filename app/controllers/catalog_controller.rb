@@ -1,7 +1,6 @@
 # The CatalogController supports all catalog-based datasources:
 #   Catalog, Databases, E-Journal Titles, etc.
 # (plus AcademicCommons - which uses Blacklight against a diff. Solr)
-# (and dcv - which uses Blacklight against a yet another Solr)
 # This was originally based on the Blacklight CatalogController.
 require 'blacklight/catalog'
 
@@ -12,7 +11,7 @@ class CatalogController < ApplicationController
   # use "prepend", or this comes AFTER included Blacklight filters,
   # (and then un-processed params are stored to session[:search])
   prepend_before_filter :preprocess_search_params
-  before_filter :add_custom_solr_search_params_logic
+  before_filter :add_custom_search_params_logic
 
   # Bring in endnote export, etc.
   include Blacklight::Marc::Catalog
@@ -33,7 +32,6 @@ class CatalogController < ApplicationController
   # When a catalog search is submitted, this is the
   # very first point of code that's hit
   def index
-    # raise
     debug_timestamp('CatalogController#index() begin')
 
     # very useful - shows the execution order of before filters
@@ -65,6 +63,10 @@ class CatalogController < ApplicationController
 
     # items-per-page ("rows" param) should be a persisent browser setting
     if params['rows'] && (params['rows'].to_i > 1)
+      # NEXT-1199 - can't get CLIO to display more than 10 records at a time
+      # 'rows' and 'per_page' are redundant.
+      # if we have a valid 'rows', ignore 'per_page'
+      params.delete('per_page')
       # Store it, if passed
       set_browser_option('catalog_per_page', params['rows'])
     else
@@ -74,7 +76,6 @@ class CatalogController < ApplicationController
         params['rows'] = catalog_per_page
       end
     end
-
     # this does not execute a query - it only organizes query parameters
     # conveniently for use by the view in echoing back to the user.
     @query = Spectrum::Queries::Solr.new(params, blacklight_config)
@@ -103,7 +104,9 @@ class CatalogController < ApplicationController
 
       # runs ApplicationController.blacklight_search() using the params,
       # returns the engine with embedded results
+      debug_timestamp('CatalogController#index() before blacklight_search()')
       search_engine = blacklight_search(params)
+      debug_timestamp('CatalogController#index() after blacklight_search()')
 
       # These will only be set if the search was successful
       @response = search_engine.search
@@ -210,7 +213,7 @@ class CatalogController < ApplicationController
   end
 
   def show
-    @response, @document = get_solr_response_for_doc_id
+    @response, @document = fetch params[:id]
 
     # In support of "nearby" / "virtual shelf browse", remember this bib
     # as our focus bib.
@@ -259,14 +262,14 @@ class CatalogController < ApplicationController
     end
   end
 
-  # when a request for /catalog/BAD_SOLR_ID is made, this method is executed...
+  # when a request for /catalog/BAD_DOCUMENT_ID is made, this method is executed...
+  def invalid_document_id_error
+    invalid_solr_id_error
+  end
+  # (which used to be this, but got wrapped to abstract from Solr)
   def invalid_solr_id_error
-    if Rails.env == 'development'
-      render # will give us the stack trace
-    else
-      flash[:notice] = "Sorry, you have requested a record that doesn't exist."
-      redirect_to root_path
-    end
+    flash[:notice] = t('blacklight.search.errors.invalid_solr_id')
+    redirect_to root_path
   end
 
 
@@ -352,15 +355,18 @@ class CatalogController < ApplicationController
   #   end
   # end
 
-  def add_custom_solr_search_params_logic
-    # this "solr_search_params_logic" is used when querying using standard
+  def add_custom_search_params_logic
+    # this "search_params_logic" is used when querying using standard
     # blacklight functions
     # queries using our Solr engine have their own config in Spectrum::SearchEngines::Solr
-    unless solr_search_params_logic.include? :add_advanced_search_to_solr
-      solr_search_params_logic << :add_advanced_search_to_solr
+    unless search_params_logic.include? :add_advanced_search_to_solr
+      search_params_logic << :add_advanced_search_to_solr
     end
-    unless solr_search_params_logic.include? :add_range_limit_params
-      solr_search_params_logic << :add_range_limit_params
+    unless search_params_logic.include? :add_range_limit_params
+      search_params_logic << :add_range_limit_params
+    end
+    unless search_params_logic.include? :add_debug_to_solr
+      search_params_logic << :add_debug_to_solr
     end
   end
 
@@ -413,7 +419,7 @@ class CatalogController < ApplicationController
 
   # Override Blacklight's definition, to assign custom layout
   def librarian_view
-    @response, @document = get_solr_response_for_doc_id
+    @response, @document = fetch params[:id]
     respond_to do |format|
       format.html do
         # This Blacklight function re-runs the current query, twice,
@@ -425,6 +431,16 @@ class CatalogController < ApplicationController
         render layout: 'no_sidebar'
       end
       format.js { render layout: false }
+    end
+  end
+
+  # Called via AJAX to build the hathi holdings section
+  # on the item-detail page.
+  def hathi_holdings
+    @response, @document = fetch params[:id]
+
+    respond_to do |format|
+      format.html { render layout: false }
     end
   end
 

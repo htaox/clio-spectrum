@@ -8,15 +8,16 @@ Clio::Application.configure do
 
   config.cache_classes = !(ENV['DRB'] == 'true')
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  # # deprecated in rails 4
+  # # Log error messages when you accidentally call methods on nil.
+  # config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
 
   # Caching??
-  config.action_controller.perform_caching = false
-  # config.action_controller.perform_caching = true
+  # config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Raise exceptions instead of rendering exception templates
   config.action_dispatch.show_exceptions = false
@@ -36,4 +37,17 @@ Clio::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # rails 4
+  config.eager_load = false
+
+  # getting errors.  
+  # 2015-09-22 11:23:24 [ERROR] Spectrum::SearchEngines::Solr#initialize [Spectrum][Solr] error: Circular dependency detected while autoloading constant Spectrum::SolrRepository
+  # Will this help?
+  #   https://robots.thoughtbot.com/how-to-fix-circular-dependency-errors
+  # Yes!  Errors gone!
+  # Supposed to be fixed in Rails 4.2, try removing this config line when 
+  # we upgrade.
+  config.allow_concurrency = false
+
 end

@@ -2,54 +2,67 @@ source 'https://rubygems.org'
 
 # FIXED:  Can't move up to 4.0 series yet - blacklight_range_limit has dependency on 3
 # but, devise_wind still has Rails 3.2 dependencies.
-gem 'rails', '~> 3.2'
-# gem 'rails', '~> 4.0.0'
+# 3/15
+# gem 'rails', '~> 3.2'
+gem 'rails', '~> 4.1'
 
+# `attr_accessible` is extracted out of Rails into a gem. Please use new 
+# recommended protection model for params(strong_parameters) or add 
+# `protected_attributes` to your Gemfile to use old one. 
+# Oops, Blacklight has "logic that assumes protected_attributes is Rails 3 only" 
+#   see:  https://github.com/projectblacklight/blacklight/issues/906
+# Does this mean that including this gem breaks things?
+# gem 'protected_attributes'
+# Yes, it does, we get the behavior explained in issue 906.
+# OK, bite the bullet and convert to strong_parameters everywhere.
+
+# `ActiveRecord::SessionStore` is extracted out of Rails into a gem. 
+# Please add `activerecord-session_store` to your Gemfile to use it.
+gem 'activerecord-session_store'
 
 #  ###  BLACKLIGHT (begin)  ###
 
-gem 'blacklight', '~>5.3.0'
-# gem 'blacklight', '~>4.7.0'
-# gem 'blacklight', '~>4'
+gem 'blacklight', '~>5.11.0'
 
 # when we move to 5.x, uncomment this
 gem 'blacklight-marc'
 
-
 # gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :tag => 'v2.1.0'
 
-gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :branch => 'master'
-
-# gem 'blacklight_range_limit', :github => 'projectblacklight/blacklight_range_limit'
-
-# Sorry, have to nix unapi.  Switch to COINS everywhere, so that
-# single page cross-datasource citation works (QuickSearch, Saved Lists)
-# gem 'blacklight_unapi', ">= 0.0.3"
+# gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :branch => 'master'
+gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :branch => 'blacklight-master'
 
 #  ###  BLACKLIGHT (end)  ###
 
-# A recent Kaminari update broke blacklight facet pagination.
-# https://github.com/amatsuda/kaminari/commit/5e2e505cdd2ea2de20949d5cef261c247b3168b1
-# This isn't fixed in Blacklight until 5.5.0,
-# so pin kaminari to a pre-breakage release
-gem 'kaminari', '0.15.0'
 
-gem 'devise_wind'
-# Local copy relaxes rails version requirements (allows 4.x)
-# gem "devise_wind", :path => "/Users/marquis/src/devise_wind"
+# Only used for Google Maps location pages
+gem 'rest-client'
+gem 'gmaps4rails'
+
+# pagination
+gem 'kaminari'
+
+gem 'devise'
+gem 'devise-encryptable'
+
+# CAS is ready.  No more wind.
+# ... but try to run them both during transition
+# # pull from rubygems...
+# # gem 'devise_wind'
+# # Local copy relaxes rails version requirements (allows 4.x)
+# # gem "devise_wind", :path => "/Users/marquis/src/devise_wind"
+# # New branch to recover from when CUIT broke wind
+# gem "devise_wind", :git => 'git://github.com/cul/devise_wind.git', :branch => 'broke_wind'
+# CAS is ready.
+gem 'devise_cas_authenticatable'
+# for debugging, use local version...
+# gem 'devise_cas_authenticatable', path: '/Users/marquis/src/devise_cas_authenticatable'
 
 # Not being used, turn it off.
 # # Locally developed library code to interface with ClickTale analytics
 # gem 'clicktale', path: "lib/clicktale"
 
 gem 'json'
-
-# Called to produce status msgs. search result lists.
-# This could be native to clio-spectrum, or put into Voyager-back-end
-# gem 'voyager_oracle_api', ">= 1.1.1"
-
-# Would be used for Patron services, if we were to use native Blacklight Patron services
-# gem 'restful_voyage', :git => "git://github.com/cul/restful_voyage.git", :branch => "master"
 
 # Always include sqlite, deploy to all servers, so that we can use dummy databases
 #  for simplified rails environments used in index rake cronjobs
@@ -75,57 +88,72 @@ end
 # Used for... apparently, just the list of links for each location?
 # locally developed - and no longer on Github...
 # should try to eliminate at some point.
-gem 'has_options'
+# 3/15, moved to local library code
+# gem 'has_options'
 
-# gem 'therubyracer', '0.10.2'
+# I think this had been added to allow JavaScript specs. But with
+#  our current capybara-webkit driver, this is no longer needed.
+# Oops.  This is needed for assets pre-compilation on bruckner.
+# assets precompilation works on clio-dev and clio-test, but
+# not on clio-prod.  Maybe difference in local gems?
+# OK, node now installed on bruckner, try deploy w/out this.
+# @#$%, something happened to the deploy environments, and 
+# /usr/local/bin dropped from the path - no node, broken CLIO.
+# Just put this back in there, it's a bit more code, but it
+# defends us against unstable server environments.
 gem 'therubyracer'
+
 gem 'httpclient'
+
 gem 'nokogiri'
 
 # HTML replacement language
 gem 'haml'
-gem 'haml-rails'
+
+# 3/15 - I never looked at this before, but now that it's causing
+# version dependency problems, maybe try removing it
+# "Haml-rails provides Haml generators for Rails 4"
+# gem 'haml-rails'
 
 # CSS replacement language
 gem 'sass'
-# dup - also in the assets group, below
-# gem 'sass-rails', '~>3.2.4'
 
-gem 'unicode'
-gem 'summon'
+# use Redis for our cache store
+gem 'redis-rails'
+
+# are we using this anywhere?
+# gem 'unicode'
+
+# fork local branch, to add network timeouts
+# gem 'summon'
+gem 'summon', :git => 'git://github.com/cul/summon.git'
+# Point to local copy during development...
+# gem 'summon', :path => "/Users/marquis/src/summon"
+
+# auth library
 gem 'cancan'
 
 # doesn't work in Rails 4 ??
 # RecordMailer uses partials that do fragment caching... but somehow
 # this just doesn't work in stock rails.
-gem 'caching_mailer'
-
-# Talks to Voyager API directly, return XML-format for Spectrum use.
-# But, this is now used from within the Voyager-Backend application
-# (which is now named cul/clio_backend up at github), and so
-# this is no longer needed here within clio-spectrum.
-# gem 'voyager_api', '>=0.2.3'
+# 3/15
+# gem 'caching_mailer'
+# Here's one that's supposed to work for Rails 4.
+# gem 'mailer_fragment_caching'
+# but it doesn't.
 
 gem 'exception_notification'
 gem 'net-ldap'
 
-gem 'devise'
-gem 'devise-encryptable'
-
-
-# application monitoring tool
-gem 'newrelic_rpm'
-
+# 10/15 - not giving us insight beyond our debug_timestamp info
+# # 3/15, comment out for now to simplify output,
+# #  we can turn it back on when we want it again.
+# # 9/15 - let's try to improve things a bit more
+# # application monitoring tool
+# gem 'newrelic_rpm'
 
 # "Rack middleware which cleans up invalid UTF8 characters"
-# gem 'rack-utf8_sanitizer'
-# Use github master branch, to pick up a few new patches.
-# Maybe this will fix one of our outstanding issues:
-#    application#catch_404s (ArgumentError) "invalid %-encoding"
-# We also still have invalid %-encoding w/submitted form fields.
-# This is an open issue at rack-utf8_sanitizer.
-# gem 'rack-utf8_sanitizer', :github => 'whitequark/rack-utf8_sanitizer'
-gem 'rack-utf8_sanitizer', :git => 'git://github.com/whitequark/rack-utf8_sanitizer'
+gem 'rack-utf8_sanitizer'
 
 # gives us jQuery and jQuery-ujs, but not jQuery UI
 # (blacklight_range_limit brings this in anyway - no way to switch to CDN)
@@ -134,13 +162,11 @@ gem 'jquery-rails'
 # # jQuery UI - JavaScript, CSS, Images
 # gem 'jquery-ui-rails'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  # gem 'bootstrap-sass', '3.2.0.2'
-  gem 'bootstrap-sass'
-end
+# Assets processing
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'bootstrap-sass'
 
 
 # To build slugs for saved-list URLs
@@ -149,60 +175,60 @@ gem 'stringex'
 # Allow recovery for deleted Saved Lists
 gem 'paper_trail'
 
+# I seriously have to do this?
+gem 'rack'
+
 # https://github.com/kickstarter/rack-attack
 # A DSL for blocking & throttling abusive clients
 gem 'rack-attack'
 
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-#group :development do
-  #gem 'ruby-debug19', :require => 'ruby-debug'
-  #gem 'rails-footnotes', '>= 3.7'
-  #gem "rsolr-footnotes"
-#end
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
 group :development do
-  # gem 'guard-rails'
 
-  # alternative webserver
-  # gem 'hooves'
-  # gem 'unicorn'
+  # # Deploy with Capistrano
+  # gem 'capistrano', '~>2'
+  # gem 'capistrano-ext'
+  # # fixes [morrison.cul.columbia.edu] sh: bundle: command not found
+  # gem 'rvm-capistrano'
 
-  #gem 'linecache19', '0.5.13'
-  #gem 'ruby-debug-base19', '0.11.26'
-  #gem 'ruby-debug19', :require => 'ruby-debug'
+  # Upgrade to Capistrano 3.x
+  # http://capistranorb.com/documentation/upgrading/
+  gem 'capistrano', '~> 3.0', require: false
+  # Rails and Bundler integrations were moved out from Capistrano 3
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  # "idiomatic support for your preferred ruby version manager"
+  gem 'capistrano-rvm',   '~> 0.1', require: false
+  # The `deploy:restart` hook for passenger applications is now in a separate gem
+  # Just add it to your Gemfile and require it in your Capfile.
+  gem 'capistrano-passenger',   '~> 0.1', require: false
 
-  # Deploy with Capistrano
-  gem 'capistrano', '~>2'
-  gem 'capistrano-ext'
+
+  # Rails 4 - use config.action_view.logger instead
+  # # don't log every rendered view/partial
+  # gem 'quiet_assets'
+  # But rails outputs two blank lines to log?
+  # Ok, use this - but only for dev.
   gem 'quiet_assets'
-  # fixes [morrison.cul.columbia.edu] sh: bundle: command not found
-  gem 'rvm-capistrano'
 
   # browser-based live debugger and REPL
   # http://railscasts.com/episodes/402-better-errors-railspanel
   gem 'better_errors'
   gem 'binding_of_caller'
-  # is this what's slowing us down so much?
+
+  # Works with the Rails Panel plugin for Chrome
   # gem 'meta_request'
 
-  # port of ruby-debug that works on 1.9.2 and 1.9.3
-  gem 'debugger'
+  # Trouble building on Yosemite 10.10, and since 
+  # I don't use it, remove it.
+  # # port of ruby-debug that works on 1.9.2 and 1.9.3
+  # gem 'debugger'
 
   # "A fist full of code metrics"
-  gem 'metric_fu'
+  # gem 'metric_fu'
 
   # Profiling experiments
   # https://www.coffeepowered.net/2013/08/02/ruby-prof-for-rails/
@@ -212,51 +238,44 @@ end
 
 group :test, :development do
 
-
   gem 'thin'
-  # gem 'unicorn'
-
 
   # why in test and dev both instead of just test?  
   # because is says to: https://github.com/rspec/rspec-rails
-  # gem 'rspec-rails', '>=2.14'
   gem 'rspec-rails'
+  # rspec mocks are externalized in an another gem rspec-activemodel-mocks
+  # http://stackoverflow.com/a/24060582/1343906
+  gem 'rspec-activemodel-mocks'
 end
 
 group :test do
   gem 'factory_girl_rails'
-  # gem 'spork', '~>1.0.0.rc2'
-  gem 'spork'
-
-  # gem 'guard'
-  # gem 'guard-rspec'
-  # gem 'guard-spork'
 
   # Copy Stanford's approach to Solr relevancy testing
   gem 'rspec-solr'
 
   # pin to old version, or go with newest?
   gem 'capybara'
-  # gem 'capybara', '2.0.3'
 
   # Which Capybara driver for JS support?
   gem 'capybara-webkit'
+
   # dependent on localhost's browser configs
-  # gem 'selenium-webdriver'
+  gem 'selenium-webdriver'
 
+  # "A helper for launching cross-platform applications 
+  #  in a fire and forget manner."
+  # Required to enable capybara's save_and_open_page() method
   gem 'launchy'
-  gem 'database_cleaner'
-  # # Mac OS X 10.8 (Mountain Lion) Notifications replace growl
-  # # http://protips.maxmasnick.com/mountain-lion-notifications-with-guard
-  # # gem "growl"
-  # gem 'terminal-notifier-guard'
 
+  # reset database tables between test runs
+  gem 'database_cleaner'
 
   gem 'rb-fsevent'
-  # GNTP is Growl's protocol - turn off, since no more Growl
-  # gem 'ruby_gntp'
-  gem 'ruby-prof'
 
+  # Not doing anything with profiling just now, but when we get back to it,
+  # reread:   https://www.coffeepowered.net/2013/08/02/ruby-prof-for-rails/
+  # gem 'ruby-prof'
 
   # code coverage
   gem 'simplecov'
@@ -264,4 +283,21 @@ group :test do
   # CI servers want XML output from rspecs
   # gem 'ci_reporter'
   
+  # Travis needs this.
+  #  http://docs.travis-ci.com/user/languages/ruby/
+  gem 'rake'
+
+  # Travis can use this to send coverage data over to Code Climate
+  # http://docs.travis-ci.com/user/code-climate/
+  # https://codeclimate.com/repos/556c823fe30ba007ad0069ee/coverage_setup
+  gem "codeclimate-test-reporter", require: nil
+
+  # Coveralls for Code Coverage
+  # https://coveralls.zendesk.com/hc/en-us/articles/201769485-Ruby-Rails
+  gem 'coveralls', require: false
+  
+  # Record API responses, use saved responses for tests
+  gem 'vcr'
+  gem 'webmock'
 end
+

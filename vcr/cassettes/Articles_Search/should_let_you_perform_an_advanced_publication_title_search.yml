@@ -1,0 +1,520 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.summon.serialssolutions.com/2.0.0/search?adv=%7B%7D&form=advanced&s.ff=SubjectTerms,and,1,10&s.fq=PublicationTitle:test&s.fvf=ContentType,%20Newspaper%20Article,t&s.ho=t&spellcheck=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf8
+      X-Summon-Date:
+      - Tue, 22 Sep 2015 19:24:33 GMT
+      X-Summon-Session-Id:
+      - SUMMON-SESSION-Sprite.local-1824-5
+      X-Summon-Request-Id:
+      - ''
+      Authorization:
+      - Summon columbia;A+g7VLJTm3b626h5PBVJk6Vf26E=
+      Host:
+      - api.summon.serialssolutions.com:80
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Datacenter:
+      - IAD1
+      Date:
+      - Tue, 22 Sep 2015 19:24:33 GMT
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: "{\"version\": \"2.0.0\",\"sessionId\": \"SUMMON-SESSION-Sprite.local-1824-5\",\"elapsedQueryTime\":
+        690,\"queryTime\": 668,\"totalRequestTime\": 797,\"pageCount\": 3249,\"recordCount\":
+        32490,\"query\": {\"queryString\": \"s.ho=t&s.fq=PublicationTitle%3Atest&s.ps=10&s.ff=SubjectTerms%2Cand%2C1%2C10&s.ff=ContentType%2Cand%2C1%2C10&s.ff=Language%2Cand%2C1%2C5&s.pn=1&s.fvf=ContentType%2CNewspaper+Article%2Ct\",\"pageNumber\":
+        1,\"pageSize\": 10,\"isHoldingsOnlyEnabled\": true,\"textQueries\": [],\"searchTerms\":
+        [],\"textFilters\": [{\"textFilter\": \"PublicationTitle:test\",\"removeCommand\":
+        \"removeTextFilter(PublicationTitle\\\\:test)\"}],\"rangeFilters\": [],\"facetValueFilters\":
+        [{\"fieldName\": \"ContentType\",\"value\": \"Newspaper Article\",\"isNegated\":
+        true,\"removeCommand\": \"removeFacetValueFilter(ContentType,Newspaper Article)\",\"negateCommand\":
+        \"negateFacetValueFilter(ContentType,Newspaper Article)\"}],\"inclusiveFacetValueFilters\":
+        [],\"facetValueGroupFilters\": [],\"facetFields\": [{\"fieldName\": \"SubjectTerms\",\"combineMode\":
+        \"and\",\"pageNumber\": 1,\"pageSize\": 10,\"removeCommand\": \"removeFacetField(SubjectTerms)\"},{\"fieldName\":
+        \"ContentType\",\"combineMode\": \"and\",\"pageNumber\": 1,\"pageSize\": 10,\"removeCommand\":
+        \"removeFacetField(ContentType)\"},{\"fieldName\": \"Language\",\"combineMode\":
+        \"and\",\"pageNumber\": 1,\"pageSize\": 5,\"removeCommand\": \"removeFacetField(Language)\"}],\"rangeFacetFields\":
+        [],\"sort\": []},\"facetFields\": [{\"fieldName\": \"Language_s\",\"displayName\":
+        \"Language\",\"combineMode\": \"and\",\"pageNumber\": 1,\"pageSize\": 5,\"hasLimitingValue\":
+        true,\"hasAppliedValue\": false,\"removeCommand\": \"removeFacetField(Language)\",\"listValuesCommand\":
+        \"listFacetValues(Language,and)\",\"removeValueFiltersCommand\": \"removeFacetValueFilter(Language)\",\"counts\":
+        [{\"value\": \"English\",\"count\": 30301,\"isApplied\": false,\"isNegated\":
+        false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(Language,English)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(Language,English:t)\"},{\"value\": \"Italian\",\"count\":
+        1917,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\":
+        \"addFacetValueFilters(Language,Italian)\",\"applyNegatedCommand\": \"addFacetValueFilters(Language,Italian:t)\"},{\"value\":
+        \"French\",\"count\": 136,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(Language,French)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(Language,French:t)\"},{\"value\": \"German\",\"count\":
+        15,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\":
+        \"addFacetValueFilters(Language,German)\",\"applyNegatedCommand\": \"addFacetValueFilters(Language,German:t)\"},{\"value\":
+        \"Dutch\",\"count\": 9,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(Language,Dutch)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(Language,Dutch:t)\"}]},{\"fieldName\": \"SubjectTerms_mfacet\",\"displayName\":
+        \"SubjectTerms\",\"combineMode\": \"and\",\"pageNumber\": 1,\"pageSize\":
+        10,\"hasLimitingValue\": true,\"hasAppliedValue\": false,\"removeCommand\":
+        \"removeFacetField(SubjectTerms)\",\"listValuesCommand\": \"listFacetValues(SubjectTerms,and)\",\"removeValueFiltersCommand\":
+        \"removeFacetValueFilter(SubjectTerms)\",\"counts\": [{\"value\": \"integrated
+        circuit testing\",\"count\": 2429,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,integrated circuit
+        testing)\",\"applyNegatedCommand\": \"addFacetValueFilters(SubjectTerms,integrated
+        circuit testing:t)\"},{\"value\": \"logic testing\",\"count\": 1986,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,logic
+        testing)\",\"applyNegatedCommand\": \"addFacetValueFilters(SubjectTerms,logic
+        testing:t)\"},{\"value\": \"proceeding\",\"count\": 1806,\"isApplied\": false,\"isNegated\":
+        false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,proceeding)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(SubjectTerms,proceeding:t)\"},{\"value\": \"automation\",\"count\":
+        1661,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\":
+        \"addFacetValueFilters(SubjectTerms,automation)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(SubjectTerms,automation:t)\"},{\"value\": \"circuit
+        testing\",\"count\": 1619,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,circuit testing)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(SubjectTerms,circuit testing:t)\"},{\"value\": \"design
+        engineering\",\"count\": 1581,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,design engineering)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(SubjectTerms,design engineering:t)\"},{\"value\": \"circuit
+        faults\",\"count\": 1406,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,circuit faults)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(SubjectTerms,circuit faults:t)\"},{\"value\": \"computer
+        science, hardware & architecture\",\"count\": 1294,\"isApplied\": false,\"isNegated\":
+        false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,computer
+        science\\\\, hardware & architecture)\",\"applyNegatedCommand\": \"addFacetValueFilters(SubjectTerms,computer
+        science\\\\, hardware & architecture:t)\"},{\"value\": \"hardware\",\"count\":
+        1194,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\":
+        \"addFacetValueFilters(SubjectTerms,hardware)\",\"applyNegatedCommand\": \"addFacetValueFilters(SubjectTerms,hardware:t)\"},{\"value\":
+        \"testing\",\"count\": 1147,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\":
+        true,\"applyCommand\": \"addFacetValueFilters(SubjectTerms,testing)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(SubjectTerms,testing:t)\"}]},{\"fieldName\": \"ContentType_mfacet\",\"displayName\":
+        \"ContentType\",\"combineMode\": \"and\",\"pageNumber\": 1,\"pageSize\": 10,\"hasLimitingValue\":
+        true,\"hasAppliedValue\": true,\"removeCommand\": \"removeFacetField(ContentType)\",\"listValuesCommand\":
+        \"listFacetValues(ContentType,and)\",\"removeValueFiltersCommand\": \"removeFacetValueFilter(ContentType)\",\"counts\":
+        [{\"value\": \"Conference Proceeding\",\"count\": 12621,\"isApplied\": false,\"isNegated\":
+        false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Conference
+        Proceeding)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Conference
+        Proceeding:t)\"},{\"value\": \"Journal Article\",\"count\": 11048,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Journal
+        Article)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Journal
+        Article:t)\"},{\"value\": \"Magazine Article\",\"count\": 9381,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Magazine
+        Article)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Magazine
+        Article:t)\"},{\"value\": \"Book Chapter\",\"count\": 4135,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Book
+        Chapter)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Book
+        Chapter:t)\"},{\"value\": \"Trade Publication Article\",\"count\": 1268,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Trade
+        Publication Article)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Trade
+        Publication Article:t)\"},{\"value\": \"Book Review\",\"count\": 163,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Book
+        Review)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Book
+        Review:t)\"},{\"value\": \"Music Recording\",\"count\": 116,\"isApplied\":
+        false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Music
+        Recording)\",\"applyNegatedCommand\": \"addFacetValueFilters(ContentType,Music
+        Recording:t)\"},{\"value\": \"Reference\",\"count\": 110,\"isApplied\": false,\"isNegated\":
+        false,\"isFurtherLimiting\": true,\"applyCommand\": \"addFacetValueFilters(ContentType,Reference)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(ContentType,Reference:t)\"},{\"value\": \"Book / eBook\",\"count\":
+        57,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\":
+        \"addFacetValueFilters(ContentType,Book / eBook)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(ContentType,Book / eBook:t)\"},{\"value\": \"Publication\",\"count\":
+        8,\"isApplied\": false,\"isNegated\": false,\"isFurtherLimiting\": true,\"applyCommand\":
+        \"addFacetValueFilters(ContentType,Publication)\",\"applyNegatedCommand\":
+        \"addFacetValueFilters(ContentType,Publication:t)\"},{\"value\": \"Newspaper
+        Article\",\"count\": 0,\"isApplied\": true,\"isNegated\": true,\"isFurtherLimiting\":
+        false,\"removeCommand\": \"removeFacetValueFilter(ContentType,Newspaper Article)\",\"negateCommand\":
+        \"negateFacetValueFilter(ContentType,Newspaper Article)\"}]}],\"rangeFacetFields\":
+        [],\"didYouMeanSuggestions\": [],\"recommendationLists\": {},\"documents\":
+        [{\"hasFullText\": true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\":
+        \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=book%20item&rft.title=Mortality+of+Veteran+Participants+in+the+CROSSROADS+Nuclear+Test&rft.atitle=Summary&rft.date=2000-01-07&rft.isbn=9780309055963&rft.spage=1&rft.epage=3&rft.externalDocID=http_www_nap_edu_openbook_php_record_id_5428_page_1\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwY2BQQisPQCNUJal64LJZF9icNdE1RT10EX6zIEJskMczWgMYxFU1MkCMtkIuGgK3n6ELK8JAi1tAxVoidLU0aJELdCWjc5B_cHCQv6NLsLYf6BDjxCLtENjcUiJsWwhkJxvySIABeCTAHKVDCJowMQB2EqCFBqRQMkSq3YwR5T58NR4o9OPLy8vj8xIL4oEVXDzo4i6Qn-ILMgriIYNFwLCLNwV2VeJBpsSDupuGhmagJXSeYd7wMS1g09MU2FgHT4pD3WEEPeQI7i5gHZ4HW2sOrsNDBBl4QPs6FEAbLoDOEmJgSs0TZuCFDFsqQHZjiTCwQ4NAlMHNzTXE2UMXaEp8AeREjngyfGAswaBgnGyQbJBikWaUbGxmkpYC7HlaJlsYWRommpiZphqYGEsy2FNoixTFJkgzcCHiWoaBpaSoNFUW2IYC1V1JmYkAdMEehg\",\"Language\":
+        [\"English\"],\"Score\": [\"0.01\"],\"IsPeerReviewed\": [\"false\"],\"PublicationDate\":
+        [\"20000107\"],\"PublicationDate_xml\": [{\"text\": \"20000107\",\"month\":
+        \"01\",\"year\": \"2000\",\"day\": \"07\"}],\"PublicationCentury\": [\"2000\"],\"AbstractList\":
+        [\"In 1946, approximately 40,000 U.S. military personnel participated in Operation
+        CROSSROADS, an atmospheric nuclear test that took place at Bikini Atoll in
+        the Marshall Islands. Congress passed a law directing the Veterans Administration
+        to determine whether there were any long-term adverse health effects associated
+        with exposure to ionizing radiation from the detonation of nuclear devices.
+        This book contains the results of an extensive epidemiological study of the
+        mortality of participants compared with a similar group of nonparticipants.
+        Topics of discussion include a breakdown of the study rationale; an overview
+        of other studies of veteran participants in nuclear tests; and descriptions
+        of Operation CROSSROADS, data sources for the study, participant and comparison
+        cohorts, exposure details, mortality ascertainment, and findings and conclusions.\"],\"SourceType\":
+        [\"Publisher\"],\"Snippet\": [\"In 1946, approximately 40,000 U.S. military
+        personnel participated in Operation CROSSROADS, an atmospheric nuclear test
+        that took place at Bikini Atoll in the...\"],\"URI\": [\"http://www.nap.edu/openbook.php?record_id=5428&page=1\"],\"ISBN\":
+        [\"0309055962\",\"9780309055963\"],\"IsScholarly\": [\"false\"],\"CorporateAuthor\":
+        [\"Institute of Medicine\",\"Committee on the CROSSROADS Nuclear Test\"],\"ID\":
+        [\"FETCH-nas_primary_http_www_nap_edu_openbook_php_record_id_5428_page_13\"],\"PublicationTitle\":
+        [\"Mortality of Veteran Participants in the CROSSROADS Nuclear Test\"],\"Editor\":
+        [\"William F. Page\",\"Harriet Crawford\",\"J. Christopher Johnson\",\"Susan
+        Thaul\"],\"Discipline\": [\"Public Health\"],\"PublicationYear\": [\"2000\"],\"Editor_xml\":
+        [{\"fullname\": \"J. Christopher Johnson\"},{\"fullname\": \"Susan Thaul\"},{\"fullname\":
+        \"Harriet Crawford\"},{\"fullname\": \"William F. Page\"}],\"DatabaseTitleList\":
+        [\"\"],\"Abstract\": [\"In 1946, approximately 40,000 U.S. military personnel
+        participated in Operation CROSSROADS, an atmospheric nuclear test that took
+        place at Bikini Atoll in the Marshall Islands. Congress passed a law directing
+        the Veterans Administration to determine whether there were any long-term
+        adverse health effects associated with exposure to ionizing radiation from
+        the detonation of nuclear devices. This book contains the results of an extensive
+        epidemiological study of the mortality of participants compared with a similar
+        group of nonparticipants. Topics of discussion include a breakdown of the
+        study rationale; an overview of other studies of veteran participants in nuclear
+        tests; and descriptions of Operation CROSSROADS, data sources for the study,
+        participant and comparison cohorts, exposure details, mortality ascertainment,
+        and findings and conclusions.\"],\"MergedId\": [\"FETCHMERGED-nas_primary_http_www_nap_edu_openbook_php_record_id_5428_page_13\"],\"PublicationDecade\":
+        [\"2000\"],\"ContentType\": [\"Book Chapter\"],\"Title\": [\"Summary\"],\"ExternalDocumentID\":
+        [\"http_www_nap_edu_openbook_php_record_id_5428_page_1\"],\"SSID\": [\"ssj0000205729\"],\"CorporateAuthor_xml\":
+        [{\"name\": \"Institute of Medicine\"},{\"name\": \"Committee on the CROSSROADS
+        Nuclear Test\"}],\"StartPage\": [\"1\"],\"EndPage\": [\"3\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780309055963/sc.gif&client=summon&freeimage=true\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780309055963/lc.gif&client=summon&freeimage=true\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780309055963/mc.gif&client=summon&freeimage=true\"],\"LinkModel\":
+        [\"OpenURL\"],\"BookMark\": [\"ePnHCXMwYwbNiAI7_6aga104YKMdwEaJKbAZx8nAHgzZk8XN4ObmGuLsoZuXWBxfADlYAbzFJL68vDw-L7EgHljSxoNukAI1NuMLMgriIaMWwMiKNwW2meNB-S0edCsBlQwCAMliPoM\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=book%20item&rft.title=Seismic+Signals+from+Mining+Operations+and+the+Comprehensive+Test+Ban+Treaty&rft.atitle=Executive+Summary&rft.date=2000-01-07&rft.isbn=9780309061780&rft.spage=1&rft.epage=2&rft.externalDocID=http_www_nap_edu_openbook_php_record_id_6226_page_1\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwY2BQQisPQCNUJal64LJZF9icNdE1RT10EX4-MEJskMczWgMYxFU1MkCMtkK2cqRmFoPWtwdnpoOPQgbvF_EFX_ug7V-QWgRd6gZbKAnK_0WpGdBl6yHAOkHbCZjFQ0Btx0rk9ONakZpcCl5XFAzd34Y8PmAAHh8wR-kmgqZRQE0VyJ1J0KLKEKnOM0LUBvA1eqA4iS8vL4_PSyyIB1Z78aDrvEA-jS_IKIiHDCEBQzTeDNiAiweZEg_qhBoamoEW1jlHRcFHukBnHgKbdeCpcqg7TKBHH8HdBazZ82Ar0MEVVYggAw9ot4cCaBsG0FlCDEypecIM3EinNIowCMKDQgEaFKIMbm6uIc4eukDT4gsg53XEk-ETYwkGBeNkg2SDFIs0o2RjM5O0FGC_1DLZwsjSMNHEzDTVwMRYksGeQlukKDZBmoELEecyDCwlRaWpssAWFqhmS8pMBABnOCsS\",\"Language\":
+        [\"English\"],\"Score\": [\"0.01\"],\"IsPeerReviewed\": [\"false\"],\"PublicationDate\":
+        [\"20000107\"],\"PublicationDate_xml\": [{\"text\": \"20000107\",\"month\":
+        \"01\",\"year\": \"2000\",\"day\": \"07\"}],\"PublicationCentury\": [\"2000\"],\"SourceType\":
+        [\"Publisher\"],\"URI\": [\"http://www.nap.edu/openbook.php?record_id=6226&page=1\"],\"ISBN\":
+        [\"9780309061780\",\"0309061784\"],\"IsScholarly\": [\"false\"],\"CorporateAuthor\":
+        [\"Commission on Geosciences, Environment and Resources\",\"Division on Earth
+        and Life Studies\",\"Committee on Seismic Signals from Mining Activities\",\"National
+        Research Council\"],\"ID\": [\"FETCH-nas_primary_http_www_nap_edu_openbook_php_record_id_6226_page_13\"],\"PublicationTitle\":
+        [\"Seismic Signals from Mining Operations and the Comprehensive Test Ban Treaty\"],\"Discipline\":
+        [\"Engineering\"],\"PublicationYear\": [\"2000\"],\"MergedId\": [\"FETCHMERGED-nas_primary_http_www_nap_edu_openbook_php_record_id_6226_page_13\"],\"PublicationDecade\":
+        [\"2000\"],\"ContentType\": [\"Book Chapter\"],\"PublicationSubtitle\": [\"Comments
+        on a Draft Report by a Department of Energy Working Group\"],\"Title\": [\"Executive
+        Summary\"],\"ExternalDocumentID\": [\"http_www_nap_edu_openbook_php_record_id_6226_page_1\"],\"SSID\":
+        [\"ssj0000243511\"],\"CorporateAuthor_xml\": [{\"name\": \"Commission on Geosciences,
+        Environment and Resources\"},{\"name\": \"Committee on Seismic Signals from
+        Mining Activities\"},{\"name\": \"Division on Earth and Life Studies\"},{\"name\":
+        \"National Research Council\"}],\"StartPage\": [\"1\"],\"EndPage\": [\"2\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780309061780/sc.gif&client=summon&freeimage=true\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780309061780/lc.gif&client=summon&freeimage=true\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780309061780/mc.gif&client=summon&freeimage=true\"],\"LinkModel\":
+        [\"OpenURL\"],\"BookMark\": [\"ePnHCXMwY4YcamMM7P-Ddp8ZcMAGPEBH3wFrd04GQdeK1ORSUGZWCIZs0OJmcHNzDXH20M1LLI4vgJyyAN5vEl9eXh6fl1gQDyx240HXSYFanvEFGQXxkCEMYMzFmwEbEPGgzBcPuqKASgYBANyNQvY\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=Highlights&rft.jtitle=Test+%26+Measurement+World&rft.date=2007-05-01&rft.pub=UBM+Canon+LLC&rft.issn=0744-1657&rft.volume=27&rft.issue=4&rft.spage=56&rft.externalDBID=IOF&rft.externalDocID=162986188\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwY2BQQisPQCNUJal64LJZF9icNdE1RT10kcEDPnCRl60HKhgROxoSCwqK9VPyk_UdDc2MLC3MDIEdNidPV3uk6zNKbZNBGTkpM7GUmYEV1KEApfQIT3PEbIIl-M4RYG1pomtoBqqJWGBL36Dlo5sAA2zGAraAJLk0Rw9mMNLqaqRjGil2riCDAOwYaQVHSEIRYmBKzRNm4EY6jVCEgQu05iMH1FkvFmWQc3MNcfbQBdkbD0qEJUWJyfFw24wlGBSMkw2SDVIs0oySjc1M0lKAHSrLZAsjS8NEEzPTVAMTY0kGcRy6pXDKSDNwQUY1QUv9ZBhYSopKU2WBVTnUKwA995G5\",\"Volume\":
+        [\"27\"],\"Language\": [\"English\"],\"Score\": [\"0.01\"],\"Copyright\":
+        [\"COPYRIGHT 2007 UBM Canon LLC\"],\"IsPeerReviewed\": [\"false\"],\"DBID\":
+        [\"IOF\"],\"PublicationDate\": [\"20070501\"],\"PublicationDate_xml\": [{\"text\":
+        \"20070501\",\"month\": \"05\",\"year\": \"2007\",\"day\": \"01\"}],\"PublicationCentury\":
+        [\"2000\"],\"Copyright_xml\": [{\"notice\": \"COPYRIGHT 2007 UBM Canon LLC\"}],\"Publisher\":
+        [\"UBM Canon LLC\"],\"SourceType\": [\"Aggregation Database\"],\"Publisher_xml\":
+        [{\"name\": \"UBM Canon LLC\"}],\"IsScholarly\": [\"false\"],\"ID\": [\"FETCH-gale_infotrac_1629861883\"],\"PublicationTitle\":
+        [\"Test & Measurement World\"],\"Issue\": [\"4\"],\"Discipline\": [\"Engineering\"],\"PublicationYear\":
+        [\"2007\"],\"Audience\": [\"Trade\"],\"SubjectTerms\": [\"Program development
+        software\"],\"MergedId\": [\"FETCHMERGED-gale_infotrac_1629861883\"],\"PublicationDecade\":
+        [\"2000\"],\"ContentType\": [\"Magazine Article\"],\"Title\": [\"Highlights\"],\"ISSN\":
+        [\"0744-1657\"],\"ExternalDocumentID\": [\"162986188\"],\"SSID\": [\"ssj0013930\"],\"StartPage\":
+        [\"56\"],\"thumbnail_s\": [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/sc.gif&issn=0744-1657&client=summon\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/lc.gif&issn=0744-1657&client=summon\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/mc.gif&issn=0744-1657&client=summon\"],\"LinkModel\":
+        [\"DirectLink\"],\"BookMark\": [\"ePnHCXMwYwEfe2mia2hmas4BH863NDbgZOACLV3IAfU5i7kZ5NxcQ5w9dEHFYDwoLIH9-uR4QzMjSwszQwvQIX4EFAAAQCsbvw\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=Same+As+77%2C+Except+With+0.1%25+Distortion&rft.jtitle=The+Sheffield+%2F+A2TB+Test+Disc+-+%22My+Disc%22&rft.au=Lab%2C+Sheffield&rft.series=Music+Online+Listening\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwY2BQQisPQCNUJal64LJZF9icNdE1RT10ET5wAVpTmVgMWgCanwM9IFUfmQ_a2uUb6uxvDeoFAOslYMkLTJKgewvMjcK4GfgTEXtCQDO6PIhy0E2AAbaiF7ZAJLk0B2gBsARIykxEWj2NdAwjqc4RZOAHX86sAOk5AqseIQam1DwRBvXgxNxUBcdiBXNzHQXXCtB6FYXwzJIMBWCJpargAj4PBBQNogz-bq4hzh66aB6JBx1rUZGbEw82HnIGqQ8oFYCGTuLBEzzQ-R3H4ACoY-IL8guKjSUYFIyTDZINUizSjJKNzUzSUoDdK8tkCyNLw0QTM9NUAxNjSQYPalknRT2jZBhYSopKU2WBrQVoHAEAJ6XEug\",\"URI\":
+        [\"http://www.aspresolver.com/aspresolver.asp?MUCO;1441244\"],\"Author\":
+        [\"Lab, Sheffield\"],\"Score\": [\"0.01\"],\"IsScholarly\": [\"false\"],\"DBID\":
+        [\"72V\"],\"IsPeerReviewed\": [\"false\"],\"ID\": [\"FETCH-alexanderstreet_marcxml_MusicOnlineListening_NorthAmericaASP1441244_pops3\"],\"PublicationTitle\":
+        [\"The Sheffield / A2TB Test Disc - \\\"My Disc\\\"\"],\"PublicationSeriesTitle\":
+        [\"Music Online Listening\"],\"Genre\": [\"Sound Effects\"],\"SourceType\":
+        [\"Publisher\"],\"SubjectTerms\": [\"Sound Effects\"],\"MergedId\": [\"FETCHMERGED-alexanderstreet_marcxml_MusicOnlineListening_NorthAmericaASP1441244_pops3\"],\"Author_xml\":
+        [{\"sequence\": \"1\",\"fullname\": \"Lab, Sheffield\"}],\"ContentType\":
+        [\"Music Recording\"],\"Title\": [\"Same As 77, Except With 0.1% Distortion\"],\"Database_xml\":
+        [{\"sequence\": \"1\",\"name\": \"Music Online: Listening (North America)\",\"dbid\":
+        \"72V\",\"url\": \"http://ezproxy.cul.columbia.edu/login?url=http://music.alexanderstreet.com\",\"sourceTypes\":
+        [\"Publisher\"]}],\"LinkModel\": [\"DirectLink\"],\"BookMark\": [\"ePnHCXMw42RQD07MTVVwLFYwN9dRcK0Arc5QCM8syVAA5k9VBRfw6RcgS7kZ_N1cQ5w9dBMRWzlAE7HxoEMcKnJz4sE3HUNO3PQB-Rk0UBAPns6AzmY4BgeA-gPAGiq-IL-g2Jj6JgIAQDRIHw\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=book%20item&rft.title=How+to+Pass+the+Professional+Skills+Tests+for+Initial+Teacher+Training+%28ITT%29+%3A+1000%2B+Practice+Questions&rft.atitle=Charts%2C+Graphs+and+Tables&rft.date=2013-01-01&rft.isbn=9780749470227&rft.spage=131&rft.epage=166&rft.externalDocID=3182400019\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwzV1Ba8IwFH7oLoqXzQnqJpTBTq6SJrHa62Rjx8FyF1crFIuCVn-_7yUx0eIP8NhAk76m_d6XL-33AN4qeEAKVZmNNDaHSGdlOL42XXS1BHzbnc9zhQDT4TtnXm3NXU24LTJBRCwikb8XXhvDv3VeFPuhQujXvgsIB3lJGvnZyFnZChGaaCrlNAJGxZs_rZsRvvpaF3XSnn3EaKu-NMo62V4bt2dF_2JdiQlU2MGJCec1JXKKRE7IWfAC1yIL1SZFRnHFvdrkQ5pbzRnryFM51zxVOMELuRx1qqUTO4K0DkhuRJsXWz6RqUdoOMvdJ6hlmzbVs7bfvjxDz4T6EZhAAww0MIF2oP_9pWY_IfU4P-6Kub9A0YVApCxly-mKpyKWqyUuO5N0ypNoIeNxxqToQfvGmf2brS_Q9HfzFR7K3SEbINGhBPOfL04Douwn\",\"Language\":
+        [\"English\"],\"Score\": [\"0.01\"],\"PageCount\": [\"36\"],\"IsPeerReviewed\":
+        [\"false\"],\"PublicationDate\": [\"20130000\"],\"PublicationDate_xml\": [{\"text\":
+        \"20130000\",\"year\": \"2013\"}],\"PublicationCentury\": [\"2000\"],\"SourceType\":
+        [\"Publisher\"],\"ISBN\": [\"9780749470227\",\"0749470224\"],\"IsScholarly\":
+        [\"false\"],\"ID\": [\"FETCH-gale_vrl_31824000193\"],\"PublicationTitle\":
+        [\"How to Pass the Professional Skills Tests for Initial Teacher Training
+        (ITT) : 1000+ Practice Questions\"],\"Discipline\": [\"Education\"],\"PublicationYear\":
+        [\"2013\"],\"MergedId\": [\"FETCHMERGED-gale_vrl_31824000193\"],\"PublicationDecade\":
+        [\"2010\"],\"ContentType\": [\"Reference\"],\"Title\": [\"Charts, Graphs and
+        Tables\"],\"ExternalDocumentID\": [\"3182400019\"],\"SSID\": [\"ssj0000950227\"],\"StartPage\":
+        [\"131\"],\"EndPage\": [\"166\"],\"thumbnail_s\": [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780749470227/sc.gif&client=summon&freeimage=true\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780749470227/lc.gif&client=summon&freeimage=true\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780749470227/mc.gif&client=summon&freeimage=true\"],\"LinkModel\":
+        [\"OpenURL\"],\"BookMark\": [\"ePnHCXMwY4YcamNuYmliDjqejgM24AGsy0F8TgZJ0ERySbGOgjvoSOZiBWCPWSEEtE-omJtBys01xNlDF1Q4xpcV5cQDUxxokaMBeGIYjyQAqtweUw\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=Front+Cover&rft.jtitle=IEEE+Design+%26+Test+of+Computers&rft.date=2007-01-01&rft.pub=The+Institute+of+Electrical+and+Electronics+Engineers%2C+Inc.+%28IEEE%29&rft.issn=0740-7475&rft.eissn=1558-1918&rft.volume=24&rft.issue=1&rft.spage=c1&rft_id=info:doi/10.1109%2FMDT.2007.14&rft.externalDocID=2544386551\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwY2BQQisPQCNUJal64LJZF9icNdE1RT10EX47JkJsOMSzG-gEAmC2LoMus4U2NEGdOGBhAlqeAY7dEGDpD156Ab3FAbW7b47W3QffPY-8jMAVfFsO_GQBV_jlOcXwEw3hxQ240Qq0HjbIAClmzEFrCk0g95fopUKLQVNg39ISWjJCy0nIXmeU9AAp9JINsZfF4KNMfV1CIAdFQvaKoh1uDTogDXTrKHgTPLBxagnZgQevSw0NIbPNMDdCd1gCjdZHMhijHgXXhSGCDAKwU7oVHCHxI8TAlJonzMCNdNijCAM3OKYUwDElyiDn5hri7KELMzA-JScnHuFMYwkGBeNkg2SDFIs0o2RjM5O0FGCH1TLZwsjSMNHEzDTVwMRYkkEch24pnDLSDFyI2JZhYCkpKk2VBTaVQEGflJkIAMFHAuA\",\"DatabaseTitle\":
+        [\"Advanced Technologies & Aerospace Collection\",\"ProQuest Technology Collection\",\"ProQuest
+        Engineering Journals\",\"ProQuest SciTech Collection\",\"ProQuest Engineering
+        Collection\"],\"Volume\": [\"24\"],\"Language\": [\"English\"],\"PublicationPlace\":
+        [\"Los Alamitos\"],\"Score\": [\"0.01\"],\"DOI\": [\"10.1109/MDT.2007.14\"],\"Copyright\":
+        [\"Copyright The Institute of Electrical and Electronics Engineers, Inc. (IEEE)
+        2007\"],\"IsPeerReviewed\": [\"false\"],\"PublicationDate\": [\"20070101\"],\"PublicationDate_xml\":
+        [{\"text\": \"20070101\",\"month\": \"01\",\"year\": \"2007\",\"day\": \"01\"}],\"PublicationCentury\":
+        [\"2000\"],\"Copyright_xml\": [{\"notice\": \"Copyright The Institute of Electrical
+        and Electronics Engineers, Inc. (IEEE) 2007\"}],\"Publisher\": [\"The Institute
+        of Electrical and Electronics Engineers, Inc. (IEEE)\"],\"SourceType\": [\"Aggregation
+        Database\"],\"Publisher_xml\": [{\"name\": \"The Institute of Electrical and
+        Electronics Engineers, Inc. (IEEE)\"}],\"PQPubID\": [\"85451\"],\"URI\": [\"http://search.proquest.com/docview/912176011\"],\"IsScholarly\":
+        [\"false\"],\"ID\": [\"FETCH-proquest_dll_25443865513\"],\"PublicationTitle\":
+        [\"IEEE Design & Test of Computers\"],\"Issue\": [\"1\"],\"Discipline\": [\"Engineering\"],\"PublicationYear\":
+        [\"2007\"],\"PublicationPlace_xml\": [{\"name\": \"Los Alamitos\"}],\"PQID\":
+        [\"912176011\"],\"EISSN\": [\"1558-1918\"],\"MergedId\": [\"FETCHMERGED-proquest_dll_25443865513\"],\"PublicationDecade\":
+        [\"2000\"],\"ContentType\": [\"Magazine Article\"],\"Title\": [\"Front Cover\"],\"ISSN\":
+        [\"0740-7475\"],\"ExternalDocumentID\": [\"2544386551\"],\"SSID\": [\"ssj0001166\"],\"StartPage\":
+        [\"c1\"],\"thumbnail_s\": [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/sc.gif&issn=0740-7475&client=summon\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/lc.gif&issn=0740-7475&client=summon\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/mc.gif&issn=0740-7475&client=summon\"],\"LinkModel\":
+        [\"OpenURL\"],\"BookMark\": [\"ePnHCXMwY4DsgTM0sNT3dQmBnBFoaMIEOrXUFNhfsTS0YAEfjGmgC2zImnLACk1DQzMzTgZuN9CufQVn0OpFbgY5N9cQZw9dWBEZn5KTEw86UQt0TaUp6D4CAgoAIvEhuA\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=proceeding&rft.title=2003+Design%2C+Automation+and+Test+in+Europe+Conference+and+Exhibition&rft.atitle=Exploiting+the+routing+flexibility+for+energy%2Fperformance+aware+mapping+of+regular+NoC+architectures&rft.au=Jingcao+Hu&rft.au=Marculescu%2C+R&rft.date=2003-01-01&rft.isbn=9780769518701&rft.issn=1530-1591&rft.eissn=1558-1101&rft.spage=688&rft.epage=693&rft_id=info:doi/10.1109%2FDATE.2003.1253687&rft.externalDocID=8443\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwpV3PT4MwFG6MJ71M5xLnj6TxzkYplHIxMXOLJ-Nh96ZAuywyR9gW9b_39a3sh0e9tYFAgPL6vvZ730fIw6944Fao1maAsTmAdDYOkmPRRdKaKjp7E2SemYFr4kY-9FdDna-UripUEdSN98qAqZkL6QrJGUvZtnRrt7wS8sylGnu2B0fDMvi_wwBmcLZF8JBewHiNvBBP22d-95OF2fD5aTpG1dCBv92RCwvG3klnRxZpySfFpoIBA9Eln-sDZvaBxOOfHvWC9PZ1gPRtN8NdkhPz0SWd1giC-rjQJecHqoZXpERe39zxqSmkl7RZbrBtnfYmcnG_KaTK1GDZ4bDely5Q_akbQxfaiUbM6NLSxswcT5a-Lkf0cM9j1SPTyXg6egm8mUMwl0IA3s1FDtDPyrTIc1syA9CpBDQoRZpHVgOmT0qTJpmwEiAhgChjC8kBfWaQlGjNrwnlRViEpbRRwUVsSwCKWSGjjOlYJCaMeZ_03btU9VanQ4X-tam6tH3yeHQMsU-YKfd9nRUnV-3JeNrXolLIgVW1flcAKtnNfy9wS86QCIjLN3fkdN1szD0kQ36Y_AAXmfCP\",\"Language\":
+        [\"English\"],\"Author\": [\"Jingcao Hu\",\"Marculescu, R\"],\"Score\": [\"0.01\"],\"DOI\":
+        [\"10.1109/DATE.2003.1253687\"],\"Copyright\": [\"2003 IEEE\"],\"IsPeerReviewed\":
+        [\"false\"],\"PublicationDate_xml\": [{\"text\": \"20030000\",\"year\": \"2003\"}],\"PublicationDate\":
+        [\"20030000\"],\"PublicationCentury\": [\"2000\"],\"Copyright_xml\": [{\"notice\":
+        \"2003 IEEE\"}],\"AbstractList\": [\"In this paper we present an algorithm
+        which automatically maps the IPs onto a generic regular Network on Chip (NoC)
+        architecture and constructs a deadlock-free deterministic routing function
+        such that the total communication energy is minimized. At the same time, the
+        performance of the resulting communication system is guaranteed to satisfy
+        the specified constraints through bandwidth reservation. As the main contribution,
+        we first formulate the problem of energy/performance aware mapping, in a topological
+        sense, and show how the routing flexibility can be exploited to expand the
+        solution space and improve the solution quality An efficient branch-and-bound
+        algorithm is then described to solve this problem. Experimental results show
+        that the proposed algorithm is very fast, and significant energy savings can
+        be achieved. For instance, for a complex video/audio application, 51.7% energy
+        savings have been observed, on average, compared to an ad-hoc implementation.\"],\"SourceType\":
+        [\"Publisher\",\"Enrichment Source\"],\"Snippet\": [\"In this paper we present
+        an algorithm which automatically maps the IPs onto a generic regular Network
+        on Chip (NoC) architecture and constructs a deadlock-free...\"],\"URI\": [\"http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=1253687\"],\"ISBN\":
+        [\"9780769518701\",\"0769518702\"],\"IsScholarly\": [\"true\"],\"ID\": [\"FETCH-LOGICAL-i866-52b6b104f87cbbfd1e960d601867b2faeb35de7596f8924753efc834099215aa3\"],\"PublicationTitle\":
+        [\"2003 Design, Automation and Test in Europe Conference and Exhibition\"],\"Discipline\":
+        [\"Computer Science\",\"Engineering\"],\"PublicationYear\": [\"2003\"],\"DatabaseTitleList\":
+        [\"\"],\"EISSN\": [\"1558-1101\"],\"Abstract\": [\"In this paper we present
+        an algorithm which automatically maps the IPs onto a generic regular Network
+        on Chip (NoC) architecture and constructs a deadlock-free deterministic routing
+        function such that the total communication energy is minimized. At the same
+        time, the performance of the resulting communication system is guaranteed
+        to satisfy the specified constraints through bandwidth reservation. As the
+        main contribution, we first formulate the problem of energy/performance aware
+        mapping, in a topological sense, and show how the routing flexibility can
+        be exploited to expand the solution space and improve the solution quality
+        An efficient branch-and-bound algorithm is then described to solve this problem.
+        Experimental results show that the proposed algorithm is very fast, and significant
+        energy savings can be achieved. For instance, for a complex video/audio application,
+        51.7% energy savings have been observed, on average, compared to an ad-hoc
+        implementation.\"],\"SubjectTerms\": [\"bandwidth reservation\",\"energy savings\",\"digital
+        signal processing chips\",\"branch-and-bound algorithm\",\"deadlock-free deterministic
+        routing function\",\"regular NoC architectures\",\"routing flexibility\",\"circuit
+        layout CAD\",\"network routing\",\"generic regular Network on Chip architecture\",\"solution
+        quality\",\"system-on-chip\",\"video/audio application\",\"integrated circuit
+        layout\",\"network topology\",\"energy/performance aware mapping\",\"solution
+        space\"],\"MergedId\": [\"FETCHMERGED-LOGICAL-i866-52b6b104f87cbbfd1e960d601867b2faeb35de7596f8924753efc834099215aa3\"],\"Author_xml\":
+        [{\"sequence\": \"1\",\"fullname\": \"Jingcao Hu\"},{\"sequence\": \"2\",\"givenname\":
+        \"R\",\"surname\": \"Marculescu\",\"fullname\": \"Marculescu, R\"}],\"PublicationDecade\":
+        [\"2000\"],\"ContentType\": [\"Conference Proceeding\"],\"Title\": [\"Exploiting
+        the routing flexibility for energy/performance aware mapping of regular NoC
+        architectures\"],\"ExternalDocumentID\": [\"8443\"],\"ISSN\": [\"1530-1591\"],\"SSID\":
+        [\"ssj0000394163\",\"ssj0005329\"],\"StartPage\": [\"688\"],\"EndPage\": [\"693\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780769518701/sc.gif&client=summon&freeimage=true\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780769518701/lc.gif&client=summon&freeimage=true\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780769518701/mc.gif&client=summon&freeimage=true\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/sc.gif&issn=1530-1591&client=summon\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/lc.gif&issn=1530-1591&client=summon\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/mc.gif&issn=1530-1591&client=summon\"],\"LinkModel\":
+        [\"DirectLink\"],\"BookMark\": [\"ePnHCXMwbV09T8MwFIyYqPon3h8IdbDij7EqQUxM2S27tlEFVaIgBPx77r20goHNg-3BsvXu7PNds74cdsrvHvbjII6bd6ii2jh7w96lPVhLxz-uxPzGGpR47BmcKfY1VS3Ka3d7vSRR2jNg2DRZFGknVgITgBEt04e0K7tGior0mwDyqMiHud38K7qn-BmXQufIdgcvNFVaJOR9oefpQH9v69-3zfg4jIen9hJD0J6cMWBqySSQlursMaWauwLQn8FjnLHpvkaw0T4X23tTHcgM4H-pR6fBmzzKaYx62wzrtJzeEubVRCII-FY-8CJxFqQOl0UK0u3r_BZEhBnm-BrAajh_gf6ZR12HzbnqHx13bGw\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=proceeding&rft.title=2003+Design%2C+Automation+and+Test+in+Europe+Conference+and+Exhibition&rft.atitle=From+C+programs+to+the+configure-execute+model&rft.au=Cardoso%2C+J.M.P&rft.au=Weinhardt%2C+M&rft.date=2003-01-01&rft.isbn=9780769518701&rft.issn=1530-1591&rft.eissn=1558-1101&rft.spage=576&rft.epage=581&rft_id=info:doi/10.1109%2FDATE.2003.1253670&rft.externalDocID=8443\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwpV3LT8MgHCbGk16mc4nzkRDvdDzarlxMzNzi0cM8E0rBLHZu6bZkf74_GN3Do95KIDQF-nvAx_ch9PTLHvgdqrVNgm0mEM6mJDslXUStqKKXNwnIM5v4x3CQD-XVQJcrpes6sAjqJmplgGv27GNgfhkbst3Vrf32ChXShxoHtIcIgmXwf1MCHpztMngIL2C98kjE05ZZPP1kVA5eX6bjwBqaxNedqLAEGzzp7MEiLfjEbGpYMGBdypk-QmYfUTz-6VOvUO9wDxC_7z3cNTqz313UaYUgcLQLXXR5xGp4g5JJs5jjEY7QrxVeLzCEmRgybzf73DSW2K010AMOMjw99DEZT0dvJMoykBnjfEgyyx24Pu6EtAVj2pSVSV0hM6Ol0M4ThrEyF5RDnm7Bnlpmc1MJnZu0yKQpxC3CwlBDq8JxI_LUVZDzQQWXTKd5Zmkq-qjvh0Utd5QbisYRUMvK9dHzSV1IY6hUfqq8qqZQbePQbDuvVYCzqqX-UgXM8d1_O7hHFwHTF3ZiHtD5utnYR4hr4oz_AGeS244\",\"Language\":
+        [\"English\"],\"Author\": [\"Weinhardt, M\",\"Cardoso, J.M.P\"],\"Score\":
+        [\"0.01\"],\"DOI\": [\"10.1109/DATE.2003.1253670\"],\"Copyright\": [\"2003
+        IEEE\"],\"IsPeerReviewed\": [\"false\"],\"PublicationDate_xml\": [{\"text\":
+        \"20030000\",\"year\": \"2003\"}],\"PublicationDate\": [\"20030000\"],\"PublicationCentury\":
+        [\"2000\"],\"Copyright_xml\": [{\"notice\": \"2003 IEEE\"}],\"AbstractList\":
+        [\"The emergence of run-time reconfigurable architectures makes feasible the
+        configure-execute paradigm. Compilation of behavioral descriptions (in, e.g.,
+        C, Java, etc.), apart from mapping the computational structures onto the available
+        resources on the device, must split the program in temporal sections if it
+        needs more resources than physically available. In addition, since the execution
+        of the computational structures in a configuration needs at least two stages
+        (i.e., configuring and computing), it is important to split the program such
+        that the reconfiguration overheads are minimized, taking advantage of the
+        overlapping of the execution stages on different configurations. This paper
+        presents mapping techniques to cope with those features. The techniques are
+        being researched in the context of a C compiler for the eXtreme Processing
+        Platform (XPP). Temporal partitioning is applied to furnish a set of configurations
+        that reduces the reconfiguration overhead and thus may lead to performance
+        gains. We also show that when applications include a sequence of loops, the
+        use of several configurations may be more beneficial than the mapping of the
+        entire application onto a single configuration. Preliminary results for a
+        number of benchmarks strongly confirm the approach.\"],\"SourceType\": [\"Publisher\",\"Enrichment
+        Source\"],\"Snippet\": [\"The emergence of run-time reconfigurable architectures
+        makes feasible the configure-execute paradigm. Compilation of behavioral descriptions
+        (in, e.g., C,...\"],\"URI\": [\"http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=1253670\"],\"ISBN\":
+        [\"9780769518701\",\"0769518702\"],\"IsScholarly\": [\"true\"],\"ID\": [\"FETCH-LOGICAL-i1227-5e2f4132f39e811acbdc4f895ca93af10121b6302eb3e538e1e6cd3a6c4859c83\"],\"PublicationTitle\":
+        [\"2003 Design, Automation and Test in Europe Conference and Exhibition\"],\"Discipline\":
+        [\"Computer Science\",\"Engineering\"],\"PublicationYear\": [\"2003\"],\"DatabaseTitleList\":
+        [\"\"],\"EISSN\": [\"1558-1101\"],\"Abstract\": [\"The emergence of run-time
+        reconfigurable architectures makes feasible the configure-execute paradigm.
+        Compilation of behavioral descriptions (in, e.g., C, Java, etc.), apart from
+        mapping the computational structures onto the available resources on the device,
+        must split the program in temporal sections if it needs more resources than
+        physically available. In addition, since the execution of the computational
+        structures in a configuration needs at least two stages (i.e., configuring
+        and computing), it is important to split the program such that the reconfiguration
+        overheads are minimized, taking advantage of the overlapping of the execution
+        stages on different configurations. This paper presents mapping techniques
+        to cope with those features. The techniques are being researched in the context
+        of a C compiler for the eXtreme Processing Platform (XPP). Temporal partitioning
+        is applied to furnish a set of configurations that reduces the reconfiguration
+        overhead and thus may lead to performance gains. We also show that when applications
+        include a sequence of loops, the use of several configurations may be more
+        beneficial than the mapping of the entire application onto a single configuration.
+        Preliminary results for a number of benchmarks strongly confirm the approach.\"],\"SubjectTerms\":
+        [\"microprocessor chips\",\"behavioral description compilation\",\"configure-execute
+        paradigm\",\"run-time reconfigurable architectures\",\"mapping techniques\",\"extreme
+        processing platform\",\"high level synthesis\",\"circuit CAD\",\"temporal
+        partitioning\",\"reconfiguration overheads\",\"C language\",\"reconfigurable
+        architectures\",\"program compilers\",\"C compiler\"],\"MergedId\": [\"FETCHMERGED-LOGICAL-i1227-5e2f4132f39e811acbdc4f895ca93af10121b6302eb3e538e1e6cd3a6c4859c83\"],\"Author_xml\":
+        [{\"sequence\": \"1\",\"givenname\": \"J.M.P\",\"surname\": \"Cardoso\",\"fullname\":
+        \"Cardoso, J.M.P\"},{\"sequence\": \"2\",\"givenname\": \"M\",\"surname\":
+        \"Weinhardt\",\"fullname\": \"Weinhardt, M\"}],\"PublicationDecade\": [\"2000\"],\"ContentType\":
+        [\"Conference Proceeding\"],\"Title\": [\"From C programs to the configure-execute
+        model\"],\"ExternalDocumentID\": [\"8443\"],\"ISSN\": [\"1530-1591\"],\"SSID\":
+        [\"ssj0000394163\",\"ssj0005329\"],\"StartPage\": [\"576\"],\"EndPage\": [\"581\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780769518701/sc.gif&client=summon&freeimage=true\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780769518701/lc.gif&client=summon&freeimage=true\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9780769518701/mc.gif&client=summon&freeimage=true\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/sc.gif&issn=1530-1591&client=summon\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/lc.gif&issn=1530-1591&client=summon\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/mc.gif&issn=1530-1591&client=summon\"],\"LinkModel\":
+        [\"DirectLink\"],\"BookMark\": [\"ePnHCXMwbZ1LDsIgEEAbVxovwQWofOyHpaltPICuCdLBGDU22iY9vjO03bkfSJjAfGB4k0wvh1KY3fFwriNxM0UvSqCwFbFLM8xaJP24ivCbIkcXj3sGzxRxTQVH9yrXyyWJ0IYChk2SNp_3i1VsLlr6sv7NMEBimDOG-234AIcR_NADiw1ktsmlqc_Vic8NBfhdKlXwDFRAo62CNlBK6fy19ftQmsw7o10g1JW85loozDABLQFIyH2rXe73ZWYiWpBN81IjFttNPAgr5uXZrg0oUv8RiaG2MJZUQp0ftV3GRLHx9bSx5NJ27mFL1In-AfREV3c\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:book&rft.genre=proceeding&rft.title=2007+Design%2C+Automation%26Test+in+Europe+Conference%26Exhibition&rft.atitle=A+Sparse+Grid+based+Spectral+Stochastic+Collocation+Method+for+Variations-Aware+Capacitance+Extraction+of+Interconnects+under+Nanometer+Process+Technology&rft.au=Hengliang+Zhu&rft.au=Xuan+Zeng&rft.au=Wei+Cai&rft.au=Jintao+Xue&rft.date=2007-01-01&rft.pub=IEEE&rft.isbn=9783981080124&rft.spage=1&rft.epage=6&rft_id=info:doi/10.1109%2FDATE.2007.364515&rft.externalDocID=4211748\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwhV1Nb9swDBWGntZLu7ZA064A0bsL2ZLt6NBDkKXYpcAOuRsyJa1B7SRw04_f0l87Us68pCiwoyxDFiSZpEi-RyGuP8gD9lBt_E2UzQmZszrJ90kXB6po19AgbYzf45ah-gZDG2OlpEgKw6BeVSo-yZPp_eBLkcqQHjIM3TBjTppLs6wn1xnamrUPtns1VKIkvTsaYH1_U0fwuaHtJtlQL-xOXvUOQeP_J3oszv5B9uDXoIy-iS9-eSIOd9gGT8X7BEh8dE8efncLB6y_HESkZWcbICMQHyyzNgOfjVXvyoO-wjSQaQsvdK3u_XuJfbWdByRFyxPjb5OM73qMBKwCMAlFh5xDg5snYJxaB0u7XLWcfAPrHpwAm8Gtfybmd7P59GeyLc2QWEO_Vm6L2uvgbETWKpNLX6qQB1l6LJREX2t0aKhtZe0ww8xl3taZ9qlzeSjVuQCFEqUbhwxVQUPRtc_gODOp1UXuadiROKE1rtY96Ua1XdeRGPEGDo8lR7TJbqvWLozE1X5ftIALzcVFyjxQ_-1ef7z_SFP9mMxnXI6zrDgmm-ZVfOutbTjhz-hqbR8rzh66-HRGl-Jr7-_VSVp8Fweb7tlfkZGzPUB_AD0n6wo\",\"Language\":
+        [\"English\"],\"Author\": [\"Xue, Jintao\",\"Zhu, Hengliang\",\"Zeng, Xuan\",\"Cai,
+        Wei\",\"Zhou, Dian\"],\"AuthorAffiliation_xml\": [{\"name\": \"Dept. of Microelectron.,
+        Fudan Univ., Shanghai\"}],\"Score\": [\"0.01\"],\"RelatedPersons_xml\": [{\"sequence\":
+        \"1\",\"givenname\": \"Rudy\",\"surname\": \"Lauwereins\",\"fullname\": \"Lauwereins,
+        Rudy\"},{\"sequence\": \"2\",\"givenname\": \"Jan\",\"surname\": \"Madsen\",\"fullname\":
+        \"Madsen, Jan\"}],\"DOI\": [\"10.1109/DATE.2007.364515\"],\"Copyright\": [\"2007
+        IEEE\",\"2007 ESCI IEEE\"],\"IsPeerReviewed\": [\"false\"],\"PublicationDate_xml\":
+        [{\"text\": \"04-16-2007\",\"month\": \"04\",\"year\": \"2007\",\"day\": \"16\"}],\"PublicationDate\":
+        [\"04-16-2007\",\"20070000\"],\"PublicationSeriesTitle\": [\"DATE '07\"],\"PublicationCentury\":
+        [\"2000\"],\"RelatedPersons\": [\"Lauwereins, Rudy\",\"Madsen, Jan\"],\"Copyright_xml\":
+        [{\"notice\": \"2007 ESCI IEEE\"},{\"notice\": \"2007 IEEE\"}],\"Publisher\":
+        [\"EDA Consortium\",\"IEEE\"],\"AbstractList\": [\"In this paper, a spectral
+        stochastic collocation method (SSCM) is proposed for the capacitance extraction
+        of interconnects with stochastic geometric variations for nanometer process
+        technology. The proposed SSCM has several advantages over the existing methods.
+        Firstly, compared with the PFA (principal factor analysis) modeling of geometric
+        variations, the K-L (Karhunen-Loeve) expansion involved in SSCM can be independent
+        of the discretization of conductors, thus significantly reduces the computation
+        cost. Secondly, compared with the perturbation method, the stochastic spectral
+        method based on homogeneous chaos expansion has optimal (exponential) convergence
+        rate, which makes SSCM applicable to most geometric variation cases. Furthermore,
+        sparse grid combined with a MST (minimum spanning tree) representation is
+        proposed to reduce the number of sampling points and the computation time
+        for capacitance extraction at each sampling point. Numerical experiments have
+        demonstrated that SSCM can achieve higher accuracy and faster convergence
+        rate compared with the perturbation method\",\"In this paper, a Spectral Stochastic
+        Collocation Method (SSCM) is proposed for the capacitance extraction of interconnects
+        with stochastic geometric variations for nanometer process technology. The
+        proposed SSCM has several advantages over the existing methods. Firstly, compared
+        with the PFA (Principal Factor Analysis) modeling of geometric variations,
+        the K-L (Karhunen-Loeve) expansion involved in SSCM can be independent of
+        the discretization of conductors, thus significantly reduces the computation
+        cost. Secondly, compared with the perturbation method, the stochastic spectral
+        method based on Homogeneous Chaos expansion has optimal (exponential) convergence
+        rate, which makes SSCM applicable to most geometric variation cases. Furthermore,
+        Sparse Grid combined with a MST (Minimum Spanning Tree) representation is
+        proposed to reduce the number of sampling points and the computation time
+        for capacitance extraction at each sampling point. Numerical experiments have
+        demonstrated that SSCM can achieve higher accuracy and faster convergence
+        rate compared with the perturbation method.\"],\"SourceType\": [\"Publisher\",\"Enrichment
+        Source\"],\"Publisher_xml\": [{\"name\": \"EDA Consortium\"},{\"name\": \"IEEE\"}],\"Snippet\":
+        [\"In this paper, a Spectral Stochastic Collocation Method (SSCM) is proposed
+        for the capacitance extraction of interconnects with stochastic geometric
+        variations...\",\"In this paper, a spectral stochastic collocation method
+        (SSCM) is proposed for the capacitance extraction of interconnects with stochastic
+        geometric variations...\"],\"PublicationTitleAlternate\": [\"Design, Automation,
+        and Test in Europe\"],\"URI\": [\"http://dl.acm.org/citation.cfm?id=1266698\",\"http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4212025\"],\"ISBN\":
+        [\"9783981080124\",\"3981080122\"],\"IsScholarly\": [\"false\"],\"ID\": [\"FETCH-LOGICAL-a988-5a6be4fda204393950e73f5f07ec630ceb4cdc9f07a0bdc2c2d2eab24e1dd5f73\"],\"PublicationTitle\":
+        [\"Proceedings of the conference on design, automation and test in europe\"],\"PublicationTitleAbbrev\":
+        [\"DATE\"],\"Discipline\": [\"Engineering\"],\"PublicationYear\": [\"2007\"],\"Genre\":
+        [\"orig-research\"],\"AuthorAffiliation\": [\"Dept. of Microelectron., Fudan
+        Univ., Shanghai\"],\"DatabaseTitleList\": [\"\",\"\"],\"Abstract\": [\"In
+        this paper, a Spectral Stochastic Collocation Method (SSCM) is proposed for
+        the capacitance extraction of interconnects with stochastic geometric variations
+        for nanometer process technology. The proposed SSCM has several advantages
+        over the existing methods. Firstly, compared with the PFA (Principal Factor
+        Analysis) modeling of geometric variations, the K-L (Karhunen-Loeve) expansion
+        involved in SSCM can be independent of the discretization of conductors, thus
+        significantly reduces the computation cost. Secondly, compared with the perturbation
+        method, the stochastic spectral method based on Homogeneous Chaos expansion
+        has optimal (exponential) convergence rate, which makes SSCM applicable to
+        most geometric variation cases. Furthermore, Sparse Grid combined with a MST
+        (Minimum Spanning Tree) representation is proposed to reduce the number of
+        sampling points and the computation time for capacitance extraction at each
+        sampling point. Numerical experiments have demonstrated that SSCM can achieve
+        higher accuracy and faster convergence rate compared with the perturbation
+        method.\"],\"SubjectTerms\": [\"sparse grid\",\"Karhunen-Loeve transforms\",\"Karhunen-Loeve
+        expansion\",\"nanometer process technology\",\"capacitance extraction\",\"spectral
+        stochastic collocation method\",\"homogeneous chaos expansion\",\"minimum
+        spanning tree\",\"trees (mathematics)\",\"stochastic processes\",\"principal
+        factor analysis\",\"integrated circuit interconnections\",\"nanotechnology\",\"integrated
+        circuit modelling\"],\"MergedId\": [\"FETCHMERGED-LOGICAL-a988-5a6be4fda204393950e73f5f07ec630ceb4cdc9f07a0bdc2c2d2eab24e1dd5f73\"],\"Author_xml\":
+        [{\"sequence\": \"1\",\"givenname\": \"Hengliang\",\"surname\": \"Zhu\",\"fullname\":
+        \"Zhu, Hengliang\"},{\"sequence\": \"2\",\"givenname\": \"Xuan\",\"surname\":
+        \"Zeng\",\"fullname\": \"Zeng, Xuan\"},{\"sequence\": \"3\",\"givenname\":
+        \"Wei\",\"surname\": \"Cai\",\"fullname\": \"Cai, Wei\"},{\"sequence\": \"4\",\"givenname\":
+        \"Jintao\",\"surname\": \"Xue\",\"fullname\": \"Xue, Jintao\"},{\"sequence\":
+        \"5\",\"givenname\": \"Dian\",\"surname\": \"Zhou\",\"fullname\": \"Zhou,
+        Dian\"}],\"PublicationDecade\": [\"2000\"],\"ContentType\": [\"Conference
+        Proceeding\"],\"Title\": [\"A sparse grid based spectral stochastic collocation
+        method for variations-aware capacitance extraction of interconnects under
+        nanometer process technology\"],\"ExternalDocumentID\": [\"4211748\",\"1266698\"],\"SSID\":
+        [\"ssj0000394159\"],\"StartPage\": [\"1514\"],\"EndPage\": [\"1519\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9783981080124/sc.gif&client=summon&freeimage=true\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9783981080124/lc.gif&client=summon&freeimage=true\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=9783981080124/mc.gif&client=summon&freeimage=true\"],\"LinkModel\":
+        [\"DirectLink\"],\"BookMark\": [\"ePnHCXMwbV3NTsMwDO4RxBtw8oFrRWjSdjlObIgH6D1ynWSgrWuVTcCz8LTYyYDLjpWsWLLS-O-zv-rSClT2cbMetmVJoPS6ZBI8FxrsSnBt7FdufmshSlv2I_a2-l4D_0fpFGCX3j3IQ-4hjxxy1g8cDdEbyvpiECPNpaYFhWoZOMaDD84vS6Grxk9MAYg9DnGSzQYEfuxSGRaAOYJsY0gkYBI6n0AGthIc8ThPgkKBpaD04fxX376rhpft8PxaXzgKarR8x1rsxmCixzxiqm2rQq9jG1UfqNOKwmjIk-VvVKOnhhrfBBwbE568b6OwtT-UY4XaxS1lw4RTOXbrjNBi9G2MLLa5IpYDeGWdGFr4JHtXDO2y1Nd0EMSaNW7BvRP4Cx8D17RJV5hjH7d40XRfRJCmf0Xsxju70j9oqpI-\"]},{\"hasFullText\":
+        true,\"isFullTextHit\": false,\"inHoldings\": true,\"openUrl\": \"ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=Connect+USB+to+legacy+serial+ports&rft.jtitle=Test+%26+Measurement+World&rft.date=2004-05-01&rft.pub=UBM+Canon+LLC&rft.issn=0744-1657&rft.volume=24&rft.issue=4&rft.spage=48&rft.externalDBID=IOF&rft.externalDocID=119851336\",\"link\":
+        \"http://columbia.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwY2BQQisPQCNUJal64LJZF9icNdE1RT10kcEDPnCRl60HKhgROxoSCwqK9VPyk_UdDYHdY9BlJGb6Tp6u9kjXZ5TaJoMyclJmYikzAyuoQwFK6RGe5ojZBEvwnSPA2tJE19AMVBOxwJa-wcpcNwEG2JQFbAVJcmmOHsxkpOXVSOc0UuxeQQYB2DnSCo6QlCLEwJSaJ8zAjXQcoQiDEnjVS3KJQmiwk0JJvgLQxsTkSgVIIlUAzy2IMsi5uYY4e-iC3BMPSp0lRYnJ8XBXGEswKBgnGyQbpFikGSUbm5mkpQB7WpbJFkaWhokmZqapBibGkgziOHRL4ZSRZuCCLGYBrQGUYWApKSpNlQXW8VAvAgCtDpoa\",\"Volume\":
+        [\"24\"],\"Language\": [\"English\"],\"Score\": [\"0.01\"],\"Copyright\":
+        [\"COPYRIGHT 2004 UBM Canon LLC\"],\"IsPeerReviewed\": [\"false\"],\"DBID\":
+        [\"IOF\"],\"PublicationDate\": [\"20040501\"],\"PublicationDate_xml\": [{\"text\":
+        \"20040501\",\"month\": \"05\",\"year\": \"2004\",\"day\": \"01\"}],\"PublicationCentury\":
+        [\"2000\"],\"Copyright_xml\": [{\"notice\": \"COPYRIGHT 2004 UBM Canon LLC\"}],\"Publisher\":
+        [\"UBM Canon LLC\"],\"SourceType\": [\"Aggregation Database\"],\"Publisher_xml\":
+        [{\"name\": \"UBM Canon LLC\"}],\"IsScholarly\": [\"false\"],\"ID\": [\"FETCH-gale_infotrac_1198513363\"],\"PublicationTitle\":
+        [\"Test & Measurement World\"],\"Issue\": [\"4\"],\"Discipline\": [\"Engineering\"],\"PublicationYear\":
+        [\"2004\"],\"Audience\": [\"Trade\"],\"MergedId\": [\"FETCHMERGED-gale_infotrac_1198513363\"],\"PublicationDecade\":
+        [\"2000\"],\"ContentType\": [\"Magazine Article\"],\"Title\": [\"Connect USB
+        to legacy serial ports\"],\"ISSN\": [\"0744-1657\"],\"ExternalDocumentID\":
+        [\"119851336\"],\"SSID\": [\"ssj0013930\"],\"StartPage\": [\"48\"],\"thumbnail_s\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/sc.gif&issn=0744-1657&client=summon\"],\"thumbnail_l\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/lc.gif&issn=0744-1657&client=summon\"],\"thumbnail_m\":
+        [\"http://covers-cdn.summon.serialssolutions.com/index.aspx?isbn=/mc.gif&issn=0744-1657&client=summon\"],\"LinkModel\":
+        [\"DirectLink\"],\"BookMark\": [\"ePnHCXMwYwEfe2mia2hmas4BH863NDbgZFACr91ILlEIDXZSKMlXAPaLE5MrFSBBrQAeIedmkHNzDXH20AUVj_GgMAb295OBzVRLC9BFJKDDOgkoAACcOiQY\"]}],\"rollups\":
+        {\"image\": {},\"reference\": {},\"newspaper\": {}}}"
+    http_version: 
+  recorded_at: Tue, 22 Sep 2015 19:24:34 GMT
+recorded_with: VCR 2.9.3

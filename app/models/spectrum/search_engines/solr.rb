@@ -14,7 +14,7 @@ module Spectrum
       attr_reader :source, :documents, :search, :errors, :debug_mode, :debug_entries
       attr_accessor :params
 
-      # Because Blacklight::SolrHelper calls benchmark(), we need
+      # Because Blacklight::SearchHelper calls benchmark(), we need
       # 'logger' to be available.  In Controllers, it is, but here
       # it is not, unless I do this.
       def logger
@@ -24,13 +24,17 @@ module Spectrum
       # Invoked when ApplicationController::blacklight_search() calls:
       #     search_engine = Spectrum::SearchEngines::Solr.new(options)
       def initialize(original_options = {})
-        # this "solr_search_params_logic" is used when querying via our Solr engine.
+        Rails.logger.debug "Spectrum::Search::Engine#initialize(original_options=#{original_options.inspect})"
+        # this "search_params_logic" is used when querying via our Solr engine.
         # queries using standard blacklight functions have their own config in CatalogController
-        unless solr_search_params_logic.include? :add_advanced_search_to_solr
-          solr_search_params_logic << :add_advanced_search_to_solr
+        unless search_params_logic.include? :add_advanced_search_to_solr
+          search_params_logic << :add_advanced_search_to_solr
         end
-        unless solr_search_params_logic.include? :add_range_limit_params
-          solr_search_params_logic << :add_range_limit_params
+        unless search_params_logic.include? :add_range_limit_params
+          search_params_logic << :add_range_limit_params
+        end
+        unless search_params_logic.include? :add_debug_to_solr
+          search_params_logic << :add_debug_to_solr
         end
 
         options = original_options.to_hash.deep_clone
@@ -44,9 +48,9 @@ module Spectrum
         # allow pass-in override solr url
         @solr_url = options.delete('solr_url')
         # generate a Solr object
-        blacklight_solr()
+        connection()
         # generate a Solr config object
-        blacklight_solr_config()
+        connection_config()
         @params = options
         @params.symbolize_keys!
         Rails.logger.info "[Spectrum][Solr] source: #{@source} params: #{@params}"
@@ -75,11 +79,26 @@ module Spectrum
         end
       end
 
-      def blacklight_solr
+      def repository
+        # raise
+        Rails.logger.debug "Spectrum::SearchEngine::Solr#repository()"
+        # Rails.logger.debug "before: @repository=#{@repository.inspect}"
+        
+        @repository ||= Spectrum::SolrRepository.new(blacklight_config)
+        @repository.source = @source
+        @repository.solr_url = @solr_url
+
+        # Rails.logger.debug "after: @repository=#{@repository.inspect}"
+        @repository
+      end
+
+      def connection
+        Rails.logger.debug "Spectrum::SearchEngine::Solr#connection()"
         @solr ||= Solr.generate_rsolr(@source, @solr_url)
       end
 
-      def blacklight_solr_config
+      def connection_config
+        # Rails.logger.debug "Spectrum::SearchEngine::Solr#connection_config()"
         @config ||= Solr.generate_config(@source)
       end
 
@@ -96,10 +115,12 @@ module Spectrum
       end
 
       def blacklight_config
+        # Rails.logger.debug "Spectrum::SearchEngine::Solr#blacklight_config()"
         @config
       end
 
       def blacklight_config=(config)
+        # Rails.logger.debug "Spectrum::SearchEngine::Solr#blacklight_config=()"
         @config = config
       end
 
@@ -128,8 +149,6 @@ module Spectrum
           params['f'] ||= {}
           params['f']['genre_facet'] = ['Dissertations']
           academic_commons_index_path(params)
-        when 'dcv'
-          dcv_index_path(params)
         when 'journals'
           journals_index_path(params)
         when 'databases'
@@ -142,11 +161,12 @@ module Spectrum
       end
 
       def perform_search
+        Rails.logger.debug "Spectrum::Search::Engine#perform_search() with @params=#{@params.inspect}"
         extra_controller_params = {}
 
         if @debug_mode
 
-          extra_controller_params.merge!('debugQuery' => 'true')
+          extra_controller_params.merge!(debugQuery: 'true')
 
           debug_results = lambda do |*args|
             @debug_entries['solr'] = [] if @debug_entries['solr'] == {}
@@ -162,36 +182,42 @@ module Spectrum
           end
 
           ActiveSupport::Notifications.subscribed(debug_results, 'execute.rsolr_client') do |*args|
-            @search, @documents = get_search_results(@params, extra_controller_params)
+            # @search, @documents = search_results(@params, extra_controller_params)
+            # raise
+            @search, @documents = search_results(@params.merge(extra_controller_params), search_params_logic)
 
             @debug_entries['solr'] = []  if @debug_entries['solr'] == {}
-            hashed_event = {
-              timing: @search['debug']['timing'],
-              parsedquery: @search['debug']['parsedquery'].to_s,
-              params: @search['params']
-            }
+
+            hashed_event = { params: @search['params'] }
+            # retrieve values from native Solr response debug section,
+            # if present
+            if @search['debug']
+              hashed_event[:timing] = @search['debug']['timing']
+              hashed_event[:parsedquery] = @search['debug']['parsedquery'].to_s
+            end
 
             @debug_entries['solr'] << hashed_event
           end
 
         else
           # use blacklight gem to run the actual search against Solr,
-          # call Blacklight::SolrHelper::get_search_results()
-          @search, @documents = get_search_results(@params, extra_controller_params)
+          # call Blacklight::SearchHelper::search_results()
+          # @search, @documents = search_results(@params, extra_controller_params)
+          # Try this???
+          @search, @documents = search_results(@params.merge(extra_controller_params), search_params_logic)
         end
 
         self
       end
 
       def self.generate_rsolr(source, solr_url = nil)
+        Rails.logger.debug "generate_rsolr(#{source}) - new RSolr.connect()"
         if source.in?('academic_commons', 'ac_dissertations')
           RSolr.connect(url: APP_CONFIG['ac2_solr_url'])
-        elsif source.in?('dcv')
-          RSolr.connect(url: APP_CONFIG['dcv_solr_url'])
         elsif solr_url
           RSolr.connect(url: solr_url)
         else
-          RSolr.connect(Blacklight.solr_config)
+          RSolr.connect(Blacklight.connection_config)
         end
       end
 
@@ -378,26 +404,6 @@ module Spectrum
             field.solr_local_parameters = {
               qf: 'location_txt',
               pf: 'location_txt'
-            }
-          end
-        end
-
-        if fields.include?('dcv_title')
-          config.add_search_field('title') do |field|
-            field.show_in_dropdown = true
-            field.solr_local_parameters = {
-              qf: 'title_teim',
-              pf: 'title_teim'
-            }
-          end
-        end
-
-        if fields.include?('dcv_name')
-          config.add_search_field('name') do |field|
-            field.show_in_dropdown = true
-            field.solr_local_parameters = {
-              qf: 'lib_name_teim',
-              pf: 'lib_name_teim'
             }
           end
         end
@@ -812,49 +818,6 @@ module Spectrum
               config.add_sort_field 'title_sort desc, pub_date_sort desc',
                                     label: 'Title Z-A'
 
-            when 'dcv'
-
-              # default_catalog_config(config, :solr_params, :search_fields)
-
-              add_search_fields(config, 'dcv_title', 'dcv_name')
-
-              config.default_solr_params = {
-                qt: 'search',
-                rows: 25,
-                qf: 'all_text_teim',
-                pf: 'all_text_teim',
-              }
-
-              config.show.title_field = 'title_display_ssm'
-
-              config.show.display_type_field = 'lib_format_ssm'
-
-              # config.show.genre = 'genre_facet'
-
-              config.show.author = 'name_corporate_ssm'
-
-              config.index.title_field = 'title_display_ssm'
-
-              config.index.display_type_field = 'lib_format_ssm'
-
-              config.add_facet_field 'lib_project_short_ssim',
-                                     label: 'Digital Project', limit: 5
-              config.add_facet_field 'lib_collection_sim',
-                                     label: 'Collection', limit: 5
-              config.add_facet_field 'lib_repo_short_ssim',
-                                     label: 'Library Location', limit: 5
-              config.add_facet_field 'lib_name_sim',
-                                     label: 'Name', limit: 10
-              config.add_facet_field 'lib_format_sim',
-                                     label: 'Format', limit: 10
-
-              config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc',
-                                    label: 'relevance'
-              config.add_sort_field 'title_si asc, lib_date_dtsi desc',
-                                    label: 'Title A-Z'
-              config.add_sort_field 'title_si desc, lib_date_dtsi desc',
-                                    label: 'Title Z-A'
-
             end # case source
 
             config.add_facet_fields_to_solr_request!
@@ -862,7 +825,16 @@ module Spectrum
           end # Blacklight::Configuration.new do
 
         end # if/else bento-box/single-source
+
+        # What else is special in CLIO's generated 
+        # blacklight configurations?
+        # How about overriding the default search_builder?
+        blacklight_config.search_builder_class = Spectrum::SearchBuilder
+
+        # Finally, return the config object
+        return blacklight_config
       end # self.generate_config
+
     end # class Solr
   end # module SearchEngines
 end # module Spectrum

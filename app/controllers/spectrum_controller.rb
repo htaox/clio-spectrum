@@ -8,7 +8,7 @@
 #       - calls either:  Spectrum::SearchEngines::Summon.new(fixed_params)
 #       -           or:  blacklight_search(fixed_params)
 #
-# SpectrumController#fetch() - alternative entry point
+# SpectrumController#searchjson() - alternative entry point
 #   - does the same thing, but for AJAX calls, returning JSON
 #
 class SpectrumController < ApplicationController
@@ -55,12 +55,6 @@ class SpectrumController < ApplicationController
       @search_style = @search_layout['style']
       # @has_facets = @search_layout['has_facets']
       sources =  @search_layout['columns'].map do |col|
-
-        # DO NOT SHOW DCV IN PRODUCTION YET
-        if Rails.env == 'clio_prod' || Rails.env == 'test'
-          col['searches'].delete_if{ |search| search['source'] == 'dcv'}
-        end
-
         col['searches'].map do |search|
           search['source']
         end
@@ -81,7 +75,7 @@ class SpectrumController < ApplicationController
     @show_landing_pages = true if @results.empty?
   end
 
-  def fetch
+  def searchjson
     @search_layout = SEARCHES_CONFIG['layouts'][params[:layout]]
 
     @datasource = params[:datasource]
@@ -89,15 +83,19 @@ class SpectrumController < ApplicationController
     if @search_layout.nil?
       render text: 'Search layout invalid.'
     else
-      @fetch_action = true
+      # seems to be unused for JSON results?
+      # @fetch_action = true
+
+      # Need this to help partials select which template to render
       @search_style = @search_layout['style']
+
       # @has_facets = @search_layout['has_facets']
       sources =  @search_layout['columns'].map do |col|
         col['searches'].map { |item| item['source'] }
       end.flatten.select { |source| source == @datasource }
 
       @results = get_results(sources)
-      render 'fetch', layout: 'js_return'
+      render 'searchjson', layout: 'js_return'
    end
   end
 
@@ -233,11 +231,6 @@ class SpectrumController < ApplicationController
           fixed_params = fix_summon_params(fixed_params)
           Spectrum::SearchEngines::Summon.new(fixed_params)
 
-        when 'newspapers'
-          fixed_params['source'] = 'newspapers'
-          fixed_params = fix_summon_params(fixed_params)
-          Spectrum::SearchEngines::Summon.new(fixed_params)
-
         when 'ebooks'
           fixed_params['source'] = 'ebooks'
           fixed_params = fix_summon_params(fixed_params)
@@ -269,10 +262,6 @@ class SpectrumController < ApplicationController
 
         when 'ac_dissertations'
           fixed_params['source'] = 'ac_dissertations'
-          blacklight_search(fixed_params)
-
-        when 'dcv'
-          fixed_params['source'] = 'dcv'
           blacklight_search(fixed_params)
 
         when 'library_web'

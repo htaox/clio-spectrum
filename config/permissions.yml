@@ -1,15 +1,21 @@
 site:
   manage:
+    # CLIO dev team
     - gb8
-    - mem2308
     - sam119
+    - slt0
+    # SysAdmins
+    - ttp2113
+    - lh2669
+    - pat2149
+    # Pseudo-user for use in Specs
     - test_site_manager
 
   # for any pre-production features we want to play with
   pilot:
     - gb8
-    - mem2308
     - sam119
+    - slt0
     - hhb2119
     - jrl2132
     - trd2119
@@ -68,7 +74,6 @@ item_alerts:
       - mc3395
       - mcb2212
       - mdk2126
-      - mem2308
       - mlc1
       - mw18
       - mw2064
@@ -91,6 +96,7 @@ item_alerts:
       - sem2166
       - shs4
       - sk33
+      - slt0
       - sn2160
       - sy2133
       - tkf2104

@@ -45,7 +45,7 @@ module DisplayHelper
   end
 
   # used to assign icons
-  FORMAT_MAPPINGS = {
+  FORMAT_ICON_MAPPINGS = {
     'Book' => 'book',
     'Online' => 'link',
     'Computer File' => 'computer-file',
@@ -63,13 +63,15 @@ module DisplayHelper
     'Database' => 'database',
     'Image' => 'image',
     'Computer Program' => 'computer-file',
-    'Loose-leaf' => 'journal'
+    'Loose-leaf' => 'journal',
+    'US Government Document' => 'govdoc2',
+    'NY State/City Government Document' => 'govdoc2'
   }
 
   def formats_with_icons(document, format_field = 'format')
     document[format_field].listify.map do |format|
-      if (icon = FORMAT_MAPPINGS[format]) && @add_row_style != :text
-        image_tag("icons/#{icon}.png", size: '16x16') + " #{format}"
+      if (icon = FORMAT_ICON_MAPPINGS[format]) && @add_row_style != :text
+        image_tag("icons/#{icon}.png", size: '16x16', alt: format.to_s) + " #{format}"
       else
         format.to_s
       end
@@ -93,9 +95,10 @@ module DisplayHelper
     saved_viewstyle_option = get_browser_option('viewstyle')
     datasource_viewstyles = DATASOURCES_CONFIG['datasources'][@active_source]['viewstyles']
 
-    # (10/2014 - support forward-conversion of renamed viewstyle names...)
-    saved_viewstyle_option = 'standard_list' if saved_viewstyle_option && (saved_viewstyle_option == 'list')
-    saved_viewstyle_option = 'compact_list'  if saved_viewstyle_option && (saved_viewstyle_option == 'compact')
+    # 10/2015 - it's been a year - remove this.
+    # # (10/2014 - support forward-conversion of renamed viewstyle names...)
+    # saved_viewstyle_option = 'standard_list' if saved_viewstyle_option && (saved_viewstyle_option == 'list')
+    # saved_viewstyle_option = 'compact_list'  if saved_viewstyle_option && (saved_viewstyle_option == 'compact')
 
     if saved_viewstyle_option &&
        (datasource_viewstyles = DATASOURCES_CONFIG['datasources'][@active_source]['viewstyles']) &&
@@ -130,9 +133,13 @@ module DisplayHelper
   SOLR_FORMAT_LIST = {
     'Music - Recording' => 'music_recording',
     'Music - Score' => 'music',
-    'Journal/Periodical' => 'serial',
     'Manuscript/Archive' => 'manuscript_archive',
-    'Newspaper' => 'newspaper',
+
+    'Journal/Periodical' => 'serial',
+    # These formats display identically - consolidate.
+    # 'Newspaper' => 'newspaper',
+    'Newspaper' => 'serial',
+
     'Video' => 'video',
     'Map/Globe' => 'map_globe',
     'Book' => 'book'
@@ -143,7 +150,7 @@ module DisplayHelper
     'Journal Article' => 'article'
   }
 
-  FORMAT_RANKINGS = %w(ac dcv database map_globe manuscript_archive video music_recording music newspaper serial book clio ebooks article articles summon lweb)
+  FORMAT_RANKINGS = %w(ac database map_globe manuscript_archive video music_recording music serial book clio ebooks article articles summon lweb)
 
   def format_online_results(link_hash)
     non_circ_img = image_tag('icons/noncirc.png', class: 'availability')
@@ -212,8 +219,6 @@ module DisplayHelper
     formats = defaults.listify
     # AC records, from the AC Solr, don't self-identify.
     formats << 'ac' if @active_source == 'academic_commons'
-    # dcv records
-    formats << 'dcv' if @active_source == 'dcv'
     # Database items - from the Voyager feed - will identify themselves,
     # via their "source", which we should respect no matter the current
     # GUI-selected datasource
@@ -635,28 +640,28 @@ module DisplayHelper
   def ac_to_openurl_ctx_kev(document)
     fields = []
     fields.push('ctx_ver=Z39.88-2004')
-
     # Many fields used to be arrays on katana, but on macana appear to be strings?
     # Defend ourselves by using Array.wrap() on everything.
-    if Array.wrap(document[:type_of_resource_mods])[0].match(/recording/i)
+
+    # by default, titles will be "atitle" - unless we override below
+    title_key = "rft.atitle"
+
+    if document[:type_of_resource_mods] && Array.wrap(document[:type_of_resource_mods])[0].match(/recording/i)
       fields.push('rft_val_fmt=info:ofi/fmt:kev:mtx:dc&rft.type=audioRecording')
-      document[ :title_display] && Array.wrap(document[ :title_display]).each do |title|
-        fields.push("rft.title=#{ CGI.escape(title) }")
-      end
-    elsif Array.wrap(document[:type_of_resource_mods])[0].match(/moving image/i)
+      title_key = "rft.title"
+    elsif document[:type_of_resource_mods] && Array.wrap(document[:type_of_resource_mods])[0].match(/moving image/i)
       fields.push('rft_val_fmt=info:ofi/fmt:kev:mtx:dc&rft.type=videoRecording')
-      document[ :title_display] && Array.wrap(document[ :title_display]).each do |title|
-        fields.push("rft.title=#{ CGI.escape(title) }")
-      end
+      title_key = "rft.title"
     else
       fields.push('rft_val_fmt=info:ofi/fmt:kev:mtx:journal')
-      document[ :title_display] && Array.wrap(document[ :title_display]).each do |title|
-        fields.push("rft.atitle=#{ CGI.escape(title) }")
-      end
-
     end
+
+    document[ :title_display] && Array.wrap(document[ :title_display]).each do |title|
+      fields.push("#{title_key}=#{ CGI.escape(title) }")
+    end
+
     Array.wrap(document[ :id]).each do |id|
-      document_url = 'http://academiccommons.columbia.edu/catalog/' + id
+      document_url = academic_commons_url(id)
       fields.push("rft_id=#{ CGI.escape(document_url) }")
     end
 
@@ -673,6 +678,18 @@ module DisplayHelper
     end
 
     fields.join('&')
+  end
+
+  def academic_commons_url(id)
+    'http://academiccommons.columbia.edu/catalog/' + id
+  end
+
+  def academic_commons_title_link(document)
+    if document['handle'].present?
+      title_link = document['handle']
+    else
+      title_link = academic_commons_url(document['id'])
+    end
   end
 
   # Our versions of link_to_previous_document/link_to_next_document,

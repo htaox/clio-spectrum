@@ -16,9 +16,14 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each, js: true) do
+  config.before(:each, :js) do
     DatabaseCleaner.strategy = :truncation,
                                { except: %w(locations libraries library_hours options) }
+  end
+
+  config.before(:each,:selenium) do
+    DatabaseCleaner.strategy = :truncation,
+    { except: %w(locations libraries library_hours options) }
   end
 
   config.before(:each) do

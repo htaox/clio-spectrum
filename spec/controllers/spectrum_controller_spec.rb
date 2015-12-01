@@ -5,27 +5,35 @@ describe SpectrumController do
   describe "GET 'search'" do
     it 'returns http success' do
       get 'search'
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'redirects on bad input' do
       get 'search', q: 'dummy', layout: 'No Such Layout'
-      response.status.should be(302)
-      response.should redirect_to(root_path)
-      flash[:error].should =~ /no search layout/i
+      expect(response.status).to be(302)
+      expect(response).to redirect_to(root_path)
+      expect(flash[:error]).to match(/no search layout/i)
     end
   end
 
-  describe "GET 'fetch'" do
+  describe "GET 'searchjson'" do
     it 'returns http success' do
-      get 'fetch', layout: 'qucksearch', datasource: 'catalog'
-      response.should be_success
+    #   get 'fetch', layout: 'qucksearch', datasource: 'catalog'
+    #   expect(response).to be_success
+    # end
+    # 
+    # it 'errors on bad input' do
+    #   get 'fetch', layout: 'No Such Layout', datasource: 'catalog'
+    #   expect(response).to be_success
+    #   expect(response.body).to match(/search layout invalid/i)
+      get 'searchjson', layout: 'qucksearch', datasource: 'catalog'
+      expect(response).to be_success
     end
 
     it 'errors on bad input' do
-      get 'fetch', layout: 'No Such Layout', datasource: 'catalog'
-      response.should be_success
-      response.body.should =~ /search layout invalid/i
+      get 'searchjson', layout: 'No Such Layout', datasource: 'catalog'
+      expect(response).to be_success
+      expect(response.body).to match(/search layout invalid/i)
     end
   end
 

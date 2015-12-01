@@ -2,6 +2,7 @@ class Object
   # lets you use  "a".in?(alphabet) instead of alphabet.include?("a")
   # pure syntactic sugar, but we're diabetics over here.
   def in?(*args)
+    return false if self.nil?
     collection = (args.length == 1 ? args.first : args)
     collection ? collection.include?(self) : false
   end
@@ -46,14 +47,14 @@ class DateTime
   end
 end
 
-module Enumerable
-  # checks to see if any of the values in the enumerable are in
-  # [3,2,4].any_in?(6,1,2) => true
-  # [3,2,4].any_in?(5,6,7) => false
-  def any_in?(*args)
-    self.any? { |value| args.include?(value) }
-  end
-end
+# module Enumerable
+#   # checks to see if any of the values in the enumerable are in
+#   # [3,2,4].any_in?(6,1,2) => true
+#   # [3,2,4].any_in?(5,6,7) => false
+#   def any_in?(*args)
+#     self.any? { |value| args.include?(value) }
+#   end
+# end
 
 class Hash
   # creates a hash of arbitrary depth: you can refer to nested hashes without initialization.
@@ -61,11 +62,11 @@ class Hash
     Hash.new(&(p=lambda{|h, k| h[k] = Hash.new(&p)}))
   end
 
-  def recursive_symbolize_keys!
-    symbolize_keys!
-    values.select { |v| v.is_a? Hash }.each { |h| h.recursive_symbolize_keys! }
-    self
-  end
+  # def recursive_symbolize_keys!
+  #   symbolize_keys!
+  #   values.select { |v| v.is_a? Hash }.each { |h| h.recursive_symbolize_keys! }
+  #   self
+  # end
 
   def deep_clone
     Marshal.load(Marshal.dump(self))
@@ -84,3 +85,78 @@ class Hash
     base
   end
 end
+
+# class ActiveSupport::Cache::MemoryStore
+class ActiveSupport::Cache::Store
+
+  def clio_key_count
+    return @data.keys.size if defined? @data
+    'unknown'
+  end
+
+  def clio_cache_size
+    return @cache_size.to_s(:human_size) if defined? @cache_size
+    return self.stats['used_memory_human'] if self.respond_to?(:stats)
+    'unknown'
+  end
+end
+
+# # This is in Rails 4.1, 4.2, and onward.
+# # Add it here as a monkey-patch for Rails 4.0,
+# # *** try to remember to remove this after Rails upgrade ***
+# # https://github.com/rails/rails/pull/19941
+# module ActionView
+#   module Helpers
+#     module CacheHelper
+# 
+#       def cache(name = {}, options = nil, &block)
+#         if controller.respond_to?(:perform_caching) && controller.perform_caching
+#           safe_concat(fragment_for(cache_fragment_name(name, options), options, &block))
+#         else
+#           yield
+#         end
+# 
+#         nil
+#       end
+#     end
+#   end
+# end
+
+# Some monkey patching to add some network debugging
+
+# module Net
+#   class HTTP
+#     def do_start
+#       # DEBUGGING
+#       # puts "#{Time.now} [Net::HTTP#do_start]  opening connection to #{address.to_s}:#{port.to_s}..."
+#       connect
+#       @started = true
+#     end
+#   end
+# end
+
+
+
+# class RSolr::Connection
+#   def http uri, proxy = nil, read_timeout = nil, open_timeout = nil
+#     @http ||= (
+#       http = if proxy
+#         proxy_user, proxy_pass = proxy.userinfo.split(/:/) if proxy.userinfo
+#         Net::HTTP.Proxy(proxy.host, proxy.port, proxy_user, proxy_pass).new uri.host, uri.port
+#       else
+#         Net::HTTP.new uri.host, uri.port
+#       end
+#       http.use_ssl = uri.port == 443 || uri.instance_of?(URI::HTTPS)
+#       http.read_timeout = read_timeout if read_timeout
+#       http.open_timeout = open_timeout if open_timeout
+# 
+#       # TURN ON DEBUGGING
+#       http.set_debug_output $stderr
+# 
+#       http
+#     )
+#   end
+# end
+
+
+

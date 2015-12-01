@@ -1,35 +1,46 @@
-.location_popup
+
+.container.location_popup{:style => 'background-color: #EEEEFF'}
+
   - if @location
-    %h1.well= @library ? @library.name : @location.name
 
-    - if @location_notes && @location_notes.length > 0
-      .well.well-sm.location_notes= @location_notes
+    -# top of page, large-font well
+    .well
+      %h1= @display_title
 
-    .location_sidebar
-      .links
-        %ul
-          - @links.each do |link|
-            %li= link_to link.name, link.value
+      - if @location_notes && @location_notes.length > 0
+        .well.well-sm.location_notes= @location_notes
 
-      - if @library
-        .section_header
-          Hours:
-          .hours_link
-            (
-            = link_to "Full Hours Info", "http://www.columbia.edu/cu/lweb/services/hours/index.html?library=#{h(@library.hours_db_code)}"
-            )
-        - @hours.each do |hour|
-          - today_class = hour.date == Date.today ? "today" : nil
-          .day_listing{:class => alternating_line }
-            .weekday= hour.to_day_of_week
-            .hours
-              = hour.to_opens_closes
-            .hours_note= hour.note.to_s
-    .section_header Located at:
-    .found_in= @location.found_in.gsub(/\n+/, '<br>').html_safe
-    = map_image_tag(@map_url, 400, 350)
+      .row
+        .col-md-12
+          %h4
+            .found_in= @location.found_in.gsub(/\n+/, '<br>').html_safe
 
+    -# middle of page, wide map column, narrow data column
+    .container{:style => 'background-color: #EEEEFF'}
+      .row
+        .col-md-9
+          - if @display_map
+            .gmap_container#map{style:'height: 600px;', data: {markers: @markers, current_location_index: @current_marker_index}}
 
+        .col-md-3
+          .row
+            .list_group
+              - @links.each do |link|
+                %a{href: link.value, class: 'list-group-item'}=link.name
+          %p
+          - if @library
+            .row
+              .list_group
+                -full_hours_url="http://www.columbia.edu/cu/lweb/services/hours/index.html?library=#{h(@library.hours_db_code)}"
+                %a{href: full_hours_url, class: 'list-group-item active'}Hours (Full Hours Info)
+                - @hours.each do |hour|
+                  - today_class = hour.date == Date.today ? "list-group-item list-group-item-success" : "list-group-item"
+                  .list-group-item{:class => today_class }
+                    .row
+                      .col-md-4= hour.to_day_of_week
+                      .col-md-8= hour.to_opens_closes
+                      .hours_note= hour.note.to_s
 
   - else
     %h2 No location information for #{h(params[:id])}
+
