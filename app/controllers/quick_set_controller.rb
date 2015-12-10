@@ -80,7 +80,7 @@ class QuickSetController < ApplicationController
       return redirect_to scoped_simple_path
     end
     @quickset = QuickSet.find(quickset_id)
-    # @content_providers = @quickset.content_providers
+    @content_providers = @quickset.content_providers
     @scope_name = @quickset.name
     
     # # DEMO DEMO DEMO
