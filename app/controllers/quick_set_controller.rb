@@ -83,9 +83,9 @@ class QuickSetController < ApplicationController
     # @content_providers = @quickset.content_providers
     @scope_name = @quickset.name
     
-    # DEMO DEMO DEMO
-    # - truncate to first few content providers so it doesn't break in the demo
-    @content_providers = @quickset.content_providers[0..4]
+    # # DEMO DEMO DEMO
+    # # - truncate to first few content providers so it doesn't break in the demo
+    # @content_providers = @quickset.content_providers[0..4]
     
     @escaped_names = @content_providers.collect do |provider|
       # backslash-escape colons, commas, and parens.
