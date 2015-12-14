@@ -20,19 +20,20 @@ site:
 
 scoped_search:
   manage:
+    - asb2154
+    - bw12
+    - cmm2169
     - gb8
-    - slt
-    - sam119
     - hhb2119
-    - trd2119
-    - tdas
     - jc2120
     - mw18
-    - shs4
-    - bw12
-    - witte
-    - asb2154
     - pbg1
+    - sam119
+    - shs4
+    - slt
+    - tdas
+    - trd2119
+    - witte
 
 item_alerts:
   manage:
