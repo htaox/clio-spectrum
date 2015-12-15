@@ -444,4 +444,26 @@ class CatalogController < ApplicationController
     end
   end
 
+  def bd_find_item
+    response, document = fetch params[:id]
+
+    supported_keys = [ 'isbn' ]
+    # format will be type:value, type:value,
+    # e.g., lccn:2006921508, oclc:70850767
+    bibkeys = view_context.extract_standard_bibkeys(document)
+    bibkeys.each do |bibkey|
+      id_type, id_value = bibkey.split(':')
+      next unless id_type and id_value
+
+      next unless supported_keys.include? id_type
+
+      response = BorrowDirect::FindItem.new(779227268).find(id_type => id_value)
+      raise
+    end
+
+  end
+
+  def bd_request_item
+  end
+
 end

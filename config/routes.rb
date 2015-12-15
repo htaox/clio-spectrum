@@ -105,6 +105,8 @@ Clio::Application.routes.draw do
 
   get 'catalog/hathi_holdings/:id' => 'catalog#hathi_holdings', :as => 'hathi_holdings'
 
+  get 'catalog/bd_find_item/:id' => 'catalog#bd_find_item', :as => 'bd_find_item'
+
   # get 'spectrum/fetch/:layout/:datasource', to: 'spectrum#fetch', as: 'spectrum_fetch'
   # match 'spectrum/searchjson/:layout/:datasource', to: 'spectrum#searchjson', as: 'spectrum_searchjson'
   get 'spectrum/searchjson/:layout/:datasource', to: 'spectrum#searchjson', as: 'spectrum_searchjson'
@@ -147,6 +149,8 @@ Clio::Application.routes.draw do
   # routes that also go to 'catalog#index'
   # (Didn't have to do this with Rails 3 - what changed???)
   get 'catalog/advanced', to: 'catalog#index', as: :catalog_advanced, defaults: { q: '', show_advanced: 'true' }
+
+
 
 end
 

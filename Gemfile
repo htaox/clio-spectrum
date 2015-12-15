@@ -35,6 +35,9 @@ gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blackl
 #  ###  BLACKLIGHT (end)  ###
 
 
+# jrochkind's Borrow Direct library
+gem 'borrow_direct'
+
 # Only used for Google Maps location pages
 gem 'rest-client'
 gem 'gmaps4rails'
