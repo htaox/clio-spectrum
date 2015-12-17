@@ -1,0 +1,9 @@
+
+- borrow_direct_note = (bd_response && bd_response.requestable?) ? 'Requestable' : 'Not Requestable'
+
+%span.borrow_direct_note{ data: {toggle: 'tooltip', placement: 'top'}, title: "lookup time #{bd_elapsed_seconds}s"}
+  = borrow_direct_note
+
+:javascript
+  $('.borrow_direct_note').fadeIn("slow");
+  $('[data-toggle="tooltip"]').tooltip()

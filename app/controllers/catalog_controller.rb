@@ -445,20 +445,41 @@ class CatalogController < ApplicationController
   end
 
   def bd_find_item
+    # Fetch our barcode, unless we've done that already
+    session['bd_barcode'] = '779227268'
+
     response, document = fetch params[:id]
 
-    supported_keys = [ 'isbn' ]
+
+    bd_start_time = Time.now
+
+
+    bd_response = nil
+    supported_keys = [ 'isbn', 'issn', 'lccn', 'oclc' ]
     # format will be type:value, type:value,
     # e.g., lccn:2006921508, oclc:70850767
     bibkeys = view_context.extract_standard_bibkeys(document)
     bibkeys.each do |bibkey|
       id_type, id_value = bibkey.split(':')
       next unless id_type and id_value
-
       next unless supported_keys.include? id_type
 
-      response = BorrowDirect::FindItem.new(779227268).find(id_type => id_value)
-      raise
+      begin
+        bd_response = BorrowDirect::FindItem.new(779227268).find(id_type => id_value)
+      rescue BorrowDirect::HttpTimeoutError => ex
+        Rails.logger.debug "BorrowDirect::HttpTimeoutError #{ex.message}"
+      end
+
+      # Yay, we found a good one, don't check further
+      break if bd_response.requestable?
+    end
+
+    bd_end_time = Time.now
+    bd_elapsed_seconds = (bd_end_time - bd_start_time).round(2)
+    Rails.logger.debug "Borrow Direct lookup took #{bd_elapsed_seconds} seconds"
+
+    respond_to do |format|
+      format.html { render locals: {bd_response: bd_response, bd_elapsed_seconds: bd_elapsed_seconds}, layout: false }
     end
 
   end

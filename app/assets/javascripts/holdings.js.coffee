@@ -58,6 +58,29 @@ $ ->
         $("span.holding_spinner").hide()
         $('#clio_holdings .holdings_error').show()
 
+
+@check_borrow_direct = (id) ->
+  console.log("check_borrow_direct("+id+")")
+  if $('#clio_holdings').find('.borrow-direct.todo').length > 0
+    console.log("+ found todo")
+    # Only ever check once.  If AJAX below fails, don't reattempt
+    $('#clio_holdings .borrow-direct.todo').each ->
+      console.log("+ removing todo")
+      $(this).removeClass('todo')
+    $.ajax
+      url: '/catalog/bd_find_item/' + id
+    
+      # A successful call could mean either requestable or not
+      success: (data) ->
+        console.log("success!")
+        $('#clio_holdings .borrow-direct').each ->
+          console.log("+ setting data")
+          $(this).html(data)
+    
+      # if dynamic BD fails - don't do anything
+      # error: (data) ->
+
+
 @load_hathi_holdings = (id) ->
   $(".hathi_holdings_check").show
   $(".hathi_holdings_error").hide

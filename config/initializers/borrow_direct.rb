@@ -1,3 +1,4 @@
+
 borrow_direct_config = APP_CONFIG['borrow_direct'] || {}
 
 # REQUIRED: Set your BD api_key
@@ -9,7 +10,30 @@ BorrowDirect::Defaults.api_key = borrow_direct_config['api_key'] || ''
 
 
 # Uses BD Test system by default, if you want to use production system instead
-BorrowDirect::Defaults.api_base = BorrowDirect::Defaults::PRODUCTION_API_BASE
+BorrowDirect::Defaults.api_base = case Rails.env.to_s
+  # PROD
+  when 'clio_prod'
+    BorrowDirect::Defaults::PRODUCTION_API_BASE
+
+  # TEST
+  when 'clio_test'
+    BorrowDirect::Defaults::PRODUCTION_API_BASE
+
+  # DEV
+  when 'clio_dev'
+    BorrowDirect::Defaults::TEST_API_BASE
+
+  when 'test'
+    BorrowDirect::Defaults::TEST_API_BASE
+
+  when 'development'
+    BorrowDirect::Defaults::PRODUCTION_API_BASE
+    # getting mystery failures against the TEST server
+    # BorrowDirect::Defaults::TEST_API_BASE
+
+  else
+    nil
+end
 
 # Set a default BD LibrarySymbol for your library
 BorrowDirect::Defaults.library_symbol = borrow_direct_config['library_symbol'] ||"COLUMBIA"
