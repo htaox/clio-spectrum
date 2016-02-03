@@ -212,6 +212,7 @@ module Spectrum
         self
       end
 
+# This is defined in Spectrum::SolrRepository as well, do we need it here?
       def self.generate_rsolr(source, solr_url = nil)
         Rails.logger.debug "generate_rsolr(#{source}) - new RSolr.connect()"
         if source.in?('academic_commons', 'ac_dissertations')
