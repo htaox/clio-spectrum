@@ -1,17 +1,38 @@
 
+- columns = 3
+- quotient_modulus = quicksets.size.divmod(columns)
+-# 9 over three columns is 3 per column,
+-# 10 over three columns is 3+1 per column
+- sets_per_column = quotient_modulus[0] + (quotient_modulus[1] == 0 ? 0 : 1)
 
 .quickset_pick.row.well
 
-  - quicksets.each_with_index do |quickset, i|
-    -# .col-sm-4{data: {toggle: 'tooltip', placement: 'top'}, title: tooltip(quickset) }
-    -#   =quickset.name
-    
-    -# A really lot of options to the Bootstrap Popover - put in the helper
-    -# .col-sm-4{data: {toggle: 'popover', trigger: 'hover', html: 'true', placement: 'top', content: popover_blurb(quickset)}}
-    .col-sm-4{Xdata: quickset_popover_data_options(quickset)}
-      -# For now, default to selecting the first quickset (index == 0)
-      = radio_button_tag(:id, quickset.id, i === 0)
-      = label_tag("id_#{quickset.id}", quickset.name)
-      %a.source-info.btn.btn-link{:href => '#', :rel => 'popover', :'data-placement' => 'bottom', :'data-content' => popover_content(quickset), :'data-html' => 'true'}
-        = image_tag('information_icon.png', :size => "20x20")
+  - for column in 0..(columns - 1)
+    .col-sm-4
+      - start_index = sets_per_column * column
+      - end_index = (sets_per_column * (column + 1)) - 1
+      - for quickset_index in start_index..end_index
+        -# - next if quickset_index > quicksets.size
+        - quickset = quicksets[quickset_index]
+        - next unless quickset
+        .quickset_option
+          -# = quickset_index
+          -# - quickset = quicksets[quickset_index]
+          = radio_button_tag(:id, quickset.id)
+          = label_tag("id_#{quickset.id}", quickset.name)
+          %a.source-info.btn.btn-link{:href => '#', :rel => 'popover', :'data-placement' => 'bottom', :'data-content' => popover_content(quickset), :'data-html' => 'true'}
+            = image_tag('information_icon.png', :size => "20x20")
+          
+
+  -# - quicksets.each_with_index do |quickset, i|
+  -#   -# .col-sm-4{data: {toggle: 'tooltip', placement: 'top'}, title: tooltip(quickset) }
+  -#   -#   =quickset.name
+  -#   
+  -#   .quickset_option
+  -#     = i
+  -#     -# For now, default to selecting the first quickset (index == 0)
+  -#     = radio_button_tag(:id, quickset.id, i === 0)
+  -#     = label_tag("id_#{quickset.id}", quickset.name)
+  -#     %a.source-info.btn.btn-link{:href => '#', :rel => 'popover', :'data-placement' => 'bottom', :'data-content' => popover_content(quickset), :'data-html' => 'true'}
+  -#       = image_tag('information_icon.png', :size => "20x20")
 
