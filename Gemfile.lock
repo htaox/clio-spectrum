@@ -361,3 +361,6 @@ DEPENDENCIES
   thin
   uglifier
   unicode
+
+BUNDLED WITH
+   1.11.2
