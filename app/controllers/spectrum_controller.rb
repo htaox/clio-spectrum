@@ -55,6 +55,12 @@ class SpectrumController < ApplicationController
       @search_style = @search_layout['style']
       # @has_facets = @search_layout['has_facets']
       sources =  @search_layout['columns'].map do |col|
+
+        # DO NOT SHOW DCV IN PRODUCTION YET
+        if Rails.env == 'clio_prod'
+          col['searches'].delete_if{ |search| search['source'] == 'dcv'}
+        end
+
         col['searches'].map do |search|
           search['source']
         end
@@ -278,6 +284,10 @@ class SpectrumController < ApplicationController
 
         when 'ac_dissertations'
           fixed_params['source'] = 'ac_dissertations'
+          blacklight_search(fixed_params)
+
+        when 'dcv'
+          fixed_params['source'] = 'dcv'
           blacklight_search(fixed_params)
 
         when 'library_web'

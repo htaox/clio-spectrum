@@ -40,6 +40,10 @@ layouts:
             row_opts:
               spans: [3,9]
 
+          - source: dcv
+            count: 3
+            row_opts:
+              spans: [3,9] 
 
   dissertations:
     style: aggregate
@@ -113,6 +117,13 @@ sources:
     render_options:
       format: ac
       check_fedora: true
+
+  dcv:
+    title: DCV
+    description: dcv 
+    warningXX:  dcv.
+    render_options:
+      format: dcv
 
   library_web:
     title: Libraries Website
