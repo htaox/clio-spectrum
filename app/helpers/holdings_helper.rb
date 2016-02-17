@@ -170,13 +170,14 @@ module HoldingsHelper
 
     services.select { |svc| SERVICE_ORDER.index(svc) }.sort_by { |svc| SERVICE_ORDER.index(svc) }.map do |svc|
       title, link = SERVICES[svc]
+      service_span = content_tag(:span, '', class: "#{title.parameterize} todo")
       bibid = clio_id.to_s
       if link.match(/^http/)
         link += bibid
-        link_to title, link, target: '_blank'
+        link_to(title, link, target: '_blank') + service_span
       else
         jscript = "#{link}(#{bibid}); return false;"
-        link_to title, '#', onclick: jscript
+        link_to(title, '#', onclick: jscript) + service_span
       end
     end
   end

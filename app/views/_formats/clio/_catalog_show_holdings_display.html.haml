@@ -3,6 +3,11 @@
     $(document).ready(function() {
       load_clio_holdings(#{clio_id});
     });
+    // BD lookup only after all the other dynamic 
+    // holdings lookups complete.
+    $(document).ajaxStop(function() {
+      check_borrow_direct(#{clio_id})
+    });
 
 #clio_holdings
   .holdings_check

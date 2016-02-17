@@ -37,6 +37,9 @@ gem 'blacklight_range_limit'
 #  ###  BLACKLIGHT (end)  ###
 
 
+# jrochkind's Borrow Direct library
+gem 'borrow_direct'
+
 # Only used for Google Maps location pages
 gem 'rest-client'
 gem 'gmaps4rails'
@@ -131,6 +134,9 @@ gem 'redis-rails'
 gem 'summon', :git => 'git://github.com/cul/summon.git'
 # Point to local copy during development...
 # gem 'summon', :path => "/Users/marquis/src/summon"
+
+# https://github.com/jrochkind/borrow_direct
+gem 'borrow_direct'
 
 # auth library
 gem 'cancan'

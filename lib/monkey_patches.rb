@@ -159,4 +159,16 @@ end
 # end
 
 
+module BorrowDirect
+  class FindItem
+    def request (hash, aid = nil)
+      Rails.logger.debug "BorrowDirect::FindItem#request(#{hash.inspect}, #{aid.inspect})"
+      super(hash, aid)
+    end
+  end
+end
+
+
+
+
 
