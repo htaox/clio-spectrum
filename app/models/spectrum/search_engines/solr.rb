@@ -231,6 +231,7 @@ module Spectrum
       def self.add_search_fields(config, *fields)
         if fields.include?('title')
           config.add_search_field('title') do |field|
+            field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
             field.show_in_dropdown = true
             # field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
             field.solr_local_parameters = {
@@ -301,6 +302,7 @@ module Spectrum
 
         if fields.include?('author')
           config.add_search_field('author') do |field|
+            field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
             field.show_in_dropdown = true
             # field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
             field.solr_local_parameters = {
@@ -312,6 +314,7 @@ module Spectrum
 
         if fields.include?('subject')
           config.add_search_field('subject') do |field|
+            field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
             field.show_in_dropdown = true
             # field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
             field.qt = 'search'
@@ -539,7 +542,7 @@ module Spectrum
             }
 
             config.per_page = [10, 25, 50, 100]
-            config.spell_max = 0
+            config.spell_max = 5
           end
         # Else, we're in one of the single-source searches....
         else
@@ -552,7 +555,7 @@ module Spectrum
 
             # These apply to any config for any source
             config.per_page = [10, 25, 50, 100]
-            config.spell_max = 0
+            config.spell_max = 5
 
             config.add_search_field 'all_fields', label: 'All Fields'
             config.document_solr_request_handler = 'document'
@@ -898,6 +901,7 @@ module Spectrum
         # blacklight configurations?
         # How about overriding the default search_builder?
         blacklight_config.search_builder_class = Spectrum::SearchBuilder
+
 
         # Finally, return the config object
         return blacklight_config

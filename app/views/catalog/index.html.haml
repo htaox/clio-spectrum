@@ -17,6 +17,8 @@
   - session['search'] ||= {}
   - session['search'][:active_source] = @active_source
 
+  = render 'did_you_mean'
+
   - unless response.nil?
     = fix_catalog_links(render('constraints', :localized_params=>params ))
 
