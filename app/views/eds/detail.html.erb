@@ -133,7 +133,13 @@
 	  <br />
 	  <dt class="blacklight-fulltext">Other Options:</dt>
 	    <dd class="blacklight-fulltext"><%= link_to("View Record in EDS",show_plink(record),:target => "_blank") %></dd>
-	    
+
+    <% if has_elink_link?(record) %>
+	  <br />
+    <dt></dt>
+    <dd><%= show_elink_link(record) %></dd>  
+    <% end %>  
+
   </div><!--/span -->
 </div>
 <% end %>
