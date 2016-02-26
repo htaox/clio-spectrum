@@ -1716,7 +1716,25 @@ module Blacklight::EdsHelperBehavior
     return fulltext_links
   end
 
+  def has_elink_link?(result)
+    result['CustomLinks'].each do |customLink|
+      return true if customLink['Name'] == 'eLink'
+    end
+    return false
+  end
+
+  def show_elink_link(result)
+    link_icon = '/assets/elink.gif'
+    result['CustomLinks'].each do |customLink|
+      next unless customLink['Name'] == 'eLink'
+
+      link = '<a href="' + customLink['Url'] + '" target="_blank"><img src="' + link_icon + '" border="0" class="eds_custom_icon"></a>'
+      return link.html_safe
+    end
+  end
+
   def best_customlink_detail(result)
+# raise
     fulltext_links = ''
     flag = 0
     # return immediately if there's nothing to work with
