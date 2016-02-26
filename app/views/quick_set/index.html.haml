@@ -21,7 +21,9 @@
         %strong
           = link_to quickset.name, edit_quick_set_path(quickset.id)
         %br
-        (#{quickset.content_provider_names.size} content providers)
+          (#{quickset.content_provider_names.size} content providers)
+        %br
+        = quickset_length_notice(quickset)
       %td= quickset.description
       %td
         -# - quickset.content_providers.each do |db|

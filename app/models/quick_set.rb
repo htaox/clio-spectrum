@@ -10,4 +10,8 @@ class QuickSet < ActiveRecord::Base
     end.sort_by!{ |name| name.downcase }
   end
 
+  def content_provider_byte_length
+    self.content_providers.sum{ |cp| cp.name.length}
+  end
+
 end

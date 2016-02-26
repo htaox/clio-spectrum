@@ -53,4 +53,17 @@ module QuickSetHelper
     end
   end
 
+  def quickset_length_notice(quickset)
+    cp_length = quickset.content_provider_byte_length
+
+    # "color" being a bootstrap class name
+    notice_color = 'default'
+    notice_color = 'warning' if cp_length > 1800
+    notice_color = 'danger'  if cp_length > 2000
+
+    notice = "<p class='quickset_notice alert alert-#{notice_color}'>" +
+      "character count: #{cp_length}</p>"
+
+    return notice.html_safe
+  end
 end
