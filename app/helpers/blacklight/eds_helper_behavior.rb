@@ -1121,6 +1121,9 @@ module Blacklight::EdsHelperBehavior
         if item['Group'].downcase == "src"
           return true
         end
+        if item['Group'].downcase == "ti" and item['Label'].downcase == 'source'
+          return true
+        end
       end
     end
     return false
@@ -1128,13 +1131,14 @@ module Blacklight::EdsHelperBehavior
 
   # display title given a single result
   def show_titlesource(result)
+    # raise
     source = ''
-    flag = 0
     if result['Items'].present?
       result['Items'].each do |item|
-        if item['Group'].downcase == "src" and flag == 0
+        if item['Group'].downcase == "src"
           source = processAPItags(item['Data'].to_s)
-          flag = 1
+        elsif item['Group'].downcase == "ti" and item['Label'].downcase == 'source'
+          source = processAPItags(item['Data'].to_s)
         end
       end
     end
@@ -1522,6 +1526,7 @@ module Blacklight::EdsHelperBehavior
 
   # generate full text link for the detailed record area (not the title link)
   def show_best_fulltext_link_detail(result)
+     # raise
     if has_pdf?(result)
       link = '<a href="' + show_pdf_title_link(result) + '">' + pdfIcon + 'PDF Full Text</a>'
     elsif has_html?(result)
