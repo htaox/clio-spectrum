@@ -37,7 +37,8 @@
                 %li
                   %span.facet-label
                     %a.facet_select{href: request.fullpath.split("?")[0] + "?" + generate_next_url + "&eds_action=" + CGI.escape(facetValue['AddAction'].to_s)}
-                      = facetValue['Value'].to_s.titleize
+                      -# = facetValue['Value'].to_s.titleize
+                      = facetValue['Value'].to_s
 
                   %span.facet-count #{number_with_delimiter(facetValue['Count'])}
 
