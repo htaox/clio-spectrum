@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20150910000000) do
 
   create_table "quick_sets", :force => true do |t|
     t.string   "name",                          :null => false
-    t.text     "description"
+    t.string   "description", :default => ""
     t.boolean  "suppressed",  :default => true
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

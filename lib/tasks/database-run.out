@@ -1,0 +1,432 @@
+$ rake eds:databases:load
+REMEMBER:  Remove facets_override.rb after upgrading Blacklight gem to 5.7.x
+Built connection=#<EDSApi::ConnectionHandler:0x007febd530abb0>
+Got auth_token=ABVAuKkdJRs6_MLGfv1VqTVhhWLjKla83KZ7IkN1c3RvbWVySWQiOiJzMjk1MzQ3MyIsIkdyb3VwSWQiOiJtYWluIn0
+Created session_key=3bfc8337-d318-444c-a0e7-fbf3b6b6a42f.TMyM7EEudRy9Yp6z2sNI8uSZtVD42YXQT14UtddHGpI=
+Submitting apiquery="query-1=AND%2CFT+Y+OR+FT+N&resultsperpage=0"
+Database count: 300
+Content Provider count: 264
+Ignoring database [{"Id"=>"bwh", "Label"=>"", "Status"=>"0", "Hits"=>10248442, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"ehh", "Label"=>"", "Status"=>"0", "Hits"=>3981926, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"a9h", "Label"=>"", "Status"=>"0", "Hits"=>26640277, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"nlabk", "Label"=>"Audiobook Collection (EBSCOhost)", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edswsc", "Label"=>"Science Citation Index", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsebk", "Label"=>"", "Status"=>"0", "Hits"=>906465, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"ofm", "Label"=>"", "Status"=>"0", "Hits"=>13171071, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edo", "Label"=>"", "Status"=>"0", "Hits"=>37540320, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edb", "Label"=>"", "Status"=>"0", "Hits"=>48342056, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsggo", "Label"=>"General OneFile", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsmgh", "Label"=>"McGraw-Hill", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgic", "Label"=>"InfoTrac Computer Database", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgij", "Label"=>"InfoTrac Junior Edition", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgin", "Label"=>"InfoTrac Newsstand", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgih", "Label"=>"InfoTrac Health Reference Center Academic", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgii", "Label"=>"InfoTrac Informe!", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgis", "Label"=>"InfoTrac Student Edition", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsggr", "Label"=>"General Reference Center Gold", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsghw", "Label"=>"Health & Wellness Resource Center", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjdc", "Label"=>"Jane's Defence Equipment & Technology (JDET) - C4ISR & Mission Systems", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjmm", "Label"=>"Jane's Military & Security Assessments (JMSA) - Military Capabilities", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjda", "Label"=>"Jane's Defence Equipment & Technology (JDET) - Air & Space", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjcb", "Label"=>"Jane's Chemical, Biological, Radiological & Nuclear Assessments (JCBRN) - Intelligence Centre", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjds", "Label"=>"Jane's Defence Equipment & Technology (JDET) – Sea", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjte", "Label"=>"Jane’s Terrorism & Insurgency Centre (JTIC) - Terrorism Events", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjdn", "Label"=>"Jane's Defence Equipment & Technology (JDET) – News", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjmn", "Label"=>"Jane's Military & Security Assessments (JMSA) – News", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjmc", "Label"=>"Jane's Military & Security Assessments (JMSA) - Country Risk", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjdl", "Label"=>"Jane's Defence Equipment & Technology (JDET) – Land", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsjdi", "Label"=>"Jane's Defence Industry & Markets (JDIM) - Defense Industry", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edskot", "Label"=>"Kotar Digital Library", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edseur", "Label"=>"Europeana", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsbas", "Label"=>"BASE", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgao", "Label"=>"Academic OneFile", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsgea", "Label"=>"Expanded Academic ASAP", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+Ignoring database [{"Id"=>"edsglt", "Label"=>"InfoTrac LegalTrac", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+stored count: 266
+new match on [edsaca]  ABC-CLIO Social Studies Databases, Academic Edition
+new match on [edsabc]  ABC-CLIO Social Studies Databases, School Edition
+new match on [27h]  Abstracts in Social Gerontology
+new match on [edsasc]  AccessScience
+new match on [edsacl]  ACLS Humanities E-Book
+new match on [edsamd]  Adam Matthew Digital
+new match on [awn]  Africa-Wide Information
+new match on [h7i]  African American Historical Serials Collection
+new match on [edsagr]  AGRIS
+new match on [edsasp]  Alexander Street Press
+new match on [apn]  Alternative Press Index
+new match on [alr]  Alternative Press Index Archive
+new match on [31h]  America: History and Life with Full Text
+new match on [h9j]  American Antiquarian Society (AAS) Historical Periodicals Collection:  Series 3
+new match on [h9h]  American Antiquarian Society (AAS) Historical Periodicals Collection: Series 1
+new match on [h9i]  American Antiquarian Society (AAS) Historical Periodicals Collection: Series 2
+new match on [h9k]  American Antiquarian Society (AAS) Historical Periodicals Collection: Series 4
+new match on [h9m]  American Antiquarian Society (AAS) Historical Periodicals Collection: Series 5
+new match on [sbh]  American Bibliography of Slavic and East European Studies
+new match on [edsoad]  American National Biography Online
+new match on [h7h]  American Theological Library Association (ATLA) Historical Monographs  Collection: Series 1
+new match on [h8h]  American Theological Library Association (ATLA) Historical Monographs Collection: Series 2
+new match on [ant]  Anthropology Plus
+new match on [asb]  Applied Science & Business Periodicals Retrospective: 1913-1983 (H.W. Wilson)
+new match on [asf]  Applied Science & Technology Full Text (H.W. Wilson)
+new match on [edsagd]  ArchiveGrid
+new match on [air]  Art Index Retrospective (H.W. Wilson)
+new match on [asu]  Art Source
+new match on [h6a]  Arte Público Hispanic Historical Collection: Series 1
+new match on [edswah]  Arts & Humanities Citation Index
+new match on [edsart]  ARTstor Digital Library
+new match on [edsarx]  arXiv
+new match on [vah]  ATLA Catholic Periodical and Literature Index
+new match on [rfh]  ATLA Religion Database with ATLASerials
+new match on [bvh]  Avery Index to Architectural Periodicals
+new match on [edsbbd]  BiblioBoard
+new match on [fph]  Bibliography of Native North Americans
+new match on [edsgbc]  Biography in Context
+new match on [bir]  Biography Index Retrospective: 1946-1983 (H.W. Wilson)
+new match on [brb]  Biography Reference Bank (H.W. Wilson)
+new match on [bai]  Biological & Agricultural Index Plus (H.W. Wilson)
+new match on [edsbio]  BioOne Online Journals
+new match on [brd]  Book Review Digest Plus (H.W. Wilson)
+new match on [brr]  Book Review Digest Retrospective: 1903-1982 (H.W. Wilson)
+new match on [edsjbk]  Books at JSTOR
+new match on [edsssb]  Books24x7
+new match on [edsbre]  Bridgeman Education
+new match on [edsebo]  Britannica Online
+new match on [edsbl]  British Library Document Supply Centre Inside Serials & Conference Proceedings
+new match on [edsble]  British Library EThOS
+new match on [edsbsi]  British Standards Online
+new match on [bft]  Business Abstracts with Full Text (H.W. Wilson)
+new match on [edsgbe]  Business Insights: Essentials
+new match on [bah]  Business Source Alumni Edition
+new match on [bth]  Business Source Complete
+new match on [edscrn]  Cairn.info
+new match on [edsgcc]  Canada In Context
+new match on [e5h]  Central & Eastern European Academic Source
+new match on [chd]  Chicano Database
+new match on [33h]  Christian Periodical Index
+new match on [cin20]  CINAHL
+new match on [edschh]  Cochrane Database of Systematic Reviews
+new match on [cax]  Communication Abstracts
+new match on [edscrc]  Credo Reference Collections
+new match on [edscru]  CRUSH Reports
+new match on [edsdps]  Data-Planet Statistical Datasets & Statistical Ready Reference
+new match on [edspia]  DBPIA
+new match on [edshld]  Digital Access to Scholarship at Harvard (DASH)
+new match on [edsdzs]  DigiZeitschriften
+new match on [edsers]  eArticle
+new match on [nlebk]  eBook Collection (EBSCOhost)
+new match on [eoh]  EconLit with Full Text
+new match on [eft]  Education Full Text (H.W. Wilson)
+new match on [eir]  Education Index Retrospective: 1929-1983 (H.W. Wilson)
+new match on [eih]  Environment Complete
+new match on [eric]  ERIC
+new match on [edseru]  Erudit
+new match on [egi]  Essay and General Literature Index (H.W. Wilson)
+new match on [egr]  Essay and General Literature Retrospective (H.W. Wilson)
+new match on [hev]  European Views of the Americas: 1493 to 1750
+new match on [flh]  Family & Society Studies Worldwide
+new match on [26h]  Family Studies Abstracts
+new match on [f3h]  Film & Television Literature Index with Full Text
+new match on [fcs]  FRANCIS
+new match on [edsffr]  Freedonia Focus Reports
+new match on [edsgvr]  Gale Virtual Reference Library
+new match on [puh]  Garden, Landscape & Horticulture Index
+new match on [h5b]  Gateway to North America: People, Places, and Organizations of 19th-Century New York
+new match on [fmh]  Gender Studies Database
+new match on [gft]  General Science Full Text (H.W. Wilson)
+new match on [edsgig]  Gigaom Research
+new match on [edsgpr]  Government Printing Office Catalog
+new match on [8gh]  GreenFILE
+new match on [edsoao]  Grove Art Online
+new match on [edsomo]  Grove Music Online
+new match on [edshtl]  HathiTrust
+new match on [edshol]  HeinOnline
+new match on [edshst]  Henry Stewart Talks
+new match on [30h]  Historical Abstracts with Full Text
+new match on [htm]  History of Science, Technology & Medicine
+new match on [edshvr]  Hoover's Company Profiles
+new match on [hsr]  Humanities & Social Sciences Index Retrospective: 1907-1984 (H.W. Wilson)
+new match on [hft]  Humanities Full Text (H.W. Wilson)
+new match on [edshyr]  HyRead Journal
+new match on [edsibu]  Ibuk.pl
+new match on [iap]  Index to 19th-Century American Art Periodicals
+new match on [jph]  Index to Jewish Periodicals
+new match on [lpb]  Index to Legal Periodicals and Books (H.W. Wilson)
+new match on [lpr]  Index to Legal Periodicals Retrospective: 1908-1981 (H.W. Wilson)
+new match on [ipm]  Index to Printed Music
+new match on [edsijc]  IndianJournals.com
+new match on [edsibc]  Informit Business Collection
+new match on [edsiec]  Informit Engineering Collection
+new match on [edsihc]  Informit Health Collection
+new match on [edsihs]  Informit Humanities & Social Sciences Collection
+new match on [edsind]  Informit Indigenous Collection
+new match on [edsilc]  Informit Literature & Culture Collection
+new match on [ibh]  International Bibliography of Theatre & Dance with Full Text
+new match on [edsjst]  J-STAGE
+new match on [edsjkn]  JapanKnowledge
+new match on [edsjbp]  JSTOR 19th Century British Pamphlets
+new match on [edsjsr]  JSTOR Journals
+new match on [edskey]  Key Note Market Research Reports
+new match on [edskis]  Korean Studies Information Service System (KISS)
+new match on [edslan]  Lan Publishing
+new match on [fqh]  Left Index
+new match on [edslex]  LexisNexis Academic: Law Reviews
+new match on [edslns]  LexisNexis U.S. Serial Set Digital Collection
+new match on [qth]  LGBT Life with Full Text
+new match on [llf]  Library Literature & Information Science Full Text (H.W. Wilson)
+new match on [lxh]  Library, Information Science & Technology Abstracts
+new match on [edsglr]  Literature Resource Center
+new match on [edsman]  Manuscriptorium Digital Library
+new match on [edsmbo]  Marquis Biographies Online
+new match on [edsmzn]  Maruzen eBook Library
+new match on [ulh]  MAS Ultra - School Edition
+new match on [edsmed]  Media Archive
+new match on [cmedm]  MEDLINE
+new match on [loh]  Mental Measurements Yearbook
+new match on [edsmer]  Mergent Annual Reports Collection
+new match on [fxh]  Middle Eastern & Central Asian Studies
+new match on [mth]  Military & Government Collection
+new match on [edsmor]  Mintel Oxygen Reports
+new match on [mzh]  MLA International Bibliography
+new match on [mah]  Music Index
+new match on [ncj]  National Criminal Justice Reference Service  Abstracts
+new match on [edsnol]  Naxos Music Library
+new match on [edsnmj]  Naxos Music Library Jazz
+new match on [edsnsw]  Naxos Spoken Word Library
+new match on [edsnvl]  Naxos Video Library
+new match on [edsnhe]  NBC Learn Higher Ed
+new match on [edsnkt]  NBC Learn K-12
+new match on [n2h]  New Scientist Archive
+new match on [rvh]  New Testament Abstracts
+new match on [edsnbk]  NewsBank
+new match on [edsnba]  NewsBank - Archives
+new match on [edsoai]  OAIster
+new match on [oah]  Old Testament Abstracts
+new match on [edsgov]  Opposing Viewpoints in Context
+new match on [edsoaa]  Oxford African American Studies Center
+new match on [edsobo]  Oxford Biblical Studies Online
+new match on [edsobb]  Oxford Bibliographies
+new match on [edsodb]  Oxford Dictionary of National Biography
+new match on [edsoho]  Oxford Handbooks Online
+new match on [edsoio]  Oxford Islamic Studies Online
+new match on [edsmeo]  Oxford Medicine Online
+new match on [edsoro]  Oxford Reference
+new match on [edsose]  Oxford Scholarly Editions Online
+new match on [edsoso]  Oxford Scholarship Online
+new match on [edsoww]  Oxford's Who's Who & Who Was Who
+new match on [24h]  Peace Research Abstracts
+new match on [edsper]  Persée
+new match on [phl]  Philosopher's Index
+new match on [pix]  Play Index (H.W. Wilson)
+new match on [tfh]  Professional Development Collection
+new match on [edspmu]  Project MUSE
+new match on [edspdh]  PsycARTICLES
+new match on [edspzh]  PsycBOOKS
+new match on [edspvh]  PsycCRITIQUES
+new match on [edspvi]  PsycheVisual
+new match on [21h]  Public Administration  Abstracts
+new match on [edspio]  Public Information Online
+new match on [edsrdl]  R2 Digital Library
+new match on [25h]  Race Relations Abstracts
+new match on [edsrac]  RACO
+new match on [edsram]  RAMBI
+new match on [edsrca]  RCAAP
+new match on [rgm]  Readers' Guide Full Text Mega (H.W. Wilson)
+new match on [rgr]  Readers' Guide Retrospective: 1890-1982 (H.W. Wilson)
+new match on [edsrdx]  ReadEx
+new match on [edsrec]  RECERCAT
+new match on [rph]  RIPM - Retrospective Index to Music Periodicals
+new match on [rsm]  RISM Series A/II: Music Manuscripts after 1600
+new match on [edsriv]  Rivisteweb
+new match on [edsrbp]  Rock's Backpages
+new match on [edsrge]  Roubini Global Economics
+new match on [edssas]  SA ePublications Service
+new match on [edsvox]  ScholarVox
+new match on [edssci]  SciELO
+new match on [edsgsc]  Science In Context
+new match on [edselp]  ScienceDirect
+new match on [edselc]  Scopus®
+new match on [ssx]  Short Story Index (H.W. Wilson)
+new match on [sxr]  Short Story Index Retrospective: 1915-1983 (H.W. Wilson)
+new match on [edswss]  Social Sciences Citation Index
+new match on [ssf]  Social Sciences Full Text (H.W. Wilson)
+new match on [swh]  Social Work Abstracts
+new match on [sih]  SocINDEX with Full Text
+new match on [edsgsf]  SOFIS - Sozialwissenschaftliche Forschungsinformationen
+new match on [edsgsl]  SOLIS - Sozialwissenschaftliche Literatur
+new match on [edsgso]  SSOAR – Social Science Open Access Repository
+new match on [edssrf]  STAT!Ref
+new match on [edsgsr]  Student Resources in Context
+new match on [sur]  Sustainability Reference Center
+new match on [edslib]  Swedish National Bibliography
+new match on [edsswe]  SwePub
+new match on [edstdx]  TDX
+new match on [n0h]  The Nation Archive Premium Edition
+new match on [nch]  The National Review Archive
+new match on [fjh]  The New Republic Archive
+new match on [edsgus]  U.S. History in Context
+new match on [edsups]  University Press Scholarship Online
+new match on [23h]  Urban Studies Abstracts
+new match on [edspap]  USPTO Patent Applications
+new match on [edspgr]  USPTO Patent Grants
+new match on [28h]  Violence & Abuse Abstracts
+new match on [edswbo]  World Book
+new match on [edsgwh]  World History in Context
+new match on [wpr]  World Politics Review
+Unprocessed EDS Databases
+{"Id"=>"rih", "Label"=>"RILM Abstracts of Music Literature (1967 to Present only)", "Status"=>"0", "Hits"=>837900, "processed"=>false}
+{"Id"=>"kah", "Label"=>"MLA Directory of Periodicals", "Status"=>"0", "Hits"=>7000, "processed"=>false}
+{"Id"=>"a6h", "Label"=>"ATLASerials, Religion Collection", "Status"=>"0", "Hits"=>524264, "processed"=>false}
+{"Id"=>"edsmzh", "Label"=>"MLA International Bibliography", "Status"=>"0", "Hits"=>2683617, "processed"=>false}
+{"Id"=>"fba", "Label"=>"Forbes Archive", "Status"=>"0", "Hits"=>100384, "processed"=>false}
+{"Id"=>"edsnew", "Label"=>"Newnonmun – 뉴논문", "Status"=>"0", "Hits"=>40849, "processed"=>false}
+{"Id"=>"edsoap", "Label"=>"OAPEN Library", "Status"=>"0", "Hits"=>2336, "processed"=>false}
+{"Id"=>"edscrl", "Label"=>"Center for Research Libraries", "Status"=>"0", "Hits"=>1481457, "processed"=>false}
+{"Id"=>"edsaan", "Label"=>"Accessible Archives", "Status"=>"0", "Hits"=>1043564, "processed"=>false}
+{"Id"=>"nsm", "Label"=>"Newswires", "Status"=>"0", "Hits"=>4637805, "processed"=>false}
+{"Id"=>"edshlc", "Label"=>"Harvard Library Bibliographic Dataset", "Status"=>"0", "Hits"=>13153121, "processed"=>false}
+{"Id"=>"edsdoj", "Label"=>"Directory of Open Access Journals", "Status"=>"0", "Hits"=>1640745, "processed"=>false}
+{"Id"=>"edsulo", "Label"=>"Университетская библиотека онлайн - University Library Online", "Status"=>"0", "Hits"=>69053, "processed"=>false}
+{"Id"=>"h6b", "Label"=>"Arte Público Hispanic Historical Collection: Series 2", "Status"=>"0", "Hits"=>133147, "processed"=>false}
+{"Id"=>"ram", "Label"=>"RILM Abstracts of Music Literature", "Status"=>"0", "Hits"=>871113, "processed"=>false}
+{"Id"=>"bwa", "Label"=>"Bloomberg Businessweek Archive", "Status"=>"0", "Hits"=>216455, "processed"=>false}
+{"Id"=>"edsibw", "Label"=>"IBISWorld", "Status"=>"0", "Hits"=>2244, "processed"=>false}
+{"Id"=>"fai", "Label"=>"Frick Art Reference Library Periodicals Index", "Status"=>"0", "Hits"=>58372, "processed"=>false}
+{"Id"=>"edskyo", "Label"=>"KyoboScholar", "Status"=>"0", "Hits"=>161778, "processed"=>false}
+{"Id"=>"edsgal", "Label"=>"Gallica Bibliothèque numérique", "Status"=>"0", "Hits"=>2455061, "processed"=>false}
+{"Id"=>"edsgml", "Label"=>"Making of Modern Law", "Status"=>"0", "Hits"=>45084, "processed"=>false}
+{"Id"=>"edswao", "Label"=>"World Affairs Online WAO", "Status"=>"0", "Hits"=>881280, "processed"=>false}
+{"Id"=>"edstox", "Label"=>"TOXNET TOXLINE", "Status"=>"0", "Hits"=>585073, "processed"=>false}
+{"Id"=>"edswbe", "Label"=>"World Bank eLibrary", "Status"=>"0", "Hits"=>10397, "processed"=>false}
+{"Id"=>"edsoec", "Label"=>"OECD iLibrary", "Status"=>"0", "Hits"=>25142, "processed"=>false}
+{"Id"=>"edsfit", "Label"=>"FT.com", "Status"=>"0", "Hits"=>38142, "processed"=>false}
+{"Id"=>"edssrm", "Label"=>"SAGE Research Methods Datasets", "Status"=>"0", "Hits"=>76, "processed"=>false}
+{"Id"=>"edsbrw", "Label"=>"BrillOnline Reference Works", "Status"=>"0", "Hits"=>162867, "processed"=>false}
+{"Id"=>"edsewc", "Label"=>"eHRAF World Cultures", "Status"=>"0", "Hits"=>5614, "processed"=>false}
+{"Id"=>"edsear", "Label"=>"eHRAF Archaeology", "Status"=>"0", "Hits"=>2302, "processed"=>false}
+{"Id"=>"edsker", "Label"=>"KERIS Theses & Dissertations", "Status"=>"0", "Hits"=>133926, "processed"=>false}
+{"Id"=>"ddu", "Label"=>"American Doctoral Dissertations, 1933 - 1955", "Status"=>"0", "Hits"=>93440, "processed"=>false}
+{"Id"=>"edsdeo", "Label"=>"New Palgrave Dictionary of Economics Online", "Status"=>"0", "Hits"=>3956, "processed"=>false}
+{"Id"=>"edsbps", "Label"=>"Brill Primary Source", "Status"=>"0", "Hits"=>19185, "processed"=>false}
+{"Id"=>"ers", "Label"=>"Research Starters", "Status"=>"0", "Hits"=>71298, "processed"=>false}
+
+==================================
+Second Run, allowing databases w/out corresponding Content Providers
+==================================
+
+Sprite:workshop marquis$ rake eds:databases:load
+REMEMBER:  Remove facets_override.rb after upgrading Blacklight gem to 5.7.x
+Built connection=#<EDSApi::ConnectionHandler:0x007f81f0212248>
+Got auth_token=ABUw5-RlTRCUDaTiyBQQmbrRHDxiQla8_Yh7IkN1c3RvbWVySWQiOiJzMjk1MzQ3MyIsIkdyb3VwSWQiOiJtYWluIn0
+Created session_key=e5f0580d-a54f-48a1-a819-3c4aa04a872b.gkgbjsIKoX7xdJRTe6ZNPvKrF5Mh6GEdoqplY7HWSCo=
+Submitting apiquery="query-1=AND%2CFT+Y+OR+FT+N&resultsperpage=0"
+Database count: 301
+Content Provider count: 266
+WARN: database [{"Id"=>"bwh", "Label"=>"", "Status"=>"0", "Hits"=>10248442, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"ehh", "Label"=>"", "Status"=>"0", "Hits"=>3981926, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"a9h", "Label"=>"", "Status"=>"0", "Hits"=>26640277, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"nlabk", "Label"=>"Audiobook Collection (EBSCOhost)", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsebk", "Label"=>"", "Status"=>"0", "Hits"=>906465, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"ofm", "Label"=>"", "Status"=>"0", "Hits"=>13171071, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edo", "Label"=>"", "Status"=>"0", "Hits"=>37540320, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edb", "Label"=>"", "Status"=>"0", "Hits"=>48342056, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsggo", "Label"=>"General OneFile", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgic", "Label"=>"InfoTrac Computer Database", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgij", "Label"=>"InfoTrac Junior Edition", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edseur", "Label"=>"Europeana", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgin", "Label"=>"InfoTrac Newsstand", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgih", "Label"=>"InfoTrac Health Reference Center Academic", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsmgh", "Label"=>"McGraw-Hill", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgii", "Label"=>"InfoTrac Informe!", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgis", "Label"=>"InfoTrac Student Edition", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsggr", "Label"=>"General Reference Center Gold", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsghw", "Label"=>"Health & Wellness Resource Center", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjdc", "Label"=>"Jane's Defence Equipment & Technology (JDET) - C4ISR & Mission Systems", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjmm", "Label"=>"Jane's Military & Security Assessments (JMSA) - Military Capabilities", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjda", "Label"=>"Jane's Defence Equipment & Technology (JDET) - Air & Space", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjcb", "Label"=>"Jane's Chemical, Biological, Radiological & Nuclear Assessments (JCBRN) - Intelligence Centre", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjds", "Label"=>"Jane's Defence Equipment & Technology (JDET) – Sea", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjte", "Label"=>"Jane’s Terrorism & Insurgency Centre (JTIC) - Terrorism Events", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjdn", "Label"=>"Jane's Defence Equipment & Technology (JDET) – News", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjmn", "Label"=>"Jane's Military & Security Assessments (JMSA) – News", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjmc", "Label"=>"Jane's Military & Security Assessments (JMSA) - Country Risk", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjdl", "Label"=>"Jane's Defence Equipment & Technology (JDET) – Land", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsjdi", "Label"=>"Jane's Defence Industry & Markets (JDIM) - Defense Industry", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edskot", "Label"=>"Kotar Digital Library", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsbas", "Label"=>"BASE", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgao", "Label"=>"Academic OneFile", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsgea", "Label"=>"Expanded Academic ASAP", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+WARN: database [{"Id"=>"edsglt", "Label"=>"InfoTrac LegalTrac", "Status"=>"0", "Hits"=>0, "processed"=>false}] - not found in Content Provider facet
+stored count: 266
+new match on [edsgao]  Academic OneFile
+new match on [edsgea]  Expanded Academic ASAP
+new match on [edsggo]  General OneFile
+new match on [edsggr]  General Reference Center Gold
+new match on [edsghw]  Health & Wellness Resource Center
+new match on [edsgic]  InfoTrac Computer Database
+new match on [edsgih]  InfoTrac Health Reference Center Academic
+new match on [edsgii]  InfoTrac Informe!
+new match on [edsgij]  InfoTrac Junior Edition
+new match on [edsglt]  InfoTrac LegalTrac
+new match on [edsgin]  InfoTrac Newsstand
+new match on [edsgis]  InfoTrac Student Edition
+new match on [edsjcb]  Jane's Chemical, Biological, Radiological & Nuclear Assessments (JCBRN) - Intelligence Centre
+new match on [edsjda]  Jane's Defence Equipment & Technology (JDET) - Air & Space
+new match on [edsjdc]  Jane's Defence Equipment & Technology (JDET) - C4ISR & Mission Systems
+new match on [edsjdl]  Jane's Defence Equipment & Technology (JDET) – Land
+new match on [edsjdn]  Jane's Defence Equipment & Technology (JDET) – News
+new match on [edsjds]  Jane's Defence Equipment & Technology (JDET) – Sea
+new match on [edsjdi]  Jane's Defence Industry & Markets (JDIM) - Defense Industry
+new match on [edsjmc]  Jane's Military & Security Assessments (JMSA) - Country Risk
+new match on [edsjmm]  Jane's Military & Security Assessments (JMSA) - Military Capabilities
+new match on [edsjmn]  Jane's Military & Security Assessments (JMSA) – News
+new match on [edsjte]  Jane’s Terrorism & Insurgency Centre (JTIC) - Terrorism Events
+new match on [ram]  RILM Abstracts of Music Literature
+new match on [edswsc]  Science Citation Index
+Unprocessed EDS Databases
+{"Id"=>"bwh", "Label"=>"", "Status"=>"0", "Hits"=>10248442, "processed"=>false}
+{"Id"=>"rih", "Label"=>"RILM Abstracts of Music Literature (1967 to Present only)", "Status"=>"0", "Hits"=>837900, "processed"=>false}
+{"Id"=>"kah", "Label"=>"MLA Directory of Periodicals", "Status"=>"0", "Hits"=>7000, "processed"=>false}
+{"Id"=>"ehh", "Label"=>"", "Status"=>"0", "Hits"=>3981926, "processed"=>false}
+{"Id"=>"a6h", "Label"=>"ATLASerials, Religion Collection", "Status"=>"0", "Hits"=>524264, "processed"=>false}
+{"Id"=>"a9h", "Label"=>"", "Status"=>"0", "Hits"=>26640277, "processed"=>false}
+{"Id"=>"nlabk", "Label"=>"Audiobook Collection (EBSCOhost)", "Status"=>"0", "Hits"=>0, "processed"=>false}
+{"Id"=>"edsmzh", "Label"=>"MLA International Bibliography", "Status"=>"0", "Hits"=>2683617, "processed"=>false}
+{"Id"=>"edsebk", "Label"=>"", "Status"=>"0", "Hits"=>906465, "processed"=>false}
+{"Id"=>"edscrl", "Label"=>"Center for Research Libraries", "Status"=>"0", "Hits"=>1481457, "processed"=>false}
+{"Id"=>"edsnew", "Label"=>"Newnonmun – 뉴논문", "Status"=>"0", "Hits"=>40849, "processed"=>false}
+{"Id"=>"edsoap", "Label"=>"OAPEN Library", "Status"=>"0", "Hits"=>2336, "processed"=>false}
+{"Id"=>"ofm", "Label"=>"", "Status"=>"0", "Hits"=>13171071, "processed"=>false}
+{"Id"=>"edsaan", "Label"=>"Accessible Archives", "Status"=>"0", "Hits"=>1043564, "processed"=>false}
+{"Id"=>"nsm", "Label"=>"Newswires", "Status"=>"0", "Hits"=>4638478, "processed"=>false}
+{"Id"=>"edo", "Label"=>"", "Status"=>"0", "Hits"=>37540320, "processed"=>false}
+{"Id"=>"edb", "Label"=>"", "Status"=>"0", "Hits"=>48342056, "processed"=>false}
+{"Id"=>"edshlc", "Label"=>"Harvard Library Bibliographic Dataset", "Status"=>"0", "Hits"=>13153121, "processed"=>false}
+{"Id"=>"edsdoj", "Label"=>"Directory of Open Access Journals", "Status"=>"0", "Hits"=>1640745, "processed"=>false}
+{"Id"=>"edsulo", "Label"=>"Университетская библиотека онлайн - University Library Online", "Status"=>"0", "Hits"=>69053, "processed"=>false}
+{"Id"=>"h6b", "Label"=>"Arte Público Hispanic Historical Collection: Series 2", "Status"=>"0", "Hits"=>133147, "processed"=>false}
+{"Id"=>"bwa", "Label"=>"Bloomberg Businessweek Archive", "Status"=>"0", "Hits"=>216455, "processed"=>false}
+{"Id"=>"edseur", "Label"=>"Europeana", "Status"=>"0", "Hits"=>0, "processed"=>false}
+{"Id"=>"edskyo", "Label"=>"KyoboScholar", "Status"=>"0", "Hits"=>161778, "processed"=>false}
+{"Id"=>"fai", "Label"=>"Frick Art Reference Library Periodicals Index", "Status"=>"0", "Hits"=>58372, "processed"=>false}
+{"Id"=>"edsmgh", "Label"=>"McGraw-Hill", "Status"=>"0", "Hits"=>0, "processed"=>false}
+{"Id"=>"edsgal", "Label"=>"Gallica Bibliothèque numérique", "Status"=>"0", "Hits"=>2455061, "processed"=>false}
+{"Id"=>"edsibw", "Label"=>"IBISWorld", "Status"=>"0", "Hits"=>2244, "processed"=>false}
+{"Id"=>"edswao", "Label"=>"World Affairs Online WAO", "Status"=>"0", "Hits"=>881280, "processed"=>false}
+{"Id"=>"edskot", "Label"=>"Kotar Digital Library", "Status"=>"0", "Hits"=>0, "processed"=>false}
+{"Id"=>"edsgml", "Label"=>"Making of Modern Law", "Status"=>"0", "Hits"=>45084, "processed"=>false}
+{"Id"=>"edstox", "Label"=>"TOXNET TOXLINE", "Status"=>"0", "Hits"=>585073, "processed"=>false}
+{"Id"=>"edswbe", "Label"=>"World Bank eLibrary", "Status"=>"0", "Hits"=>10397, "processed"=>false}
+{"Id"=>"edsoec", "Label"=>"OECD iLibrary", "Status"=>"0", "Hits"=>25142, "processed"=>false}
+{"Id"=>"edsfit", "Label"=>"FT.com", "Status"=>"0", "Hits"=>38142, "processed"=>false}
+{"Id"=>"edssrm", "Label"=>"SAGE Research Methods Datasets", "Status"=>"0", "Hits"=>76, "processed"=>false}
+{"Id"=>"edsbas", "Label"=>"BASE", "Status"=>"0", "Hits"=>0, "processed"=>false}
+{"Id"=>"edsbrw", "Label"=>"BrillOnline Reference Works", "Status"=>"0", "Hits"=>162867, "processed"=>false}
+{"Id"=>"edsker", "Label"=>"KERIS Theses & Dissertations", "Status"=>"0", "Hits"=>133926, "processed"=>false}
+{"Id"=>"edsear", "Label"=>"eHRAF Archaeology", "Status"=>"0", "Hits"=>2302, "processed"=>false}
+{"Id"=>"edsewc", "Label"=>"eHRAF World Cultures", "Status"=>"0", "Hits"=>5614, "processed"=>false}
+{"Id"=>"ril", "Label"=>"RILM Music Encyclopedias", "Status"=>"0", "Hits"=>181971, "processed"=>false}
+{"Id"=>"edsdeo", "Label"=>"New Palgrave Dictionary of Economics Online", "Status"=>"0", "Hits"=>3956, "processed"=>false}
+{"Id"=>"edsbps", "Label"=>"Brill Primary Source", "Status"=>"0", "Hits"=>19185, "processed"=>false}
+{"Id"=>"ddu", "Label"=>"American Doctoral Dissertations, 1933 - 1955", "Status"=>"0", "Hits"=>93440, "processed"=>false}
+{"Id"=>"fba", "Label"=>"Forbes Archive", "Status"=>"0", "Hits"=>100384, "processed"=>false}
+{"Id"=>"ers", "Label"=>"Research Starters", "Status"=>"0", "Hits"=>71298, "processed"=>false}

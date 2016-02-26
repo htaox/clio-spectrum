@@ -6,7 +6,7 @@ class QuickSet < ActiveRecord::Base
 
   def content_provider_names
     self.content_providers.collect do |content_provider|
-      content_provider.name
+      content_provider.name + (content_provider.active ? '' : ' [INACTIVE]')
     end.sort_by!{ |name| name.downcase }
   end
 

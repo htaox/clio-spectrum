@@ -1,6 +1,18 @@
 require "#{Rails.root}/app/helpers/blacklight/eds_helper_behavior"
 include Blacklight::EdsHelperBehavior
 
+# Mapping of nameless databases to labels
+ID2LABEL = {
+  "a9h" => "Academic Search Complete",
+  "bwh" => "Regional Business News",
+  "edb" => "Publisher Provided Full Text Searching File",
+  "edo" => "Supplemental Index",
+  "edsebk" => "Discovery eBooks",
+  "ehh" => "Education Research Complete",
+  "ofm" => "OmniFile Full Text Mega (H.W. Wilson)"
+}
+
+
 namespace :eds do
 
   namespace :databases do
@@ -38,6 +50,11 @@ namespace :eds do
         databases = results['SearchResult']['Statistics']['Databases']
         puts "Database count: #{databases.size}"
         databases.each { |d| d['processed'] = false }
+        databases.each { |d|
+          if d['Label'] == ''
+            d['Label'] = ID2LABEL[ d['Id'] ] || ''
+          end
+        }
 
         # Extract "content providers" from the Statistics section
         content_provider_facet = results['SearchResult']['AvailableFacets'].select { |facet|
@@ -60,13 +77,18 @@ namespace :eds do
         # We'll want to only keep any EDS Database which is not 
         # available as a Content Provider facet option, 
         # because we can't facet search results by that value
-        databases.each { |d|
-          puts "Ignoring database [#{d.inspect}] - not found in Content Provider facet" unless content_providers.include?(d['Label'])
-        }
 
-        databases.select! { |d|
-          content_providers.include?(d['Label'])
-        }
+        # THIS IS OK - dont' even warn, it's going to be common
+        # for databases to not show up in the facets section.
+        # databases.each { |d|
+        #   puts "WARN: database [#{d.inspect}] - not found in Content Provider facet" unless content_providers.include?(d['Label'])
+        # }
+
+        # Nope, include databases whether or not they're 
+        # found in the Content Provider facet
+        # databases.select! { |d|
+        #   content_providers.include?(d['Label'])
+        # }
 
         stored_all = ContentProvider.all
         puts "stored count: #{stored_all.size}"
@@ -136,10 +158,22 @@ namespace :eds do
           end
         }
 
-        puts "Unprocessed EDS Databases"
-        puts databases.select{ |d| d['processed'] == false }
+        puts "Unprocessed EDS Databases - (new to us, inserting):"
+        databases.each{ |d|
+          next unless d['processed'] == false
+          puts d
+          cp_params = {
+            eds_database_id: d['Id'],
+            name: d['Label'],
+            last_seen: Time.now(),
+            active: true
+          }
+          new_cp = ContentProvider.new(cp_params)
+          new_cp.save
+        }
 
-        # EACH UN-PROCESSED DATABASE (new option?)
+
+        # EACH UN-PROCESSED DATABASE
         # - insert new Content Provider - name/id/lastseen/active
         # - report
 
