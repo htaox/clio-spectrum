@@ -1,55 +1,89 @@
 
 #datasources
-  :margin 0em 0em 1em 0
-  :padding 0
+  margin: 0em 0em 1em 0
+  padding: 0
   margin-right: 0
+  display: table
+  width: 100%
+  //border-collapse: separate
+  //border-spacing: 1em 0.5em
+
+  li.hover
+    //:background #f0f0f0 image_url("ds_pointer.png") no-repeat center right
+    background: #f0f0f0
+  .datasource-count.hover
+    background: image_url("ds_pointer.png") no-repeat center right
+    
+
+  li.selected span
+    background: #e3e8f1
+    border-left: 5px solid gold
+  
+  
   li
-    :list-style none
+    list-style: none
     background: inherit
     color: #111
-    :font-size 1.1em
-    :padding 5px 10px 5px 10px
+    font-size: 1.1em
+    //padding: 5px 10px 5px 10px
+    display: table-row
 
     a
       color: #111
-      display: inline-block
-      width: 100%
-      :border-bottom none
+      //display: inline-block
+      //width: 100%
+      //display: table-cell
+      border-bottom: none
 
-    &.title
+    .title
       font-weight: bold
       font-size: 1.4em
       text-transform: lowercase
       font-variant: small-caps
       color: #888
 
-    &.hover
-      //:background #f0f0f0 asset_url("ds_pointer.png",image) no-repeat center right
-      :background #f0f0f0 image_url("ds_pointer.png") no-repeat center right
 
-    &.selected, &.selected.hover
-      //background: #e3e8f1 asset_url("ds_pointer.png",image) no-repeat center right
-      background: #e3e8f1 image_url("ds_pointer.png") no-repeat center right
-      border-left: 5px solid gold
-      a
-        margin-left: -3px 
-        font-weight: bold
+    //&.selected, &.selected.hover
+    //  background: #e3e8f1 image_url("ds_pointer.png") no-repeat center right
+    //  border-left: 5px solid gold
+    //  a
+    //    margin-left: -3px 
+    //    font-weight: bold
 
-    &.subsource
+    .subsource
       font-size: 1.0em
       margin-left: 1em
 
     a:hover
       :text-decoration none
 
+    .hits
+      display: table-cell
 
-// nothing has this class
-//.datasource_select
-//  @extend .hidden-sm
-//  :padding-bottom 1em
-//
-//  select
-//    :width 12em
+    .datasource-label
+      display: table-cell
+      padding-right: 1em
+
+      text-indent: -15px
+      padding-left: 15px
+      padding-top: 5px
+      padding-bottom: 5px
+
+      &.selected, &.selected.hover
+        background: #e3e8f1 image_url("ds_pointer.png") no-repeat center right
+        border-left: 5px solid gold
+      //  a
+      //    margin-left: -3px 
+      //    font-weight: bold
+
+    .datasource-count
+      display: table-cell
+      vertical-align: top
+      text-align: right
+      padding-top: 5px
+      padding-bottom: 5px
+
+
 
 #datasource_expand *, #datasource_contract *
   font-style: italic

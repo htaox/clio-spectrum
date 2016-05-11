@@ -474,7 +474,7 @@ perform_search
 
       def self.generate_config(source)
         # If we're in one of the hybrid-source bento-box searches....
-        if source.in?('quicksearch', 'ebooks', 'dissertations')
+        if source.in?('ebooks', 'dissertations')
           self.blacklight_config = Blacklight::Configuration.new do |config|
 
             # Add the "All Fields" seach field first, then append all the other default searches
@@ -510,6 +510,8 @@ perform_search
             case source
             when 'catalog'
               default_catalog_config(config)
+              # config.add_facet_field 'source_facet'
+
 
             when 'catalog_ebooks'
               default_catalog_config(config, :display_fields, :facets, :search_fields, :sorts)

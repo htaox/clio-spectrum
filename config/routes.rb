@@ -46,13 +46,13 @@ Clio::Application.routes.draw do
 
   Blacklight.add_routes(self)
 
-  root to: 'spectrum#search', defaults: { layout: 'quicksearch' }
+  # root to: 'spectrum#search', defaults: { layout: 'quicksearch' }
 
   devise_for :users, controllers: { sessions: 'sessions' }
 
   get 'catalog', to: 'catalog#index', as: :base_catalog_index
 
-  get 'quicksearch/', to: 'spectrum#search', as: :quicksearch_index, defaults: { layout: 'quicksearch' }
+  # get 'quicksearch/', to: 'spectrum#search', as: :quicksearch_index, defaults: { layout: 'quicksearch' }
 
   # "Browser Options" are things like facet open/close state, view-style, etc.
   get 'set_browser_option', to: 'application#set_browser_option_handler'
@@ -107,7 +107,11 @@ Clio::Application.routes.draw do
 
   # get 'spectrum/fetch/:layout/:datasource', to: 'spectrum#fetch', as: 'spectrum_fetch'
   # match 'spectrum/searchjson/:layout/:datasource', to: 'spectrum#searchjson', as: 'spectrum_searchjson'
-  get 'spectrum/searchjson/:layout/:datasource', to: 'spectrum#searchjson', as: 'spectrum_searchjson'
+  # get 'spectrum/searchjson/:layout/:datasource', to: 'spectrum#searchjson', as: 'spectrum_searchjson'
+  get 'spectrum/hitt/:datasource', to: 'spectrum#hitt', as: 'spectrum_hitt'
+
+  get 'spectrum/hits/:datasource', to: 'spectrum#hits', as: 'spectrum_hits'
+
 
   match 'articles', to: 'spectrum#search', as: :articles_index, via: [:get, :post], defaults: { layout: 'articles' }
 
@@ -124,7 +128,7 @@ Clio::Application.routes.draw do
   get 'locations/show/:id', id: /[^\/]+/, to: 'locations#show', as: :location_display
 
   # this catches certain broken sessions, when somehow controller == spectrum and action == show
-  get 'spectrum/show', to: 'spectrum#search', defaults: { layout: 'quicksearch' }
+  # get 'spectrum/show', to: 'spectrum#search', defaults: { layout: 'quicksearch' }
 
   # we get this from blacklight - but we need it to accept POST as well...
   # email_catalog GET    /catalog/email(.:format)                       catalog#email
@@ -150,6 +154,12 @@ Clio::Application.routes.draw do
   # routes that also go to 'catalog#index'
   # (Didn't have to do this with Rails 3 - what changed???)
   get 'catalog/advanced', to: 'catalog#index', as: :catalog_advanced, defaults: { q: '', show_advanced: 'true' }
+
+  root to: "catalog#index"
+  # redirect quicksearch to catalog, with any search args
+  # get '/quicksearch', to: redirect('/catalog')
+  get '/quicksearch', to: redirect { |params, request| "/catalog?#{request.params.to_query}" }
+
 
 end
 

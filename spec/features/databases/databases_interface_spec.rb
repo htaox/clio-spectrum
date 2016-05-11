@@ -16,6 +16,10 @@ describe 'Databases', :vcr do
     expect(page).to have_css('.result.document .title', minimum: 20)
     expect(page).to have_css('.result.document .title', text: 'The T', maximum: 5)
 
+  end
+
+  it "First-Letter facet should ignore leading L'", :js do
+
     visit databases_index_path
     within 'div.a_to_z' do
       click_link('A')
@@ -27,9 +31,20 @@ describe 'Databases', :vcr do
     expect(page).to have_css('.result.document .title', text: 'The A', minimum: 1)
     expect(page).to have_css('.result.document .title', text: "L'A", minimum: 1)
 
+  end
+
+  it "DB record for 'Academic Commons'", :js do
+
+    visit databases_index_path
+    within 'div.a_to_z' do
+      click_link('A')
+    end
+
     within '#documents' do
       click_link('Academic Commons')
     end
+
+    # Check for various links and language throughout the page
 
     expect(find('#search_info')).to have_text 'Back to Results'
     expect(find('#search_info')).to have_text 'Previous'
@@ -54,8 +69,8 @@ describe 'Databases', :vcr do
 
   it 'should search by pairs of Discipline/Resource-Type filters correctly' do
    visit root_path
-    # We should now be on QUICKSEARCH page
-   expect(find('.landing_main .title')).to have_text('Quicksearch')
+    # We should now be on catalog page
+   expect(find('.landing_main .title')).to have_text('Catalog')
     # page.save_and_open_page # debug
 
    within('li.datasource_link[source="databases"]') do

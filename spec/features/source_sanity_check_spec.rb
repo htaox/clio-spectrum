@@ -9,10 +9,10 @@ describe 'Datasource Sanity', :vcr do
 
   context 'direct datasources links go to landing pages' do
 
-    it 'quicksearch' do
-      visit '/quicksearch'
-      expect(find('.landing_main .title')).to have_text('Quicksearch')
-    end
+    # it 'quicksearch' do
+    #   visit '/quicksearch'
+    #   expect(find('.landing_main .title')).to have_text('Quicksearch')
+    # end
 
     it 'catalog' do
       visit '/catalog'
@@ -70,14 +70,14 @@ end
 
 describe 'Simple query should retrieve results', :vcr do
 
-  it 'in quicksearch datasource', :js do
-    visit quicksearch_index_path(q: 'test')
-    expect(page).to have_css('.result_set', count: 4)
-    expect(page).to have_css('.nested_result_set', count: 4)
-    all('.result_set').each do |result_set|
-      expect(result_set).to have_css('.result')
-    end
-  end
+  # it 'in quicksearch datasource', :js do
+  #   visit quicksearch_index_path(q: 'test')
+  #   expect(page).to have_css('.result_set', count: 4)
+  #   expect(page).to have_css('.nested_result_set', count: 4)
+  #   all('.result_set').each do |result_set|
+  #     expect(result_set).to have_css('.result')
+  #   end
+  # end
 
   it 'in catalog datasource' do
     visit catalog_index_path('q' => 'test')
@@ -152,11 +152,14 @@ describe 'Switching between data-source', :vcr do
     # terminal newline submits form
     fill_in 'q', with: "test\n"
 
-    expect(page).to have_css('.result_set', count: 4)
-    expect(page).to have_css('.nested_result_set', count: 4)
-    all('.result_set').each do |result_set|
-      expect(result_set).to have_css('.result')
-    end
+    # # QuickSearch
+    # expect(page).to have_css('.result_set', count: 4)
+    # expect(page).to have_css('.nested_result_set', count: 4)
+    # all('.result_set').each do |result_set|
+    #   expect(result_set).to have_css('.result')
+    # end
+    expect(find('div.constraint-box')).to have_text('test')
+    expect(page).to have_css('.result')
 
     within('#datasources') do
       click_link('Catalog')

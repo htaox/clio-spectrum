@@ -54,21 +54,21 @@ describe 'Academic Commons', :vcr do
 
   # NEXT-1012 - use handle for item link in AC records
   it 'should link items to identifiers, not AC website', :js do
-    visit quicksearch_index_path('q' => 'portuguese')
+    rowcount = 10
+    visit academic_commons_index_path('q' => 'portuguese', rows: rowcount)
 
     # Make sure things load...
-    expect(page).to have_css('.result_set', count: 4)
-    expect(page).to have_css('.nested_result_set', count: 4)
+    # expect(page).to have_css('.result_set', count: 4)
+    # expect(page).to have_css('.nested_result_set', count: 4)
+    expect(page).to have_css('.result.document', count: rowcount)
 
-    within('.nested_result_set[data-source=academic_commons]') do
-      # We should find at least one of these...
-      expect(page).to have_css('.result_title a', count: 3)
-      # and each one we find must satisfy this assertion.
-      all('.result_title a').each do |link|
-        expect(link['href']).to satisfy { |url|
-          url.match(/http:\/\/dx.doi.org\//)  || url.match(/http:\/\/hdl.handle.net\//) || url.match(/http:\/\/academiccommons.columbia.edu\//)
-        }
-      end
+    # We should find at least one of these...
+    expect(page).to have_css('.title a', count: rowcount)
+    # and each one we find must satisfy this assertion.
+    all('.title a').each do |link|
+      expect(link['href']).to satisfy { |url|
+        url.match(/http:\/\/dx.doi.org\//)  || url.match(/http:\/\/hdl.handle.net\//) || url.match(/http:\/\/academiccommons.columbia.edu\//)
+      }
     end
   end
 

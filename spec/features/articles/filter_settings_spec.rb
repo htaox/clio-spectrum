@@ -32,29 +32,29 @@ describe 'Summon Search Option Filter Settings', :vcr do
     end
   end
 
-  it 'should default from QuickSearch panel', :js do
-    visit quicksearch_index_path('q' => $q)
-    expect(page).to have_css('.result_count')
-
-    within('.results_header[data-source=articles]') do
-      expect(find('.result_count')).to have_text "View and filter all"
-      @result_count = find('.result_count').text
-      @result_count = @result_count.sub(/.* all (.*) results/, '\1')
-      click_link "View and filter all"
-    end
-
-    expect(all('.index_toolbar.navbar').first).to have_text " of #{@result_count}"
-    confirm_default_filter_settings
-  end
-
-  it 'should default from QuickSearch / DataSource link' do
-    visit quicksearch_index_path('q' => $q)
-    within('#datasources') do
-      click_link('Articles')
-    end
-    expect(all('.index_toolbar.navbar').first).to have_text " of #{@result_count}"
-    confirm_default_filter_settings
-  end
+  # it 'should default from QuickSearch panel', :js do
+  #   visit quicksearch_index_path('q' => $q)
+  #   expect(page).to have_css('.result_count')
+  # 
+  #   within('.results_header[data-source=articles]') do
+  #     expect(find('.result_count')).to have_text "View and filter all"
+  #     @result_count = find('.result_count').text
+  #     @result_count = @result_count.sub(/.* all (.*) results/, '\1')
+  #     click_link "View and filter all"
+  #   end
+  # 
+  #   expect(all('.index_toolbar.navbar').first).to have_text " of #{@result_count}"
+  #   confirm_default_filter_settings
+  # end
+  # 
+  # it 'should default from QuickSearch / DataSource link' do
+  #   visit quicksearch_index_path('q' => $q)
+  #   within('#datasources') do
+  #     click_link('Articles')
+  #   end
+  #   expect(all('.index_toolbar.navbar').first).to have_text " of #{@result_count}"
+  #   confirm_default_filter_settings
+  # end
 
 
   it 'should default from Other DataSource' do

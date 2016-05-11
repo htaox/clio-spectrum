@@ -2,7 +2,14 @@
 #
 module CulCatalogHelper
   def fix_catalog_links(text, source = @active_source)
-    text.to_s.gsub('/catalog', "/#{source}").html_safe
+
+    # explicit /catalog/foo links...
+    return text.to_s.gsub('/catalog', "/#{source}").html_safe if text.include? '/catalog'
+
+    # root links, e.g., to clio.columbia.edu/?q=bar
+    return text.to_s.gsub('/?', "/#{source}?").html_safe if text.include? '/?'
+
+    return text
   end
 
   def build_link_back(id = nil)

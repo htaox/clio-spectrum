@@ -16,7 +16,7 @@ describe 'Articles Search', :vcr do
   it 'should support multi-field searching', :js do
     visit root_path
     within('.landing_page') do
-      click_link('Articles')
+      click_link('Articles search')
     end
     click_link('Advanced Search')
 

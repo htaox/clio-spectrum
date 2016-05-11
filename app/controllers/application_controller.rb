@@ -266,36 +266,40 @@ class ApplicationController < ActionController::Base
     if active_source_from_params
       @active_source = active_source_from_params.underscore
     else
-      path_minus_advanced = request.path.to_s.gsub(/^\/advanced/, '')
+      path_minus_advanced = request.path.to_s.gsub(/^\/advanced/, '').gsub(/^\/(\w+).*/, '\1')
+
+      valid_sources = [ 'databases', 'new_arrivals', 'catalog', 'articles', 'journals', 'dissertations', 'ebooks', 'academic_commons', 'library_web', 'archives']
+      return @active_source = path_minus_advanced if valid_sources.include? path_minus_advanced
+
       @active_source = case path_minus_advanced
-      when /^\/databases/
-        'databases'
-      when /^\/new_arrivals/
-        'new_arrivals'
-      when /^\/catalog/
-        'catalog'
-      when /^\/articles/
-        'articles'
-      when /^\/journals/
-        'journals'
-      when /^\/dissertations/
-        'dissertations'
-      when /^\/ebooks/
-        'ebooks'
-      when /^\/academic_commons/
-        'academic_commons'
-      when /^\/library_web/
-        'library_web'
+      # when /^\/databases/
+      #   'databases'
+      # when /^\/new_arrivals/
+      #   'new_arrivals'
+      # when /^\/catalog/
+      #   'catalog'
+      # when /^\/articles/
+      #   'articles'
+      # when /^\/journals/
+      #   'journals'
+      # when /^\/dissertations/
+      #   'dissertations'
+      # when /^\/ebooks/
+      #   'ebooks'
+      # when /^\/academic_commons/
+      #   'academic_commons'
+      # when /^\/library_web/
+      #   'library_web'
       when /^\/newspapers/
         # re-direct bookmarked newspaper urls to articles
         'articles'
-      when /^\/archives/
-        'archives'
+      # when /^\/archives/
+      #   'archives'
       # Browse (Shelf-Browse, Call-Number Browse) is assumed to act like Catalog
       when /^\/browse/
         'catalog'
       else
-        active_source_from_params || 'quicksearch'
+        active_source_from_params || 'catalog'
       end
     end
   end

@@ -75,28 +75,47 @@ class SpectrumController < ApplicationController
     @show_landing_pages = true if @results.empty?
   end
 
-  def searchjson
-    @search_layout = SEARCHES_CONFIG['layouts'][params[:layout]]
+  # def searchjson
+  def hitt
+raise
+    # @search_layout = SEARCHES_CONFIG['layouts'][params[:layout]]
+    # 
+    # @datasource = params[:datasource]
+    # 
+    # if @search_layout.nil?
+    #   render text: 'Search layout invalid.'
+    # else
+    #   # seems to be unused for JSON results?
+    #   # @fetch_action = true
+    # 
+    #   # Need this to help partials select which template to render
+    #   @search_style = @search_layout['style']
+    # 
+    #   # @has_facets = @search_layout['has_facets']
+    #   sources =  @search_layout['columns'].map do |col|
+    #     col['searches'].map { |item| item['source'] }
+    #   end.flatten.select { |source| source == @datasource }
+    # 
+    #   @results = get_results(sources)
+    #   render 'searchjson', layout: 'js_return'
+    # end
 
-    @datasource = params[:datasource]
+  end
 
-    if @search_layout.nil?
-      render text: 'Search layout invalid.'
-    else
-      # seems to be unused for JSON results?
-      # @fetch_action = true
-
-      # Need this to help partials select which template to render
-      @search_style = @search_layout['style']
-
-      # @has_facets = @search_layout['has_facets']
-      sources =  @search_layout['columns'].map do |col|
-        col['searches'].map { |item| item['source'] }
-      end.flatten.select { |source| source == @datasource }
-
-      @results = get_results(sources)
-      render 'searchjson', layout: 'js_return'
-   end
+  # Simplified version of 'searchjson' - just run a query against
+  # a datasource to get a hit count.
+  def hits
+raise
+    results =
+      # case params['source']
+      case 'sp'
+      when 'articles'
+        # params = fix_summon_params(params)
+        Spectrum::SearchEngines::Summon.new('asdf')
+      when 'academic_commons'
+        blacklight_search('asdf')
+      end
+    # raise
   end
 
   def facet
@@ -153,10 +172,10 @@ class SpectrumController < ApplicationController
       end
     end
 
-    # Article searches within QuickSearch should act as New searches
-    params['new_search'] = 'true' if @active_source == 'quicksearch'
-    # QuickSearch is only one of may possible Aggregates - so maybe this instead?
-    # params['new_search'] = 'true' if @search_style == 'aggregate'
+    # # Article searches within QuickSearch should act as New searches
+    # params['new_search'] = 'true' if @active_source == 'quicksearch'
+    # # QuickSearch is only one of may possible Aggregates - so maybe this instead?
+    # # params['new_search'] = 'true' if @search_style == 'aggregate'
 
     # If we're coming from the LWeb Search Widget - or any other external
     # source - mark it as a New Search for the Summon search engine.

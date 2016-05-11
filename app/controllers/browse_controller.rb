@@ -294,34 +294,34 @@ class BrowseController < ApplicationController
 
 
 
-  def nearby_SearchWorks
-    return unless params[:start].present?
-
-    @response, @document = fetch(params[:start])
-
-# raise
-    # barcode = params[:barcode] || @original_doc[:preferred_barcode]
-    barcode = params[:barcode] || @document[:call_number_txt].first
-
-    respond_to do |format|
-      format.html do
-        nearby = NearbyOnShelf.new(
-          "static",
-          blacklight_config,
-          {:item_display => @document[:item_display],
-           :preferred_barcode=>barcode,
-           :before => 12,
-           :after => 12}
-        )
-        # ).items.map do |document|
-        #   SolrDocument.new(document[:doc])
-        # end
-        raise
-        # render :browse, locals: {document: @document, nearby_list: @nearby_list}, layout:false
-        render  locals: {document: @document, nearby_list: nearby.items}, layout:false
-      end
-    end
-  end
+#   def nearby_SearchWorks
+#     return unless params[:start].present?
+# 
+#     @response, @document = fetch(params[:start])
+# 
+# # raise
+#     # barcode = params[:barcode] || @original_doc[:preferred_barcode]
+#     barcode = params[:barcode] || @document[:call_number_txt].first
+# 
+#     respond_to do |format|
+#       format.html do
+#         nearby = NearbyOnShelf.new(
+#           "static",
+#           blacklight_config,
+#           {:item_display => @document[:item_display],
+#            :preferred_barcode=>barcode,
+#            :before => 12,
+#            :after => 12}
+#         )
+#         # ).items.map do |document|
+#         #   SolrDocument.new(document[:doc])
+#         # end
+#         raise
+#         # render :browse, locals: {document: @document, nearby_list: @nearby_list}, layout:false
+#         render  locals: {document: @document, nearby_list: nearby.items}, layout:false
+#       end
+#     end
+#   end
 
 
 end

@@ -11,12 +11,12 @@
 # 
 datasources:
 
-  quicksearch:
-    name: Quicksearch
-    no_facets: true
-    search_box:
-      route: quicksearch_index_path
-      placeholder: Catalog, Articles, Academic Commons, Library Web 
+  # quicksearch:
+  #   name: Quicksearch
+  #   no_facets: true
+  #   search_box:
+  #     route: quicksearch_index_path
+  #     placeholder: Catalog, Articles, Academic Commons, Library Web 
 
   articles:
     name: Articles
@@ -153,7 +153,7 @@ datasources:
 
 datasource_bar:
   major_sources:
-    - quicksearch
+    # - quicksearch
     - catalog
     - databases
     - journals

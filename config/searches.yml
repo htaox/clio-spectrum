@@ -13,32 +13,32 @@ layouts:
           - source: library_web 
             # let per-page (row count) be parameterized
             # count: 10
-  quicksearch:
-    style: aggregate
-    columns:
-      - width: 6
-        searches:
-          - source: catalog
-            count: 10
-            display_footer: true
-            row_opts:
-              spans: [3,9] 
-      - width: 6
-        searches:
-          - source: articles
-            count: 3
-            row_opts:
-              spans: [3,9] 
-
-          - source: academic_commons
-            count: 3
-            row_opts:
-              spans: [3,9]
-
-          - source: library_web
-            count: 3
-            row_opts:
-              spans: [3,9]
+  # quicksearch:
+  #   style: aggregate
+  #   columns:
+  #     - width: 6
+  #       searches:
+  #         - source: catalog
+  #           count: 10
+  #           display_footer: true
+  #           row_opts:
+  #             spans: [3,9] 
+  #     - width: 6
+  #       searches:
+  #         - source: articles
+  #           count: 3
+  #           row_opts:
+  #             spans: [3,9] 
+  # 
+  #         - source: academic_commons
+  #           count: 3
+  #           row_opts:
+  #             spans: [3,9]
+  # 
+  #         - source: library_web
+  #           count: 3
+  #           row_opts:
+  #             spans: [3,9]
 
 
   dissertations:
@@ -82,8 +82,8 @@ layouts:
 
 sources:
 
-  quicksearch:
-    warning: 
+  # quicksearch:
+  #   warning: 
 
   archives:
     Xwarning:  Due to system maintenance, certain CLIO services will be unavailable beginning at 7pm, Friday, January 3rd.  We expect full service to be restored by Monday morning, January 6th.

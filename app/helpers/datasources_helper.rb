@@ -136,61 +136,44 @@ module DatasourcesHelper
   # Should be an <li>, with an <a href> inside it.
   # The link should re-run the current search against the new data-source.
   def single_datasource_list_item(source, options)
-    classes = []
-    classes << 'minor_source' if options[:minor]
+    link_classes = []
+    # link_classes << 'minor_source' if options[:minor]
+    link_classes << 'subsource' if DATASOURCES_CONFIG['datasource_bar']['subsources'].include?(source)
     query = options[:query]
 
     li_classes = %w(datasource_link)
     li_classes << 'selected' if source == options[:active_source]
 
     # li_classes << 'subsource' if options[:subsource]
-    li_classes << 'subsource' if DATASOURCES_CONFIG['datasource_bar']['subsources'].include?(source)
+    # li_classes << 'subsource' if DATASOURCES_CONFIG['datasource_bar']['subsources'].include?(source)
 
     href = datasource_landing_page_path(source, query)
+    datasource_link = single_datasource_link(source, href, link_classes)
+    datasource_hits = single_datasource_hits(source)
 
     # What parts of a query should we carry-over between data-sources?
     # -- Any basic query term, yes, query it against the newly selected datasources
     # -- Any facets?  Drop them, clear all filtering when switching datasources.
     # NEXT-954 - Improve Landing Page access
-    # href = if query.empty?
-      # Don't carry-over the null query, just link to new datasource's landing page
-    #   "/#{source}"
-    # else
-      # case source
-      # when 'quicksearch'
-      #   quicksearch_index_path(:q => query)
-      # when 'catalog'
-      #   base_catalog_index_path(:q => query)
-      # when 'databases'
-      #   databases_index_path(:q => query)
-      # when 'articles'
-      #   articles_index_path('s.q' => query, 'new_search' => true)
-      # when 'journals'
-      #   journals_index_path(:q => query)
-      # when 'ebooks'
-      #   ebooks_index_path(:q => query)
-      # when 'dissertations'
-      #   dissertations_index_path(:q => query)
-      # when 'new_arrivals'
-      #   new_arrivals_index_path(:q => query)
-      # when 'academic_commons'
-      #   academic_commons_index_path(:q => query)
-      # when 'library_web'
-      #   library_web_index_path(:q => query)
-      # when 'archives'
-      #   archives_index_path(:q => query)
-      # end
-    # end
 
     fail "no source data found for #{source}" unless DATASOURCES_CONFIG['datasources'][source]
     content_tag(:li,
-                link_to(DATASOURCES_CONFIG['datasources'][source]['name'],
-                        href,
-                        class: classes.join(' ')
-                ),
+                datasource_link + datasource_hits,
                 source: source,
                 class: li_classes.join(' ')
     )
+  end
+
+  def single_datasource_link(source, href, link_classes)
+    link = link_to(DATASOURCES_CONFIG['datasources'][source]['name'],
+            href,
+            class: link_classes.join(' ')
+    )
+    content_tag(:span, link, class: 'datasource-label')
+  end
+
+  def single_datasource_hits(source)
+    content_tag(:span, '12,345', class: 'datasource-count')
   end
 
   def datasource_landing_page_path(source, query = '')
@@ -203,8 +186,8 @@ module DatasourcesHelper
       "/#{source}"
     else
       case source
-      when 'quicksearch'
-        quicksearch_index_path(q: query)
+      # when 'quicksearch'
+      #   quicksearch_index_path(q: query)
       when 'catalog'
         base_catalog_index_path(q: query)
       when 'databases'
