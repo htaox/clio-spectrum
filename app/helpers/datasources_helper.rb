@@ -179,8 +179,10 @@ module DatasourcesHelper
     if DATASOURCES_CONFIG['datasource_bar']['major_sources'].include?(source)
       if DATASOURCES_CONFIG['datasource_bar']['subsources'].exclude?(source)
         if source != @active_source
-          span_data[:query] = query + "&souce=#{source}&new_search=true"
-          span_class = span_class + ' fetch'
+          if query && query.length > 1
+            span_data[:query] = query + "&souce=#{source}&new_search=true"
+            span_class = span_class + ' fetch'
+          end
         end
       end
     end
