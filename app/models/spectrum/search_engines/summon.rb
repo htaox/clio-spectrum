@@ -46,7 +46,7 @@ module Spectrum
         Rails.logger.debug "initialize() options=#{options.inspect}"
         @source = options.delete('source') || options.delete(:source)
         @params = {}
-
+Rails.logger.debug "X X X X X X     @source=#{@source}"
         # These sources only come from bento-box aggregate searches, so enforce
         # the source-specific params without requires 'new_search' CGI param
         if @source && (@source == 'ebooks' || @source == 'dissertations')
@@ -57,6 +57,7 @@ module Spectrum
         elsif @source && options.delete('new_search')
           @params = SUMMON_DEFAULT_PARAMS[@source].dup
         end
+        Rails.logger.debug "X X X X X X     @params=#{@params.inspect}"
 
         # These are ALWAYS in effect for Summon API queries
         @params.merge!(SUMMON_FIXED_PARAMS)

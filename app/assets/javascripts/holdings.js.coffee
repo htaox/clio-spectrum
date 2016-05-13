@@ -1,6 +1,5 @@
 
 $ ->
-  # async_lookup_item_details($('#page'))
   async_lookup_item_details($('#outer-container'))
 
 

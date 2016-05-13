@@ -56,13 +56,6 @@
 //= require scroll_memory
 
 
-// was used in support of JavaScript landing-page switching,
-// to carry-over "q" between forms.  No longer used.
-// # require jquery.observe_field
-
-// something about centering modal popups... selector doesn't seem to
-// be hitting on anything anymore?
-// # require modall_manager_override
 
 
 

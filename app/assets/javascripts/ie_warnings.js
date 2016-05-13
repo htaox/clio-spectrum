@@ -1,7 +1,5 @@
 $(document).ready(function() {
   
-  // alert("testing AAA")
-
   if ( navigator.userAgent.match(/MSIE ([0-9]+)\./) ) {
 
     if (RegExp.$1 <= 9) {

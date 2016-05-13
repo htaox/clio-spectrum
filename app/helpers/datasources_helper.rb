@@ -149,7 +149,7 @@ module DatasourcesHelper
 
     href = datasource_landing_page_path(source, query)
     datasource_link = single_datasource_link(source, href, link_classes)
-    datasource_hits = single_datasource_hits(source)
+    datasource_hits = single_datasource_hits(source, query)
 
     # What parts of a query should we carry-over between data-sources?
     # -- Any basic query term, yes, query it against the newly selected datasources
@@ -172,8 +172,20 @@ module DatasourcesHelper
     content_tag(:span, link, class: 'datasource-label')
   end
 
-  def single_datasource_hits(source)
-    content_tag(:span, '12,345', class: 'datasource-count')
+  def single_datasource_hits(source, query)
+    span_class = 'datasource-hits'
+    span_data = { datasource: source }
+
+    if DATASOURCES_CONFIG['datasource_bar']['major_sources'].include?(source)
+      if DATASOURCES_CONFIG['datasource_bar']['subsources'].exclude?(source)
+        if source != @active_source
+          span_data[:query] = query + "&souce=#{source}&new_search=true"
+          span_class = span_class + ' fetch'
+        end
+      end
+    end
+
+    content_tag(:span, '', class: span_class, data: span_data)
   end
 
   def datasource_landing_page_path(source, query = '')

@@ -13,14 +13,10 @@ $ ->
   # both showing an initial subset of content, revealing
   # full content on a click.
 
-  # Attach handler to document, with on(), to work on ajax-loaded content
-
-  # $(".toggle-teaser").click ->
   $(document).on 'click', '.toggle-teaser', ->
     $(this).toggleClass('glyphicon-resize-small')
     $(this).prev().toggle()
 
-  # $(".expander").click ->
   $(document).on 'click', '.expander', ->
     $(this).hide()
     $(this).parent().find(".expander_more").show()

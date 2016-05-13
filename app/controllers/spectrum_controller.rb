@@ -75,47 +75,49 @@ class SpectrumController < ApplicationController
     @show_landing_pages = true if @results.empty?
   end
 
-  # def searchjson
-  def hitt
-raise
-    # @search_layout = SEARCHES_CONFIG['layouts'][params[:layout]]
-    # 
-    # @datasource = params[:datasource]
-    # 
-    # if @search_layout.nil?
-    #   render text: 'Search layout invalid.'
-    # else
-    #   # seems to be unused for JSON results?
-    #   # @fetch_action = true
-    # 
-    #   # Need this to help partials select which template to render
-    #   @search_style = @search_layout['style']
-    # 
-    #   # @has_facets = @search_layout['has_facets']
-    #   sources =  @search_layout['columns'].map do |col|
-    #     col['searches'].map { |item| item['source'] }
-    #   end.flatten.select { |source| source == @datasource }
-    # 
-    #   @results = get_results(sources)
-    #   render 'searchjson', layout: 'js_return'
-    # end
+  def searchjson
+    @search_layout = SEARCHES_CONFIG['layouts'][params[:layout]]
+
+    @datasource = params[:datasource]
+
+    if @search_layout.nil?
+      render text: 'Search layout invalid.'
+    else
+      # seems to be unused for JSON results?
+      # @fetch_action = true
+
+     # Need this to help partials select which template to render
+      @search_style = @search_layout['style']
+
+      # @has_facets = @search_layout['has_facets']
+      sources =  @search_layout['columns'].map do |col|
+        col['searches'].map { |item| item['source'] }
+      end.flatten.select { |source| source == @datasource }
+
+      @results = get_results(sources)
+      render 'searchjson', layout: 'js_return'
+    end
 
   end
 
   # Simplified version of 'searchjson' - just run a query against
   # a datasource to get a hit count.
   def hits
-raise
-    results =
-      # case params['source']
-      case 'sp'
-      when 'articles'
-        # params = fix_summon_params(params)
-        Spectrum::SearchEngines::Summon.new('asdf')
+    source = params[:source]
+
+    results = case source
+      when 'catalog'
+        blacklight_search(params)
       when 'academic_commons'
-        blacklight_search('asdf')
+        blacklight_search(params)
+      when 'articles'
+        Spectrum::SearchEngines::Summon.new(fix_summon_params(params))
+      when 'library_web'
+        Spectrum::SearchEngines::GoogleAppliance.new(fix_ga_params(params))
       end
-    # raise
+
+    @hits = results.total_items || 0
+    render 'hits', layout: 'js_return'
   end
 
   def facet
@@ -136,6 +138,9 @@ raise
   private
 
   def fix_ga_params(params)
+    # GoogleAppliance search engine can't handle absent q param
+    params['q'] ||= ''
+
     # items-per-page ("rows" param) should be a persisent browser setting
     if params['rows'] && (params['rows'].to_i > 1)
       # Store it, if passed
@@ -301,8 +306,6 @@ raise
           blacklight_search(fixed_params)
 
         when 'library_web'
-          # GoogleAppliance search engine can't handle absent q param
-          fixed_params['q'] ||= ''
           fixed_params = fix_ga_params(fixed_params)
           Spectrum::SearchEngines::GoogleAppliance.new(fixed_params)
 
