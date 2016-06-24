@@ -1,59 +1,64 @@
-set :default_stage, 'clio_dev'
-# Temporarily define "morrison", for testing Unix Systems new nginx server
-# and "clio_eds", a config for demo-ing EDS integration only
-set :stages, %w(clio_dev clio_test clio_prod clio_workshop)
+# config valid only for current version of Capistrano
+lock '3.5.0'
 
-require 'capistrano/ext/multistage'
-require 'bundler/capistrano'
-require 'date'
+# set :application, 'my_app_name'
+# set :repo_url, 'git@example.com:me/my_repo.git'
+set :application, 'clio_workshop'
+set :repo_url, 'git@github.com:cul/clio-spectrum.git'
 
-# # http://rvm.io/deployment/capistrano
-# # https://github.com/wayneeseguin/rvm-capistrano
-# require 'rvm/capistrano'
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, 'clio_workshop'
 
-default_run_options[:pty] = true
+# Default deploy_to directory is /var/www/my_app_name
+# set :deploy_to, '/var/www/my_app_name'
 
-set :application, 'clio'
+# Default value for :scm is :git
+# set :scm, :git
 
-set :branch do
-  default_tag = `git tag`.split("\n").last
+# Default value for :format is :pretty
+# set :format, :pretty
 
-  tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the tag first): [#{default_tag}] "
-  tag = default_tag if tag.empty?
-  tag
-end
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-set :scm, :git
-set :git_enable_submodules, 1
-set :deploy_via, :remote_cache
-set :repository,  'git@github.com:cul/clio-spectrum.git'
-set :use_sudo, false
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/app_config.yml', 'config/solr.yml')
+
+# Default value for linked_dirs is []
+# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+# 8/2015 - I don't think we need: 'tmp/sockets', 'vendor/bundle', 'public/system'
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/extracts')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+# set :default_env, { path: "/opt/ruby/ruby-2.2.2/bin/ruby:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
+
+# # Capistrano can't find passenger:
+# #   ERROR: Phusion Passenger doesn't seem to be running
+# # So tell it where we it's installed:
+# #   https://github.com/capistrano/passenger/blob/master/README.md
+# set :passenger_environment_variables, { :path => '$PATH:/opt/nginx/passenger/passenger-5.0.7/bin' }
+
+# can't get "passenger-config restart-app" working
+set :passenger_restart_with_touch, true
 
 namespace :deploy do
-  desc 'Add tag based on current version'
-  task :auto_tag, roles: :app do
-    current_version = IO.read('VERSION').to_s.strip + Date.today.strftime('-%y%m%d')
-    tag = Capistrano::CLI.ui.ask "Tag to add: [#{current_version}] "
-    tag = current_version if tag.empty?
 
-    system("git tag -a #{tag} -m 'auto-tagged' && git push origin --tags")
-  end
-
-  desc 'Restart Application'
-  task :restart, roles: :app do
-    run "mkdir -p #{current_path}/tmp/cookies"
-    run "touch #{current_path}/tmp/restart.txt"
-  end
-
-  task :symlink_shared do
-    run "ln -nfs #{deploy_to}shared/robots.txt #{release_path}/public/robots.txt"
-    run "ln -nfs #{deploy_to}shared/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{deploy_to}shared/app_config.yml #{release_path}/config/app_config.yml"
-    run "ln -nfs #{deploy_to}shared/solr.yml #{release_path}/config/solr.yml"
-    run "mkdir -p #{deploy_to}shared/extracts"
-    run "ln -nfs #{deploy_to}shared/extracts #{release_path}/tmp/extracts"
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
   end
 
 end
-
-after 'deploy:update_code', 'deploy:symlink_shared'

@@ -219,14 +219,27 @@ group :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
 
   # Deploy with Capistrano
-  gem 'capistrano', '~>2'
-  gem 'capistrano-ext'
-  gem 'quiet_assets'
+  # gem 'capistrano', '~>2'
+  # gem 'capistrano-ext'
+  # gem 'quiet_assets'
+  # # fixes [morrison.cul.columbia.edu] sh: bundle: command not found
+  # # Comment out in EDS/LABS version - or add "require: false"
+  # # http://stackoverflow.com/questions/28461965
+  # gem 'rvm-capistrano', require: false
 
-  # fixes [morrison.cul.columbia.edu] sh: bundle: command not found
-  # Comment out in EDS/LABS version - or add "require: false"
-  # http://stackoverflow.com/questions/28461965
-  gem 'rvm-capistrano', require: false
+
+  # Upgrade to Capistrano 3.x
+  # http://capistranorb.com/documentation/upgrading/
+  gem 'capistrano', '~> 3.0', require: false
+  # Rails and Bundler integrations were moved out from Capistrano 3
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  # "idiomatic support for your preferred ruby version manager"
+  gem 'capistrano-rvm',   '~> 0.1', require: false
+  # The `deploy:restart` hook for passenger applications is now in a separate gem
+  # Just add it to your Gemfile and require it in your Capfile.
+  gem 'capistrano-passenger',   '~> 0.1', require: false
+
 
   # browser-based live debugger and REPL
   # http://railscasts.com/episodes/402-better-errors-railspanel
