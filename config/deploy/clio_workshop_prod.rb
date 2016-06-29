@@ -13,7 +13,7 @@ server 'lito-nginx-clio-prod1.cul.columbia.edu', user: 'litoserv', roles: %w{app
 
 # set :deploy_to, '/var/www/my_app_name'
 # set :deploy_to, '/opt/passenger/clio_prod'
-set :deploy_to, '/opt/passenger/clio/clio_workshop'
+set :deploy_to, '/opt/passenger/clio/clio_workshop_prod'
 
 # https://github.com/capistrano/rvm
 # set :rvm_type, :user                     # Defaults to: :auto
