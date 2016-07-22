@@ -393,11 +393,8 @@ DEPENDENCIES
   blacklight-marc
   blacklight_range_limit
   bootstrap-sass
-<<<<<<< HEAD
   borrow_direct
-=======
   byebug
->>>>>>> master
   cancan
   capistrano (~> 3.0)
   capistrano-bundler (~> 1.1)
@@ -456,4 +453,4 @@ DEPENDENCIES
   webmock (~> 1.0)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
