@@ -1,8 +1,6 @@
 module LocalSolrHelperExtension
   extend ActiveSupport::Concern
   include Blacklight::SearchHelper
-  include BlacklightRangeLimit::SegmentCalculation
-
 
   def remove_range_params(range_key, source_params = params)
     p = source_params.deep_clone
@@ -53,15 +51,8 @@ module LocalSolrHelperExtension
 
     # Updated Blacklight 5.10.x version of this deprecated function...
 
-    query = Deprecation.silence(Blacklight::RequestBuilders) do
-      search_builder.
-       with(params).
-       query(
-         extra_controller_params.merge(
-           solr_documents_by_field_values_params(field, values)
-         )
-       )
-    end
+    query =
+search_builder.with(params).merge(extra_controller_params).merge(solr_documents_by_field_values_params(field, values))
 
     solr_response = repository.search(query)
 

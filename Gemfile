@@ -1,41 +1,28 @@
 source 'https://rubygems.org'
 
-# FIXED:  Can't move up to 4.0 series yet - blacklight_range_limit has dependency on 3
-# but, devise_wind still has Rails 3.2 dependencies.
-# 3/15
-# gem 'rails', '~> 3.2'
 gem 'rails', '~> 4.2'
 
-# `attr_accessible` is extracted out of Rails into a gem. Please use new 
-# recommended protection model for params(strong_parameters) or add 
-# `protected_attributes` to your Gemfile to use old one. 
-# Oops, Blacklight has "logic that assumes protected_attributes is Rails 3 only" 
-#   see:  https://github.com/projectblacklight/blacklight/issues/906
-# Does this mean that including this gem breaks things?
-# gem 'protected_attributes'
-# Yes, it does, we get the behavior explained in issue 906.
-# OK, bite the bullet and convert to strong_parameters everywhere.
-
-# `ActiveRecord::SessionStore` is extracted out of Rails into a gem. 
-# Please add `activerecord-session_store` to your Gemfile to use it.
 gem 'activerecord-session_store'
 
 #  ###  BLACKLIGHT (begin)  ###
 
-gem 'blacklight', '~>5.11.0'
+gem 'blacklight', '~>5.0'
 
-# when we move to 5.x, uncomment this
 gem 'blacklight-marc'
 
-# gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :tag => 'v2.1.0'
-
-# gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :branch => 'master'
-# gem 'blacklight_range_limit', :git => 'git://github.com/projectblacklight/blacklight_range_limit.git', :branch => 'blacklight-master'
-
+# local testing...
+# gem 'blacklight_range_limit', path: '/Users/marquis/src/blacklight_range_limit'
 gem 'blacklight_range_limit'
+
+
 
 #  ###  BLACKLIGHT (end)  ###
 
+# basic library to parse, create and manage MARC records
+gem 'marc'
+
+# MARC indexing in pure ruby
+gem "traject"
 
 # jrochkind's Borrow Direct library
 gem 'borrow_direct'
@@ -62,10 +49,6 @@ gem 'devise-encryptable'
 gem 'devise_cas_authenticatable'
 # for debugging, use local version...
 # gem 'devise_cas_authenticatable', path: '/Users/marquis/src/devise_cas_authenticatable'
-
-# Not being used, turn it off.
-# # Locally developed library code to interface with ClickTale analytics
-# gem 'clicktale', path: "lib/clicktale"
 
 gem 'json'
 
@@ -191,6 +174,8 @@ gem 'rack'
 gem 'rack-attack'
 
 
+gem 'library_stdnums'
+
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
@@ -234,6 +219,9 @@ group :development do
   # I don't use it, remove it.
   # # port of ruby-debug that works on 1.9.2 and 1.9.3
   # gem 'debugger'
+
+  # For code-level debugging in console
+  gem 'byebug'
 
   # "A fist full of code metrics"
   # gem 'metric_fu'
@@ -306,6 +294,6 @@ group :test do
   
   # Record API responses, use saved responses for tests
   gem 'vcr'
-  gem 'webmock'
+  gem 'webmock', '~>1.0'
 end
 

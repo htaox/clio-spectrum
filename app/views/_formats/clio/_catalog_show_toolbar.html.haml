@@ -2,7 +2,7 @@
 -# TOOLBAR FOR ITEM DETAIL PAGE FOR CATALOG-BASED DATASOURCES
 
 - clio_id = h(document["clio_id_display"].to_s)
-- id = document.get("id")
+- id = document.fetch('id', nil)
 
 %nav#show_toolbar.navbar.navbar-default
 
@@ -75,7 +75,7 @@
             /  %li=link_to "Export to RefWorks", refworks_export_url(@document)
             - if document.export_formats.keys.include?(:endnote)
               -any_cites = true
-              %li=link_to "Export to EndNote", catalog_path(id, :format => "endnote")
+              %li=link_to "Export Citation", catalog_path(id, :format => "endnote")
   
             - unless any_cites
               %li=link_to "No citations available", "#"

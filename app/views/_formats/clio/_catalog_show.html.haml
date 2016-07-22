@@ -20,6 +20,8 @@
   = add_row("System Details", display_marc_field(marc, 'system_details'))
   = add_row("Constituent Items", display_marc_field(marc, 'constituent_items'))
 
+  = add_row("In", display_marc_field(marc, 'in'))
+
   = add_row("Subjects", generate_value_links_subject(display_marc_field(marc, 'subject_LC')))
   = add_row("Medical Subjects", generate_value_links_subject(display_marc_field(marc, 'subject_mesh')))
   = add_row("Subjects (Genre)", generate_value_links_subject(display_marc_field(marc, 'subject_genre')))
@@ -43,4 +45,4 @@
   = add_row("Standard No.", display_marc_field(marc, 'standard_no'))
   = add_row('Related To', display_marc_field(marc, 'related_to'))
   = add_row('Format', formats_with_icons(document))
-  = add_row('Acquired On', Date.parse(document.get('acq_dt')).to_formatted_s(:long)) if document.get('acq_dt')
+  = add_row('Acquired On', Date.parse(document.fetch('acq_dt', nil)).to_formatted_s(:long)) if document.fetch('acq_dt', nil)
