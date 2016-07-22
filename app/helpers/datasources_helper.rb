@@ -8,6 +8,7 @@ module DatasourcesHelper
 
     # DO NOT SHOW DCV IN PRODUCTION YET
     results.delete('dcv') if Rails.env == 'clio_prod'
+    results.delete('geo') if Rails.env == 'clio_prod'
 
     results
   end
@@ -227,6 +228,8 @@ module DatasourcesHelper
         academic_commons_index_path(q: query)
       when 'dcv'
         dcv_index_path(q: query)
+      when 'geo'
+        geo_index_path(q: query)
       when 'library_web'
         library_web_index_path(q: query)
       when 'archives'

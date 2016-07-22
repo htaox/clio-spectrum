@@ -45,6 +45,11 @@ layouts:
             row_opts:
               spans: [3,9] 
 
+          - source: geo
+            count: 3
+            row_opts:
+              spans: [3,9] 
+
   dissertations:
     style: aggregate
     columns:
@@ -124,6 +129,13 @@ sources:
     warningXX:  dcv.
     render_options:
       format: dcv
+
+  geo:
+    title: Geo
+    description: geo
+    warningXX:  geo
+    render_options:
+      format: geo
 
   library_web:
     title: Libraries Website

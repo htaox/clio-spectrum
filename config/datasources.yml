@@ -147,6 +147,17 @@ datasources:
         title: Title
         name: Name
 
+  geo:
+    name: Geo
+    search_box:
+      route: geo_index_path
+      placeholder: geo
+      search_type: blacklight
+      search_fields:
+        all_fields: All Fields
+        title: Title
+        name: Name
+
   new_arrivals:
     name: New Arrivals
     search_box:

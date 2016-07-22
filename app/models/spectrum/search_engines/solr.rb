@@ -151,6 +151,8 @@ module Spectrum
           academic_commons_index_path(params)
         when 'dcv'
           dcv_index_path(params)
+        when 'geo'
+          geo_index_path(params)
         when 'journals'
           journals_index_path(params)
         when 'databases'
@@ -219,6 +221,8 @@ module Spectrum
           RSolr.connect(url: APP_CONFIG['ac2_solr_url'])
         elsif source.in?('dcv')
           RSolr.connect(url: APP_CONFIG['dcv_solr_url'])
+        elsif source.in?('geo')
+          RSolr.connect(url: APP_CONFIG['geo_solr_url'])
         elsif solr_url
           RSolr.connect(url: solr_url)
         else
@@ -845,6 +849,10 @@ module Spectrum
                                     label: 'Title A-Z'
               config.add_sort_field 'title_sort desc, pub_date_sort desc',
                                     label: 'Title Z-A'
+
+            when 'geo'
+
+              default_catalog_config(config, :solr_params, :search_fields)
 
             when 'dcv'
 

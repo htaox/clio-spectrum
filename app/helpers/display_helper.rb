@@ -150,7 +150,7 @@ module DisplayHelper
     'Journal Article' => 'article'
   }
 
-  FORMAT_RANKINGS = %w(ac dcv database map_globe manuscript_archive video music_recording music serial book clio ebooks article articles summon lweb)
+  FORMAT_RANKINGS = %w(ac dcv geo database map_globe manuscript_archive video music_recording music serial book clio ebooks article articles summon lweb)
 
   def format_online_results(link_hash)
     non_circ_img = image_tag('icons/noncirc.png', class: 'availability')
@@ -221,6 +221,7 @@ module DisplayHelper
     formats << 'ac' if @active_source == 'academic_commons'
     # dcv records
     formats << 'dcv' if @active_source == 'dcv'
+    formats << 'geo' if @active_source == 'geo'
     # Database items - from the Voyager feed - will identify themselves,
     # via their "source", which we should respect no matter the current
     # GUI-selected datasource

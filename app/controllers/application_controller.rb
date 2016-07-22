@@ -314,6 +314,8 @@ class ApplicationController < ActionController::Base
         'academic_commons'
       when /^\/dcv/
         'dcv'
+      when /^\/geo/
+        'geo'
       when /^\/library_web/
         'library_web'
       when /^\/newspapers/

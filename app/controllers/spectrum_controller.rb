@@ -59,6 +59,7 @@ class SpectrumController < ApplicationController
         # DO NOT SHOW DCV IN PRODUCTION YET
         if Rails.env == 'clio_prod'
           col['searches'].delete_if{ |search| search['source'] == 'dcv'}
+          col['searches'].delete_if{ |search| search['source'] == 'geo'}
         end
 
         col['searches'].map do |search|
@@ -288,6 +289,10 @@ class SpectrumController < ApplicationController
 
         when 'dcv'
           fixed_params['source'] = 'dcv'
+          blacklight_search(fixed_params)
+
+        when 'geo'
+          fixed_params['source'] = 'geo'
           blacklight_search(fixed_params)
 
         when 'library_web'

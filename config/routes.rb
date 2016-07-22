@@ -87,6 +87,9 @@ Clio::Application.routes.draw do
   get 'dcv', to: 'catalog#index', as: :dcv_index
   get 'dcv/facet/:id(.format)', to: 'dcv#facet', as: :dcv_facet
 
+  get 'geo', to: 'catalog#index', as: :geo_index
+  get 'geo/facet/:id(.format)', to: 'geo#facet', as: :geo_facet
+
   get 'archives', to: 'catalog#index', as: :archives_index
   get 'archives/:id(.:format)', via: [:get], to: 'catalog#show', as: :archives_show
   get 'archives/facet/:id(.format)', to: 'catalog#facet', as: :archives_facet

@@ -1,0 +1,45 @@
+-# geo
+
+/ _formats/geo/_standard_list_item.html.haml
+/ container for a SINGLE doc
+
+.result.document{class: render_document_class(document), source: 'geo', item_id: document.get(:id)}
+
+  .row
+    .title.col-sm-12
+
+      .item_anchor
+        = render '/item_number', :counter => counter
+
+      .item_number_allowance
+        = link_to document.get('dc_title_s'), APP_CONFIG['geo_catalog_url'] + document['id']
+
+
+  / main container for doc partial view
+
+  .details
+    -# - raise
+    = add_row('Institution', document['dct_provenance_s'])
+    = add_row('Author', document['dc_creator_sm'])
+    = add_row('Subject', document['dc_subject_sm'])
+    = add_row('Place', document['dct_spatial_sm'])
+    = add_row('Collection', document['dct_isPartOf_sm'])
+
+    -# config.add_facet_field 'dct_provenance_s', label: 'Institution', limit: 8, partial: "icon_facet"
+    -# config.add_facet_field 'dc_creator_sm', :label => 'Author', :limit => 8
+    -# config.add_facet_field 'dc_subject_sm', :label => 'Subject', :limit => 8
+    -# config.add_facet_field 'dct_spatial_sm', :label => 'Place', :limit => 8
+    -# config.add_facet_field 'dct_isPartOf_sm', :label => 'Collection', :limit => 8
+
+
+
+
+-# -# https://dlc.library.columbia.edu/catalog/ldpd:166321
+-# .result_title= link_to document.get('title_display_ssm'), APP_CONFIG['geo_catalog_url'] + document['id']
+-# 
+-# 
+-# / main container for doc partial view
+-# 
+-# = add_row('name_corporate_ssm', document['name_corporate_ssm'])
+-# = add_row('lib_format_ssm', document['lib_format_ssm'])
+-# = add_row('lib_project_ssm', document['lib_project_ssm'])

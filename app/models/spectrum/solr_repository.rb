@@ -23,6 +23,8 @@ module Spectrum
         RSolr.connect(url: APP_CONFIG['ac2_solr_url'])
       elsif source.in?('dcv')
         RSolr.connect(url: APP_CONFIG['dcv_solr_url'])
+      elsif source.in?('geo')
+        RSolr.connect(url: APP_CONFIG['geo_solr_url'])
       elsif solr_url
         RSolr.connect(url: solr_url)
       else
