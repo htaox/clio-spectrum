@@ -262,22 +262,27 @@ module HoldingsHelper
   # Extract bibkeys for a particular type of key
   # (e.g., 'isbn', 'issn', 'oclc', 'lccn')
   def extract_by_key(document, key)
+    return unless ['isbn', 'issn', 'oclc', 'lccn'].include?(key)
     display_values = document[key + "_display"]
     return unless display_values
-
     Array.wrap(display_values).map { |value|
       # always remove all white-space from any key
       value.gsub!(/\s/, '')
       # LCCN sometimes has a strange suffix.  Remove it.
       # e.g., "84162131 /HE" or "78309771 //r83"
-      value.gsub!(/\/.+$/, '') if value == 'lccn'
+      value.gsub!(/\/.+$/, '') if key == 'lccn'
       # For OCLC numbers, strip away the prefix ('ocm' or 'ocn')
-      value.gsub!(/^oc[mn]/, '') if value == 'oclc'
+      value.gsub!(/^oc[mn]/, '') if key == 'oclc'
       # Here's what we want returned - key:value, e.g. 
       "#{key}:#{value}"
     }
   end
 
+  # Given a Document,
+  # return an array of bibkeys, each prefaced by it's type
+  # e.g., [ 'isbn:0816109370', 'issn:18864805', 'oclc:00001234' ]
+  # The sort order is fixed:
+  #   ISBN keys, then ISSN keys, then OCLC keys, then LCCN keys
   def extract_standard_bibkeys(document)
     bibkeys = []
 
@@ -285,22 +290,6 @@ module HoldingsHelper
     bibkeys << extract_by_key(document, 'issn')
     bibkeys << extract_by_key(document, 'oclc')
     bibkeys << extract_by_key(document, 'lccn')
-
-    # unless document['isbn_display'].nil?
-    #   bibkeys << Array.wrap(document['isbn_display']).map { |isbn| 'isbn:' + isbn }.uniq
-    # end
-    # 
-    # unless document['issn_display'].nil?
-    #   bibkeys << Array.wrap(document['issn_display']).map { |issn| 'issn:' + issn }.uniq
-    # end
-    # 
-    # unless document['oclc_display'].nil?
-    #   bibkeys << document['oclc_display'].map { |oclc| 'oclc:' + oclc.gsub(/^oc[mn]/, '') }.uniq
-    # end
-    # 
-    # unless document['lccn_display'].nil?
-    #   bibkeys << document['lccn_display'].map { |lccn| 'lccn:' + lccn.gsub(/\s/, '').gsub(/\/.+$/, '') }
-    # end
 
     # Some Hathi records were directly loaded into Voyager.
     # These have direct Hathi links in their 856 - and these
@@ -370,9 +359,9 @@ module HoldingsHelper
     hathi_brief_url = "http://catalog.hathitrust.org/api/volumes" +
                       "/brief/#{id_type}/#{id_value}.json"
     http_client = HTTPClient.new
-    http_client.connect_timeout = 5 # default 60
-    http_client.send_timeout    = 5 # default 120
-    http_client.receive_timeout = 5 # default 60
+    http_client.connect_timeout = 10 # default 60
+    http_client.send_timeout    = 10 # default 120
+    http_client.receive_timeout = 10 # default 60
 
     Rails.logger.debug "fetch_hathi_brief() get_content(#{hathi_brief_url})"
     begin
@@ -439,7 +428,28 @@ module HoldingsHelper
     return location_link
   end
 
+  def worldcat_link(document)
+    return '' unless document
 
+    lookups = { 'oclc' => 'no', 'isbn' => 'bn', 'issn' => 'is' }
+    lookups.each_pair do |key, field|
+      # extract_by_key will return nil or an array of ids
+      next unless (ids = extract_by_key(document, key))
+      # ids have prefixes and hyphens, which need to be stripped
+      # oclc:000123, isbn:1886-4805  ==>  000123, 18864805
+      first_id = ids.first.gsub("#{key}:", '').gsub(/\-/, '')
+      return worldcat_query_link("#{field}:#{first_id}")
+    end
+
+    # No usable keys found?  Then no link.
+    return ''
+  end
+
+  def worldcat_query_link(query)
+    return '' unless query
+    link = "https://worldcat.org/search?q=#{query}"
+    content_tag(:a, 'Display in WorldCat', href: link, class: 'worldcat_link')
+  end
 
 end
 

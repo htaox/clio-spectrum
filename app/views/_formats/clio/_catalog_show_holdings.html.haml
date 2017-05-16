@@ -23,17 +23,20 @@
   -# NEXT-113 - Do not make api request for online-only resources
   -# NEXT-961 - Incorporate Law records into CLIO
   - if has_loadable_holdings?(document)
-    = render "/_formats/clio/catalog_show_holdings_display", :clio_id => clio_id
+    = render "/_formats/clio/catalog_show_holdings_display", clio_id: clio_id
 
   -# NEXT-961 - Incorporate Law records into CLIO
   - if in_pegasus?(document)
-    = render "/_formats/clio/catalog_show_holdings_pegasus", :document => document
+    = render "/_formats/clio/catalog_show_holdings_pegasus", document: document
 
-  = render "/_formats/clio/catalog_show_holdings_google", :document => document
+  = render "/_formats/clio/catalog_show_holdings_google", document: document
 
   -# = render "/_formats/clio/catalog_show_holdings_hathi", :document => document
-  = render "/_formats/clio/catalog_show_holdings_hathi", :clio_id => clio_id
+  = render "/_formats/clio/catalog_show_holdings_hathi", clio_id: clio_id
 
+  -# NEXT-1307 - WorldCat Query Link, non-ajax
+  = worldcat_link(document)
+  
   -# expand vertical height of div.holdings to encompass the 
   -# ajax-loaded floating book-jacket.
   .clear-both
