@@ -35,7 +35,9 @@
   = render "/_formats/clio/catalog_show_holdings_hathi", clio_id: clio_id
 
   -# NEXT-1307 - WorldCat Query Link, non-ajax
-  = worldcat_link(document)
+  #worldcat_holdings
+    .holdings_title WorldCat
+    .worldcat_info= worldcat_link(document)
   
   -# expand vertical height of div.holdings to encompass the 
   -# ajax-loaded floating book-jacket.
