@@ -15,7 +15,7 @@
 -#       <input value="lccn/66011308//r832" id="hlccn" name="hlccn" type="hidden">
 -#       <input value="oclc/649417" id="hoclc" name="hoclc" type="hidden">
 -#     </form>
--#     <div id="hathidata"></div>
+-#     <div id="hathi_data"></div>
 -#   </div>
 -#   <script type="text/javascript">hathiBookSearch(document.hathiBk);</script>
 -# </div>
@@ -27,7 +27,7 @@
 -# #hathi_holdings
 -#   .hathi_title Hathi Trust
 -#   .hathi_info
--#     #hathidata
+-#     #hathi_data
 -#     %form{:onsubmit => 'return false', :name => 'hathiBk'}
 -#       - extract_standard_bibkeys(document).each { |key|
 -#       - keytype, keyvalue = key.split(':')

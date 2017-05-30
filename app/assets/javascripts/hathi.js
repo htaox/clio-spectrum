@@ -20,7 +20,7 @@ function parseResponse(bookInfo)
   //  // Hide the row until we have something to display
   // document.getElementById('hathi_holdings').style.display = 'none';
 
-  var hathiDiv = document.getElementById('hathidata');
+  var hathiDiv = document.getElementById('hathi_data');
 
   var records = bookInfo.records;
   var items   = bookInfo.items;
@@ -92,7 +92,7 @@ function parseResponse(bookInfo)
 
 function hathiBookSearch()
 {
-    // var hathiDiv = document.getElementById('hathidata');
+    // var hathiDiv = document.getElementById('hathi_data');
 
    // Show a "Loading..." indicator.
    // var paragraph = document.createElement('p');
