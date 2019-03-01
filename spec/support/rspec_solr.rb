@@ -44,7 +44,8 @@ def solr_resp_ids_from_query(query)
 end
 
 def solr_resp_ids_from_journal_title_query(query)
-  solr_resp_doc_ids_only('q'  => "{!qf=$title_qf pf=$title_pf}#{query}",
+  solr_resp_doc_ids_only('defType' => 'lucene',
+                         'q'  => "{!edismax qf=$title_qf pf=$title_pf}#{query}",
                          'fq' => 'format:Journal/Periodical',
                          'sort' => 'score desc, pub_date_sort desc')
 end
@@ -95,29 +96,51 @@ end
 #   { 'q' => "{!qf=$author_qf pf=$pf_author pf3=$pf3_author pf2=$pf2_author}#{query_str}", 'qt' => 'search' }
 # end
 def author_search_args(query_str)
-  { 'q' => "{!qf=$author_qf pf=$pf_author}#{query_str}" }
+  { 
+    defType: 'lucene',
+    q: "{!edismax qf=$author_qf pf=$pf_author}#{query_str}" 
+  }
 end
 
-def title_search_args(query_str)
-  { 'q' => "{!qf=$title_qf pf=$pf_title pf3=$pf3_title pf2=$pf2_title}#{query_str}", 'qt' => 'search' }
-end
+# def title_search_args(query_str)
+#   { 
+#     'q' => "{!qf=$title_qf pf=$pf_title pf3=$pf3_title pf2=$pf2_title}#{query_str}", 
+#     'qt' => 'search' 
+#   }
+# end
 
 # fixed for CLIO
 def subject_search_args(query_str)
-  { 'q' => "{!qf=$subject_qf pf=$subject_pf}#{query_str}" }
+  { 
+    'q' => "{!edismax qf=$subject_qf pf=$subject_pf}#{query_str}",
+    defType: 'lucene'
+  }
 end
 
-def series_search_args(query_str)
-  { 'q' => "{!qf=$qf_series pf=$pf_series pf3=$pf3_series pf2=$pf2_series}#{query_str}", 'qt' => 'search' }
-end
+# def series_search_args(query_str)
+#   { 
+#     'q' => "{!qf=$qf_series pf=$pf_series pf3=$pf3_series pf2=$pf2_series}#{query_str}",
+#     'qt' => 'search'
+#   }
+# end
 
-def callnum_search_args(query_str)
-  { 'q' => query_str.to_s, 'defType' => 'lucene', 'df' => 'callnum_search', 'qt' => 'search' }
-end
+# def callnum_search_args(query_str)
+#   { 
+#     'q' => query_str.to_s, 
+#     'defType' => 'lucene', 
+#     'df' => 'callnum_search',
+#     'qt' => 'search'
+#   }
+# end
 
-def author_title_search_args(query_str)
-  { 'q' => "{!qf=author_title_search pf='author_title_search^10' pf3='author_title_search^5' pf2='author_title_search^2'}#{query_str}", 'qt' => 'search' }
-end
+# def author_title_search_args(query_str)
+#   {
+#     'q' => "{!qf=author_title_search pf='author_title_search^10' pf3='author_title_search^5' pf2='author_title_search^2'}#{query_str}",
+#     'qt' => 'search'
+#   }
+# end
+
+
 
 # def cjk_everything_q_arg(query_str)
 #   "{!qf=$qf_cjk pf=$pf_cjk pf3=$pf3_cjk pf2=$pf2_cjk}#{query_str}"

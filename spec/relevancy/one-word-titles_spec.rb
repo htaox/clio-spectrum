@@ -20,7 +20,7 @@ describe 'Searching for one-word titles: ', :skip_travis do
 
   it 'Gut' do
     resp = solr_resp_ids_from_query('Gut')
-    resp.inspect
+    # puts resp.inspect
     expect(rank(resp, 4842087)).to be <= 3
     expect(rank(resp, 3942290)).to be <= 3
 
