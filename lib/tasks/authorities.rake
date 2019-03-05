@@ -1,18 +1,32 @@
 
 namespace :authorities do
+  
+  namespace :test do
+    desc 'test the authority variant lookup for a single given term'
+    task :lookup_variants, [:term] => :environment do |_t, args|
+      unless args[:term]
+        puts 'must pass term as input (rake authorities:test:lookup_variants["Older people"])'
+        next
+      end
+      # Enable debugging of authority variant lookups
+      ENV['AUTHORITIES_DEBUG'] = "1"
+      variants = lookup_variants(args[:term]).to_a
+      puts "lookup variants for term:  #{args[:term]}"
+      puts "found #{variants.size} variants."
+      variants.each do |variant|
+        puts variant
+      end
+    end
+  end
+  
   namespace :extract do
     desc 'fetch the latest authorities extract from EXTRACT_HOME'
     task :fetch do
       setup_ingest_logger
-      extract = EXTRACTS.find { |x| x == ENV['EXTRACT'] }
-      unless extract
-        Rails.logger.error('Extract not specified')
-        raise
-      end
-      extract_dir = APP_CONFIG['extract_home'] + '/' + extract
+      extract_dir = APP_CONFIG['extract_home'] + '/auth'
 
-      temp_dir_name = File.join(Rails.root, "tmp/extracts/#{extract}/current/")
-      temp_old_dir_name = File.join(Rails.root, "tmp/extracts/#{extract}/old/")
+      temp_dir_name = File.join(Rails.root, "tmp/extracts/auth/current/")
+      temp_old_dir_name = File.join(Rails.root, "tmp/extracts/auth/old/")
 
       FileUtils.rm_rf(temp_old_dir_name)
       FileUtils.mv(temp_dir_name, temp_old_dir_name) if File.exist?(temp_dir_name)
@@ -26,58 +40,13 @@ namespace :authorities do
         Rails.logger.error('Fetch unsucessful')
         raise 'Fetch unsucessful'
       end
-      # scp_command = "scp #{EXTRACT_SCP_SOURCE}/#{extract}/* " + temp_dir_name
-      # puts scp_command
-      # if system(scp_command)
-      #   Rails.logger.info("Download successful.")
-      # else
-      #   puts_and_log("Download unsucessful", :error, alarm: true)
-      # end
-
-      # # We don't expect .gz files, but if found, unzip them.
-      # if system("gunzip " + temp_dir_name + "*.gz")
-      #   Rails.logger.info("Gunzip successful")
-      # end
     end
 
-    # desc "rewrite marc files to marcxml"
-    # task :to_xml do
-    #   setup_ingest_logger
-    #
-    #   extract = EXTRACTS.find { |x| x == ENV["EXTRACT"] }
-    #   puts_and_log("Unknown extract: #{ENV['EXTRACT']}", :error) unless extract
-    #
-    #   extract_files = Dir.glob(File.join(Rails.root, "tmp/extracts/#{extract}/current/*.mrc")) if extract
-    #   files_to_read = (ENV["INGEST_FILE"] || extract_files).listify.sort
-    #   puts "transforming #{files_to_read.size} files from MARC to MARCXML"
-    #
-    #   xmldir = File.join(Rails.root, "tmp/extracts/#{extract}/xml")
-    #   FileUtils.rm_rf(xmldir)
-    #   FileUtils.mkdir_p(xmldir)
-    #
-    #   files_to_read.each do |filename|
-    #     puts "- transforming #{filename}..."
-    #     xmlfile = File.join(xmldir, File.basename(filename, '.mrc') + ".xml")
-    #
-    #     reader = MARC::Reader.new(filename)
-    #     writer = MARC::XMLWriter.new(xmlfile)
-    #
-    #     for record in reader
-    #       writer.write(record)
-    #     end
-    #
-    #     writer.close()
-    #   end
-    #   puts "done."
-    # end
 
     desc 'ingest latest authority records'
     task ingest: :environment do
       setup_ingest_logger
-      extract = EXTRACTS.find { |x| x == ENV['EXTRACT'] }
-      Rails.logger.error("Unknown extract: #{ENV['EXTRACT']}", :error) unless extract
-
-      extract_files = Dir.glob(File.join(Rails.root, "tmp/extracts/#{extract}/current/*.{mrc,xml}")) if extract
+      extract_files = Dir.glob(File.join(Rails.root, "tmp/extracts/auth/current/*.xml"))
       files_to_read = (ENV['INGEST_FILE'] || extract_files).listify.sort
 
       # create new traject indexer
@@ -87,16 +56,23 @@ namespace :authorities do
       indexer.settings do
         provide 'solr.url', APP_CONFIG['authorities_solr_url']
         provide 'debug_ascii_progress', true
-        # 'debug' to see full traject options
+        # 'debug' to see full traject options and record-skip info
         provide 'log.level', 'info'
+        # provide 'log.level', 'debug'
         # match our default application log format
         provide 'log.format', ['%d [%L] %m', '%Y-%m-%d %H:%M:%S']
         provide 'solr_writer.commit_on_close', 'true'
+        # how much simultaneous indexing?  Set to 0 (not 1) for strictly sequential.
+        # provide 'processing_thread_pool', '0'
+        provide 'processing_thread_pool', '100'
         # How many records skipped due to errors before we
         #   bail out with a fatal error?
+        # this "skipped" is a Solr-level error skip, not skip-record indexing rules
         provide 'solr_writer.max_skipped', '100'
         # 10 x default batch sizes, sees some gains
         provide 'solr_writer.batch_size', '1000'
+        # drop support for .mrc, only .xml henceforth
+        provide 'marc_source.type', 'xml'
 
         if ENV['DEBUG']
           Rails.logger.info('- DEBUG set, writing to stdout')
@@ -114,18 +90,27 @@ namespace :authorities do
         begin
           Rails.logger.info("--- processing #{filename}...")
 
-          File.open(filename) do |file|
-            case File.extname(file)
-            when '.mrc'
-              indexer.settings['marc_source.type'] = 'binary'
-            when '.xml'
-              indexer.settings['marc_source.type'] = 'xml'
+          Rails.logger.debug("---- cleaning #{filename}...")
+          clean_ingest_file(filename)
+          if File.exist?('/usr/bin/xmlwf')
+            Rails.logger.debug('---- XML well-formedness check...')
+            command = "/usr/bin/xmlwf -r #{filename}"
+            output, status = Open3.capture2e(command)
+            if ! status.success?
+              Rails.logger.error('XML file failed well-formedness check -- aborting!')
+              Rails.logger.error("command: #{command}")
+              Rails.logger.error("output: #{output}")
+              abort
             end
+          end
 
-            Rails.logger.debug("----- indexing #{filename}...")
+          Rails.logger.debug("----- indexing #{filename}...")
+          File.open(filename) do |file|
             indexer.process(file)
           end
+
           Rails.logger.info("--- finished #{filename}.")
+
         rescue => e
           Rails.logger.error("Error during indexing (#{filename}): " + e.inspect)
           # don't raise, so rake can continue processing other files
@@ -553,6 +538,8 @@ end
 def lookup_variants(authorized_forms)
   return unless authorized_forms
 
+  puts "DEBUG: lookup_variants() authorized_forms=#{authorized_forms}" if ENV['AUTHORITIES_DEBUG']
+
   @stats ||= {}
 
   query = build_authorized_forms_query(authorized_forms)
@@ -571,14 +558,17 @@ def lookup_variants(authorized_forms)
              q: query,
              fl: 'id,authorized_ss,variant_t',
              facet: 'off' }
-  if ENV['AUTHORITIES_DEBUG']
-    puts "AUTHORITIES_DEBUG: >>>  lookup_variants() params=#{params}"
-  end
+  
+  puts "DEBUG: lookup_variants() params=#{params}" if ENV['AUTHORITIES_DEBUG']
 
   # timing metrics...
   startTime = Time.now
 
+  puts "DEBUG: lookup_variants() authorities_solr_url=#{APP_CONFIG['authorities_solr_url']}" if ENV['AUTHORITIES_DEBUG']
+
   response = AUTHORITIES_SOLR.get 'select', params: params
+
+  puts "DEBUG: lookup_variants() response=#{response}" if ENV['AUTHORITIES_DEBUG']
 
   # timing metrics...
   elapsed = Time.now - startTime

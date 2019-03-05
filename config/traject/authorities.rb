@@ -37,21 +37,38 @@ each_record do |record, context|
   # # abort after a certain number of records
   # raise "EARLY ABORT FOR TESTING" if context.position > 100
 
+  # conditionally turn on noisy debugging
+  # noisy = (record['001'].value.to_i > 1420188)
+  noisy = false
+  puts "== READ auth id #{record['001'].value}" if noisy
+
   # assume we're going to skip this record, unless we find something interesting.
   skip = true
   # store subfield 'a' for debugging
   name = nil
 
   interesting_fields.each do |field|
+    puts "field #{field}" if noisy
+
+    # If we already determined that this record should NOT be skipped,
+    # then we don't have to consider any other fields.
+    next if skip == false
+    
     # Is one of the interesting authorized headings found in the record?
     next unless record[field].present?
     # ... with a name subfield ($a)?
     next unless record[field]['a'].present?
     name = record[field]['a']
+    puts "name #{name}" if noisy
+
+    puts "looking for disqualifying subfields..." if noisy
+
     # ... and without further qualification (subdivision, subheading)?
     all_subfields = record[field].subfields.map(&:code)
     # (intersection must be empty)
     next unless (all_subfields & disqualifying_subfields).empty?
+
+    puts "looking for tracings..." if noisy
 
     # OK, looks like this record has an authorized term we might care about.
     # Now, are there also any variant forms present?
@@ -62,9 +79,11 @@ each_record do |record, context|
 
     # Do we have at least one tracing, with an 'a' subfield?
     next unless (record[see_from].present? && record[see_from]['a'].present?) || (record[see_also].present? && record[see_also]['a'].present?)
+
     # ... if yes, then KEEP THIS RECORD!
+    puts "found tracings." if noisy
     # DEBUG
-    # puts "KEEP auth id #{record['001'].value} (\"#{name}\")"
+    puts "KEEP auth id #{record['001'].value} (\"#{name}\")" if noisy
     skip = false
   end
 
@@ -72,9 +91,10 @@ each_record do |record, context|
   # context.skip is noisy - it'll print a line of output to DEBUG for each
   # record skipped.  We may as well try to output useful details.
   next unless skip
+  puts "SKIP auth id #{record['001'].value} (\"#{name}\")" if noisy
   note = name.nil? ? '(no authorized name field)' : "(\"#{name}\")"
   context.skip!("skipping auth id #{record['001'].value} #{note}")
-  next
+  # next
 end
 
 # We've now skipped over 90% of the input records.  That'll help
@@ -178,3 +198,9 @@ to_field 'variant_t' do |record, accumulator, _context|
     accumulator << variant_string
   end
 end
+
+# This calculates a timestamp for each record as it is processed
+to_field 'marc_dt' do |_record, accumulator|
+  accumulator << Time.now.utc.iso8601
+end
+
