@@ -167,17 +167,23 @@ class BrowseController < ApplicationController
     # those multiple appearances will collapse into a single Doc in
     # the browse-item-list, which means you'll fall short of how many
     # uniq docs you want back.
-    solr_params = { rows: fetch_doc_count }
+    solr_params = { 
+      rows: fetch_doc_count, 
+      defType: 'lucene',
+      # it's there, so we shouldn't need this
+      # # request all fields, so that shelfkey comes back
+      # # until we add shelfkey to Solr's list of default returned fields
+      # fl: '*'
+    }
 
     # This fails when page-size is large, 50 or so.
     # Run the query in slices, merge them.
     solr_document_list = []
     key_list.each_slice(20) do |slice|
       browse_field_param = { fieldname => slice }
-      # raise
-      # request all fields, so that shelfkey comes back
-      response, slice_document_list = search_results(solr_params.merge(q: browse_field_param, fl: '*').with_indifferent_access)
-      solr_document_list += slice_document_list
+raise
+      response, slice_document_list = search_results(solr_params.merge(q: browse_field_param).with_indifferent_access)
+      solr_document_list += slice_document_list      
     end
 
     # Pair up the ordered shelfkeys with matching documents.

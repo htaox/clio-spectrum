@@ -171,7 +171,13 @@ class SearchBuilder < Blacklight::SearchBuilder
 
       # ==> process the solr_local_parameters
       if search_field_def && hash = search_field_def.solr_local_parameters
+        parser = 'edismax'
         local_params = hash.map do |key, val|
+          # often the hash contains { type: 'edismax' }, which replaces 'dismax'
+          if key == :type
+            parser = val
+            next
+          end
           key.to_s + '=' + solr_param_quote(val, quote: "'")
         end.join(' ')
 
@@ -193,7 +199,9 @@ class SearchBuilder < Blacklight::SearchBuilder
         # When connecting subqueries with an 'OR',
         # we need to prevent OR's mm=0 (must-match) from taking affect
         # also on these subqueries!
-        "_query_:\"{!dismax mm=-10% #{local_params}}#{value}\""
+        # "_query_:\"{!dismax mm=-10% #{local_params}}#{value}\""
+        # parser for local params set through logic, above
+        "_query_:\"{!#{parser} mm=-10% #{local_params}}#{value}\""
 
         # # ok, going to try this simpler form, see what happens...
         # "{!#{local_params}}#{value}"
@@ -201,7 +209,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
       else
         # value.to_s
-        "_query_:\"{!dismax mm=-10%}#{value}\""
+        "_query_:\"{!edismax mm=-10%}#{value}\""
       end
 
       # TODO:  process the solr_parameters (e.g., :fq)

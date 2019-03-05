@@ -491,7 +491,7 @@ class ApplicationController < ActionController::Base
 
     # NEXT-1067 - Saved Lists broken for very large lists, query by slice
     id_array.each_slice(100) do |slice|
-      extra_solr_params = { rows: slice.size }
+      extra_solr_params = { rows: slice.size, defType: 'lucene' }
       response, slice_document_list = fetch(slice, extra_solr_params)
       slice_document_list.each do |doc|
         docs[doc.id] = doc
