@@ -75,6 +75,9 @@
 
   <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lucene-libs" regex=".*icu.*\.jar" />
   <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lib" regex=".*icu.*\.jar" />
+  <!-- ICUCollation is here, but that gives unreadable binary sortable collation keys
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-analysis-extras-\d.*\.jar" />
+  -->
 
   <!-- an exact 'path' can be used instead of a 'dir' to specify a
        specific jar file.  This will cause a serious error to be logged
@@ -444,12 +447,10 @@
          by document id.  The fieldValueCache is created by default
          even if not configured here.
       -->
-    <!--
-       <fieldValueCache class="solr.FastLRUCache"
-                        size="512"
-                        autowarmCount="128"
-                        showItems="32" />
-      -->
+     <fieldValueCache class="solr.FastLRUCache"
+                      size="512"
+                      autowarmCount="128"
+                      showItems="32" />
 
     <!-- Custom Cache
 
@@ -765,6 +766,15 @@
       <str name="subject_pf">
         subject_txt^100 subject_variant_txt^50 geo_variant_txt^50
       </str>
+
+      <!-- default facet params -->
+      <str name="fl">
+        id, clio_id_display, score, author_display, author_vern_display, author_facet, format, formats, isbn_display, language_facet, database_restrictions_display, material_type_display, pub_date_facet, acq_dt, title_display, title_vern_display, title_series_display, subtitle_display, subtitle_vern_display, oclc_display, lccn_display, database_summary_display, summary_display, subject_topic_facet, subject_geo_facet, subject_era_facet, database_hilcc_facet, database_resource_type_facet, location_facet, full_publisher_display, pub_place_display, pub_name_display, pub_year_display, location_holdings_id_display, location_display, location_call_number_id_display, url_munged_display, source_display, item_display, shelfkey, reverse_shelfkey
+      </str>
+      <str name="facet">true</str>
+      <str name="facet.mincount">1</str>
+      <str name="facet.limit">10</str>
+
       <!-- ### still to do if needed:  ps, tie, fl, facet, spellcheck -->
 
     </lst>

@@ -167,17 +167,17 @@
     <field name="timestamp" type="pdate" indexed="true" stored="true" default="NOW" multiValued="false"/>
     <field name="format" type="string" indexed="true" stored="true" multiValued="true"/>
     <field name="pub_date_sort" type="pint" indexed="true" stored="false" multiValued="false"/>
-    <field name="shelfkey" type="alphaSort" indexed="true" stored="true" multiValued="true"/>
-    <field name="reverse_shelfkey" type="alphaSort" indexed="true" stored="true" multiValued="true"/>
+    <field name="shelfkey" type="text_gen_sort" indexed="true" stored="true" multiValued="true"/>
+    <field name="reverse_shelfkey" type="text_gen_sort" indexed="true" stored="true" multiValued="true"/>
     <!-- dynamic _display is multi-valued, but this needs to be single-valued -->
     <field name="marc_display" type="string" indexed="false" stored="true" multiValued="false" docValues="false" />
 
     <!--  ==============================================================  -->
     <!--  ===  Dynamic Field Definitions to current CLIO Solr config  -->
     <!--  ==============================================================  -->
+    <dynamicField name="*_display" type="nfkc_string" indexed="false" stored="true" multiValued="true" docValues="false" />
+    <dynamicField name="*_facet" type="nfkc_string" indexed="true" stored="true" multiValued="true"/>
 
-    <dynamicField name="*_display" type="string" indexed="false" stored="true" multiValued="true" docValues="false" />
-    <dynamicField name="*_facet" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*_sort" type="text_gen_sort" indexed="true" stored="true" multiValued="false"/>
     <dynamicField name="*_starts_with" type="text_starts_with" indexed="true" stored="false" multiValued="true"/>
     <dynamicField name="*_exact" type="text_exact" indexed="true" stored="false" multiValued="true"/>
@@ -209,22 +209,6 @@
     <!--  ==============================================================  -->
     <!--  ===  Field Types brought forward from current CLIO Solr config  -->
     <!--  ==============================================================  -->
-
-    <!--
-    marquis, 9/2014
-    Taken as-is from Stanford (https://github.com/sul-dlss/solrmarc-sw),
-    to support Call Number Browse / Virtual Bookshelf
-    -->
-    <!--
-    single token analyzed text, for sorting.  Punctuation is significant. 
-    -->
-    <fieldtype name="alphaSort" class="solr.TextField" sortMissingLast="true" omitNorms="true">
-      <analyzer>
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <filter class="solr.ICUFoldingFilterFactory"/>
-        <filter class="solr.TrimFilterFactory"/>
-      </analyzer>
-    </fieldtype>
 
     <!--
     Support fully-anchored ("exact") searching.
@@ -290,6 +274,12 @@
     <!-- The StrField type is not analyzed, but indexed/stored verbatim. -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
     <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true" />
+
+    <!-- Acts like a string (untokenized) but normalizes composed/decomposed diacritics -->
+    <fieldType name="nfkc_string" class="solr.TextField" sortMissingLast="true">
+       <tokenizer class="solr.KeywordTokenizerFactory" />
+       <filter class="solr.ICUNormalizer2FilterFactory" name="nfkc" mode="compose" />
+    </fieldType>
 
     <!-- boolean type: "true" or "false" -->
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
@@ -390,7 +380,7 @@
     </fieldType>
 
     <!-- The Solr Default definition of text_general is above. -->
-    <!-- Here's my CLIO-specfic version. -->
+    <!-- Here's the CLIO-specfic version. -->
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
       <analyzer type="index">
         <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-apostropheish.txt"/>
@@ -405,7 +395,7 @@
     </fieldType>
 
     
-    <!-- SortableTextField generaly functions exactly like TextField,
+    <!-- SortableTextField generally functions exactly like TextField,
          except that it supports, and by default uses, docValues for sorting (or faceting)
          on the first 1024 characters of the original field values (which is configurable).
          
@@ -415,7 +405,7 @@
 	  -->
     <dynamicField name="*_t_sort" type="text_gen_sort" indexed="true" stored="true" multiValued="false"/>
     <dynamicField name="*_txt_sort" type="text_gen_sort" indexed="true" stored="true"/>
-    <fieldType name="text_gen_sort" class="solr.SortableTextField" positionIncrementGap="100" multiValued="true">
+    <fieldType name="text_gen_sort_SOLR_DEFAULT" class="solr.SortableTextField" positionIncrementGap="100" multiValued="true">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
@@ -428,6 +418,24 @@
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
+
+
+    <!-- The Solr Default definition of text_general is above. -->
+    <!-- Here's the CLIO-specfic version. -->
+    <!--
+    Originally from Stanford (https://github.com/sul-dlss/solrmarc-sw),
+    to support Call Number Browse / Virtual Bookshelf
+    -->
+    <!--
+    single token analyzed text, for sorting.  Punctuation is significant. 
+    -->
+    <fieldtype name="text_gen_sort" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+      <analyzer>
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.ICUFoldingFilterFactory"/>
+        <filter class="solr.TrimFilterFactory"/>
+      </analyzer>
+    </fieldtype>
 
     <!-- A text field with defaults appropriate for English: it tokenizes with StandardTokenizer,
          removes English stop words (lang/stopwords_en.txt), down cases, protects words from protwords.txt, and
