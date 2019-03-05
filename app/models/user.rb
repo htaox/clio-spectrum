@@ -88,7 +88,7 @@ class User < ApplicationRecord
       entry = entry.first
 
       if entry
-        _mail = entry[:mail].to_s
+        _mail = Array(entry[:mail]).first.to_s
         if _mail.length > 6 and _mail.match(/^.+@.+$/)
           self.email = _mail
         else
