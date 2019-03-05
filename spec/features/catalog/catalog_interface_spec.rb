@@ -262,33 +262,33 @@ describe 'Catalog Interface', vcr: { allow_playback_repeats: true } do
   # NEXT-1015 - next from MARC
   it 'should support next/previous navigation from MARC view', :js do
     # locate a fairly static set of records for a stable test suite
-    visit catalog_index_path('q' => 'maigret simenon')
+    visit catalog_index_path(q: 'maigret simenon butler stacks')
     within '#facets' do
       find('.panel-heading', text: 'Publication Date').click
       fill_in 'range[pub_date_sort][end]', with: '1950'
       find('input.btn.submit').click
     end
 
-    expect(page).to have_text '1 - 12 of 12'
+    expect(page).to have_text '1 - 4 of 4'
 
     click_link('Maigret mystified')
-    expect(page).to have_text 'Back to Results | 1 of 12 | Next'
+    expect(page).to have_text 'Previous | 2 of 4 | Next'
     expect(page).to have_text 'Title Maigret mystified'
 
     click_link('Display In')
     click_link('MARC View')
-    expect(page).to have_text 'Back to Results | 1 of 12 | Next'
+    expect(page).to have_text 'Previous | 2 of 4 | Next'
     expect(page).to have_text '245 1 0 |a Maigret mystified'
 
     within '#show_toolbar' do
       click_link('Next')
     end
-    expect(page).to have_text 'Back to Results | « Previous | 2 of 12 | Next »'
-    expect(page).to have_text '245 1 4 |a The patience of Maigret'
+    expect(page).to have_text 'Back to Results | « Previous | 3 of 4 | Next »'
+    expect(page).to have_text 'Maigret at the Gai-Moulin'
 
     click_link('Return to Patron View')
-    expect(page).to have_text 'Back to Results | « Previous | 2 of 12 | Next »'
-    expect(page).to have_text 'Title The patience of Maigret'
+    expect(page).to have_text 'Back to Results | « Previous | 3 of 4 | Next »'
+    expect(page).to have_text 'Title Maigret at the Gai-Moulin'
   end
 
   # NEXT-1054 - In the single item display menu, change "Services" to "Requests"
