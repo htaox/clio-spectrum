@@ -104,26 +104,34 @@ end
 
 to_field 'id', extract_marc('001', first: true)
 
-# Authority records can be huge.
-# Geographic Authority record 198484, Turkey, is over the 32K limit
-# on Solr 'String' fields.
-# Solr 'Text' fields have a higher limit.  Although we don't really
-# want to analyze the full MARC record, we need to use this field-type.
-to_field 'marc_txt', serialized_marc(format: 'xml')
+# DO NOT create fields marc_txt or text.  
+# we don't use them, and they make our index much bigger.
+# They can be added back in later if we someday need them.
+# 
+# # Authority records can be huge.
+# # Geographic Authority record 198484, Turkey, is over the 32K limit
+# # on Solr 'String' fields.
+# # Solr 'Text' fields have a higher limit.  Although we don't really
+# # want to analyze the full MARC record, we need to use this field-type.
+# to_field 'marc_txt', serialized_marc(format: 'xml')
+# 
+# # This might be useful in the future.
+# to_field 'text', extract_all_marc_values
 
-# This might be useful in the future.
-to_field 'text', extract_all_marc_values
-
-###  Store authorized forms separately
-
-# Author Authorized form (Personal, Corporate or Meeting Name)
-to_field 'author_t', extract_marc('100abcdgqu:110abcdgnu:111acdegjnqu', trim_punctuation: false)
-
-# Subject Authorized form (Topical Term)
-to_field 'subject_t', extract_marc('150a', trim_punctuation: false)
-
-# Geo Authorized form (Geographic Name)
-to_field 'geo_t', extract_marc('151a', trim_punctuation: false)
+# We don't currently use these individual fields.
+# We match against the common "authorized_ss" field.
+# This makes things simpler, and doesn't seem to cause problems.
+# 
+# ###  Store authorized forms separately
+# 
+# # Author Authorized form (Personal, Corporate or Meeting Name)
+# to_field 'author_t', extract_marc('100abcdgqu:110abcdgnu:111acdegjnqu', trim_punctuation: false)
+# 
+# # Subject Authorized form (Topical Term)
+# to_field 'subject_t', extract_marc('150a', trim_punctuation: false)
+# 
+# # Geo Authorized form (Geographic Name)
+# to_field 'geo_t', extract_marc('151a', trim_punctuation: false)
 
 ###  COMBINED AUTHOR+SUBJECT FIELDS
 
