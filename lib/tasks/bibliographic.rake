@@ -229,7 +229,7 @@ namespace :bibliographic do
         provide 'log.format', ['%d [%L] %m', '%Y-%m-%d %H:%M:%S']
         # timings show that a huge thread pool increases records/second,
         # even on MRI.  Maybe too much IO.
-        provide 'processing_thread_pool', '100'
+        provide 'processing_thread_pool', '10'
         provide 'solr_writer.commit_on_close', 'true'
         # How many records skipped due to errors before we
         #   bail out with a fatal error?
