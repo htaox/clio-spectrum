@@ -383,14 +383,25 @@
     <!-- Here's the CLIO-specfic version. -->
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
       <analyzer type="index">
+        <!-- NEXT-824 - Apostrophe characters -->
         <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-apostropheish.txt"/>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.ICUFoldingFilterFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory"
+          splitOnCaseChange="1" generateWordParts="1" catenateWords="1"
+          splitOnNumerics="0" generateNumberParts="1" catenateNumbers="1"
+          catenateAll="1" preserveOriginal="0" stemEnglishPossessive="0" />
+        <filter class="solr.RemoveDuplicatesTokenFilterFactory" />
       </analyzer>
       <analyzer type="query">
         <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-apostropheish.txt"/>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.ICUFoldingFilterFactory"/>
+        <filter class="solr.WordDelimiterFilterFactory"
+          splitOnCaseChange="1" generateWordParts="1" catenateWords="1"
+          splitOnNumerics="0" generateNumberParts="1" catenateNumbers="1"
+          catenateAll="0" preserveOriginal="0" stemEnglishPossessive="0" />
+        <filter class="solr.RemoveDuplicatesTokenFilterFactory" />
       </analyzer>
     </fieldType>
 
