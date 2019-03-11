@@ -264,18 +264,29 @@ namespace :recap do
     setup_ingest_logger
 
     filename = args[:filename]
+    abort('recap:ingest_file[:filename] not passed filename!') unless filename
+    abort('recap:ingest_file[:filename] not a ReCAP .zip extract file!') unless filename.ends_with?('.zip')
 
     sftp_incremental_dir = APP_CONFIG['recap']['sftp_incremental_dir']
     abort('ERROR: app_config missing recap/sftp_incremental_dir!') unless sftp_incremental_dir
+    sftp_full_dir = APP_CONFIG['recap']['sftp_full_dir']
+    abort('ERROR: app_config missing recap/sftp_full_dir!') unless sftp_full_dir
     extract_home = APP_CONFIG['extract_home']
     abort('ERROR: app_config missing extract_home!') unless extract_home
 
-    extract_dir = APP_CONFIG['extract_home'] + '/recap/' + sftp_incremental_dir
-    full_path = extract_dir + '/' + filename
+    # filename may be a full path, or may be in the incremental dir, or in the full dir
+    incr_dir = APP_CONFIG['extract_home'] + '/recap/' + sftp_incremental_dir
+    full_dir = APP_CONFIG['extract_home'] + '/recap/' + sftp_full_dir
+    full_path = nil
+    if File.exist?(filename)
+      full_path = filename
+    elsif File.exist?(incr_dir + '/' + filename)
+      full_path = incr_dir + '/' + filename
+    elsif File.exist?(full_dir + '/' + filename)
+      full_path = full_dir + '/' + filename
+    end
 
-    abort('recap:ingest_file[:filename] not passed filename!') unless filename
-    abort("recap:ingest_file[:filename] passed non-existant filename #{filename}") unless File.exist?(full_path)
-    abort('recap:ingest_file[:filename] not a ReCAP .zip extract file!') unless filename.ends_with?('.zip')
+    abort("recap:ingest_file[:filename] passed non-existant filename #{filename}") unless full_path && File.exist?(full_path)
 
     Rails.logger.info("- ingesting ReCAP file #{filename}")
 
@@ -304,7 +315,7 @@ namespace :recap do
     Rails.logger.info('--- complete.')
   end
 
-  desc "ingest new ReCAP .zip files that haven't yet been ingested"
+  desc "ingest new incremental ReCAP .zip files that haven't yet been ingested"
   task :ingest_new, [:count] do |_t, args|
     setup_ingest_logger
 
