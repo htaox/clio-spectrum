@@ -135,7 +135,7 @@ end
 to_field 'title_txt', extract_marc('245afknp', trim_punctuation: false, alternate_script: true)
 to_field 'title_display', extract_marc('245abfhknp', trim_punctuation: true, alternate_script: false)
 to_field 'title_vern_display', extract_marc('245abfhknp', trim_punctuation: true, alternate_script: :only)
-to_field 'title_filing_txt', extract_marc_filing_version('245ab')
+to_field 'title_filing_txt', extract_marc_filing_version('245a')
 to_field 'subtitle_txt', extract_marc('245b', trim_punctuation: true, alternate_script: true)
 to_field 'title_first_facet', marc_sortable_title do |_record, accumulator|
   accumulator.map! do |title|

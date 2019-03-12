@@ -738,10 +738,10 @@
       <bool name="lowercaseOperators">false</bool>
       <!-- ### default edismax field weighting -->
       <str name="qf">
-        boost_exact^100000 title_exact^1000 title_txt^1000 subtitle_txt^500 title_addl_txt^50 subject_txt^10 subject_variant_txt^5 geo_variant_txt^5 author_txt^250 author_addl_txt^250 author_variant_txt^10 identifiers_txt^10 text
+        boost_exact^100000 title_txt^1000 subtitle_txt^500 title_addl_txt^50 subject_txt^10 subject_variant_txt^5 geo_variant_txt^5 author_txt^250 author_addl_txt^250 author_variant_txt^10 identifiers_txt^10 text
       </str>
       <str name="pf">
-        boost_exact^1000000 title_exact^10000 title_starts_with^10000 title_txt^10000 subtitle_txt^5000 title_addl_txt^500 subject_txt^100 subject_variant_txt^50 geo_variant_txt^50 author_txt^2500 author_addl_txt^2500 author_variant_txt^100 identifiers_txt^100 text^10
+        boost_exact^1000000 title_exact^20000 title_starts_with^10000 title_txt^10000 subtitle_txt^5000 title_addl_txt^500 subject_txt^100 subject_variant_txt^50 geo_variant_txt^50 author_txt^2500 author_addl_txt^2500 author_variant_txt^100 identifiers_txt^100 text^10
       </str>
       <!-- ### field weighting for supported fielded searches -->
       <str name="author_qf">
@@ -751,10 +751,10 @@
         author_txt^200 author_variant_txt^100 author_addl_txt^50
       </str>
       <str name="title_qf">
-        boost_exact^1000000 title_exact^5000 title_txt^5000 subtitle_txt^2500 title_addl_txt^1000 title_series_txt^500
+        boost_exact^1000000 title_txt^5000 subtitle_txt^2500 title_addl_txt^1000 title_series_txt^500
       </str>
       <str name="title_pf">
-        boost_exact^10000000 title_exact^100000 title_starts_with^100000 title_txt^50000 subtitle_txt^25000 title_addl_txt^10000 title_series_txt^5000
+        boost_exact^10000000 title_exact^200000 title_starts_with^100000 title_txt^50000 subtitle_txt^25000 title_addl_txt^10000 title_series_txt^5000
       </str>
       <str name="title_start_qf"> boost_exact^100 title_starts_with^1 </str>
       <str name="title_start_pf">
