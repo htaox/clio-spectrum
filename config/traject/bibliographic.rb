@@ -132,11 +132,18 @@ to_field 'author_variant_txt' do |record, accumulator|
   end
 end
 
+# omit subtitle
 to_field 'title_txt', extract_marc('245afknp', trim_punctuation: false, alternate_script: true)
+to_field 'title_filing_txt', extract_marc_filing_version('245a')
+# include subtitle
+to_field 'title_full_txt', extract_marc('245ab', trim_punctuation: false, alternate_script: true)
+to_field 'title_full_filing_txt', extract_marc_filing_version('245ab')
+# just subtitle
+to_field 'subtitle_txt', extract_marc('245b', trim_punctuation: true, alternate_script: true)
+# display only
 to_field 'title_display', extract_marc('245abfhknp', trim_punctuation: true, alternate_script: false)
 to_field 'title_vern_display', extract_marc('245abfhknp', trim_punctuation: true, alternate_script: :only)
-to_field 'title_filing_txt', extract_marc_filing_version('245a')
-to_field 'subtitle_txt', extract_marc('245b', trim_punctuation: true, alternate_script: true)
+# first letter, for alpha jump-menu
 to_field 'title_first_facet', marc_sortable_title do |_record, accumulator|
   accumulator.map! do |title|
     if title.strip.first =~ /\d/
@@ -146,6 +153,7 @@ to_field 'title_first_facet', marc_sortable_title do |_record, accumulator|
     end
   end
 end
+# other title-related fields
 to_field 'title_addl_txt', extract_marc("245abnps:130#{ATOZ}:240abcdefgklmnopqrs:210ab:222ab:242abnp:243abcdefgklmnopqrs:246abcdefgnp:247abcdefgnp:780#{ATOZ}:785#{ATOZ}:700gklmnoprst:710fgklmnopqrst:711fgklnpst:730abcdefgklmnopqrst:740anp", trim_punctuation: false, alternate_script: true)
 to_field 'title_series_txt', extract_marc("830#{ATOZ}", trim_punctuation: true, alternate_script: true)
 to_field 'title_series_display', extract_marc("830#{ATOZ}", trim_punctuation: true, alternate_script: false)
