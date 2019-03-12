@@ -198,7 +198,6 @@
     <copyField source="title_addl_txt"        dest="title_starts_with"/>
     <copyField source="title_series_txt"      dest="title_starts_with"/>
     <copyField source="title_filing_txt"      dest="title_starts_with"/>
-    <copyField source="title_filing_full_txt" dest="title_starts_with"/>
 
     <copyField source="title_txt"        dest="title_exact"/>
     <copyField source="title_filing_txt" dest="title_exact"/>
