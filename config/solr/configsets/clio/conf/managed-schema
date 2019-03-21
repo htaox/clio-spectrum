@@ -280,8 +280,14 @@
 
     <!-- Acts like a string (untokenized) but normalizes composed/decomposed diacritics -->
     <fieldType name="nfkc_string" class="solr.TextField" sortMissingLast="true">
-       <tokenizer class="solr.KeywordTokenizerFactory" />
-       <filter class="solr.ICUNormalizer2FilterFactory" name="nfkc" mode="compose" />
+      <analyzer type="index">
+        <tokenizer class="solr.KeywordTokenizerFactory" />
+        <filter class="solr.ICUNormalizer2FilterFactory" name="nfkc" mode="decompose" />
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.KeywordTokenizerFactory" />
+        <filter class="solr.ICUNormalizer2FilterFactory" name="nfkc" mode="decompose" />
+      </analyzer>
     </fieldType>
 
     <!-- boolean type: "true" or "false" -->

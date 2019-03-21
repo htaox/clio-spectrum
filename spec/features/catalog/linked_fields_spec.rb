@@ -212,7 +212,7 @@ describe 'Linked field-values in single-item display', vcr: { allow_playback_rep
     click_link('H. Erdem, 1971')
     expect(page).to have_text('1 - 8  of 8')
     within('#facet-author li', text: 'Erdem') do
-      expect(find('.facet-label')).to have_text 'Çıpa, H. Erdem, 1971'
+      expect(find('.facet-label')).to have_text ('Çıpa, H. Erdem, 1971').mb_chars.normalize(:d)
       expect(find('.facet-count')).to have_text '8'
     end
 
@@ -221,7 +221,7 @@ describe 'Linked field-values in single-item display', vcr: { allow_playback_rep
     click_link('H. Erdem, 1971')
     expect(page).to have_text('1 - 8 of 8')
     within('#facet-author li', text: 'Erdem') do
-      expect(find('.facet-label')).to have_text 'Çıpa, H. Erdem, 1971'
+      expect(find('.facet-label')).to have_text ('Çıpa, H. Erdem, 1971').mb_chars.normalize(:d)
       expect(find('.facet-count')).to have_text '8'
     end
   end
