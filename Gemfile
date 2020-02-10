@@ -133,7 +133,7 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'coffee-rails'
 gem 'uglifier'
-gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 # Best Bets CRUD externalized
 # # JSON APIs, for Best Bets, etc.
